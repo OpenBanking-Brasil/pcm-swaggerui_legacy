@@ -1,0 +1,10 @@
+type: object
+description: |
+  Conjunto de informações da Conta de: depósito à vista
+properties:
+  overdraftContractedLimit:
+    $ref: ./AccountOverdraftLimitsDataOverdraftContractedLimit.yaml
+  overdraftUsedLimit:
+    $ref: ./AccountOverdraftLimitsDataOverdraftUsedLimit.yaml
+  unarrangedOverdraftAmount:
+    $ref: ./AccountOverdraftLimitsDataUnarrangedOverdraftAmount.yaml

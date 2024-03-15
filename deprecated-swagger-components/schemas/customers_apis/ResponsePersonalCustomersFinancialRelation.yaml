@@ -1,0 +1,12 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    $ref: ./PersonalFinancialRelationData.yaml
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml

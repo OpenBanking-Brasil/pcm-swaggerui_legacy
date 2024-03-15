@@ -1,0 +1,16 @@
+type: object
+required:
+  - investmentType
+  - custodyFee
+  - loadingRate
+  - participant
+properties:
+  participant:
+    $ref: ./InvestmentsParticipant.yaml
+  investmentType:
+    $ref: ../enum/EnumInvestmentsTreasureInvestmentType.yaml
+  custodyFee:
+    $ref: ./InvestmentsNoIdentificationFrequencyDistribution.yaml
+  loadingRate:
+    $ref: ./InvestmentsNoIdentificationFrequencyDistribution.yaml
+additionalProperties: false

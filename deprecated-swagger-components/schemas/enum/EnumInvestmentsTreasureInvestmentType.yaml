@@ -1,0 +1,5 @@
+type: string
+description: Especifica o tipo de ativo negociado&#58;<br><br><ol><li>Tesouro direto</li></ol>
+enum:
+  - TESOURO_DIRETO
+example: TESOURO_DIRETO

@@ -1,0 +1,36 @@
+type: object
+description: Taxa disponibilizada (taxa online) pelas instituições no formato D+0/D+2 (valor U$500 operações câmbio pronto) separado por moeda dólar e euro compra e venda PF/PJ.
+required:
+  - foreignCurrency
+  - deliveryForeignCurrency
+  - transactionType
+  - transactionCategory
+  - value
+  - targetAudience
+  - valueUpdateDateTime
+properties:
+  foreignCurrency:
+    $ref: ../business_commons/CurrencyCode.yaml
+  deliveryForeignCurrency:
+    $ref: ../enum/EnumExchangeDeliveryForeignCurrency.yaml
+  transactionType:
+    $ref: ../enum/EnumExchangeTransactionType.yaml
+  transactionCategory:
+    $ref: ../enum/EnumExchangeTransactionCategory.yaml
+  targetAudience:
+    $ref: ./EnumDistinctTargetAudienceExchange.yaml
+  value:
+    type: string
+    maxLength: 7
+    minLength: 3
+    pattern: '^\d{1}\.\d{1,5}$'
+    example: "5.5023"
+    description: Valor da operação.
+  valueUpdateDateTime:
+    type: string
+    format: date-time
+    maxLength: 20
+    example: '2017-07-21T17:32:28Z'
+    description: Data e hora da última atualização da cotação.
+    pattern: '(^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$)'
+additionalProperties: false

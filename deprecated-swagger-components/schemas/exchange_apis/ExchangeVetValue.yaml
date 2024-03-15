@@ -1,0 +1,26 @@
+type: object
+description: "Conjunto de informações referentes às informações de câmbio"
+required:
+  - participant
+  - transactionType
+  - foreignCurrency
+  - deliveryForeignCurrency
+  - rangeTransactionCategory
+  - vetAmount
+  - targetAudience
+properties:
+  participant:
+    $ref: ./Participant.yaml
+  transactionType:
+    $ref: ../enum/EnumExchangeTransactionType.yaml
+  foreignCurrency:
+    $ref: ../business_commons/CurrencyCode.yaml
+  deliveryForeignCurrency:
+    $ref: ../enum/EnumExchangeDeliveryForeignCurrency.yaml
+  rangeTransactionCategory:
+    $ref: ./EnumExchangeRangeTransactionCategory.yaml
+  targetAudience:
+    $ref: ./EnumDistinctTargetAudienceExchange.yaml
+  vetAmount:
+    $ref: ./ExchangeNoIdentificationFrequencyDistribution.yaml
+additionalProperties: false

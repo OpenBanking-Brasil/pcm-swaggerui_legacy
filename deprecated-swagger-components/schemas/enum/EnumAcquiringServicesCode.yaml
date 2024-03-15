@@ -1,0 +1,6 @@
+type: string
+description: Sigla da Tarifa cobrada sobre o Serviço de Credenciamento informado.
+enum:
+  - MDR_CREDITO
+  - MDR_DEBITO
+example: MDR_CREDITO

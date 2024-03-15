@@ -1,0 +1,7 @@
+type: string
+description: Metodologia do campo para taxa de performance.<br><ol><li>Passivo</li><li>Ativo</li><li>Ajuste</li></ol>
+enum:
+  - PASSIVO
+  - ATIVO
+  - AJUSTE
+example: PASSIVO

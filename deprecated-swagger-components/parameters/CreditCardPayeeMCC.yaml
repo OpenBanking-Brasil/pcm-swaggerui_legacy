@@ -1,0 +1,9 @@
+name: payeeMCC
+description: 'MCC é o Merchant Category Code, ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades'
+required: false
+in: query
+schema:
+  type: number
+  maximum: 9999
+  example: 8299
+  format: int32

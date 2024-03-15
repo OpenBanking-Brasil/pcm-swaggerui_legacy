@@ -1,0 +1,17 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    type: array
+    minItems: 0
+    description: Conjunto de informações  de contratos de direitos creditórios descontados mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento
+    items:
+      $ref: ./InvoiceFinancingsContractData.yaml
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml
+

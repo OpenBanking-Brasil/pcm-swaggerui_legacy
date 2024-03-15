@@ -1,0 +1,6 @@
+type: string
+description: "Tipo de cobrança para a tarifa pactuada no contrato."
+enum:
+  - UNICA
+  - POR_PARCELA
+example: "UNICA"

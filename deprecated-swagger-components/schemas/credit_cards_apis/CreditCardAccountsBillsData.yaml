@@ -1,0 +1,45 @@
+type: object
+description: Conjunto das informações referentes a lista de faturas associadas à conta de pagamento pós-paga
+required:
+  - billId
+  - dueDate
+  - billTotalAmount
+  - billMinimumAmount
+  - isInstalment
+  - payments
+properties:
+  billId:
+    description: Informação que identifica a fatura
+    type: string
+    maxLength: 100
+    minLength: 1
+    pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$
+    example: 3459087XXZTR
+  dueDate:
+    description: Data de vencimento da Fatura, que aparece para pagamento pelo cliente
+    type: string
+    format: date
+    maxLength: 10
+    pattern: ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$
+    example: "2021-05-21"
+  billTotalAmount:
+    $ref: ./CreditCardsBillTotalAmount.yaml
+  billMinimumAmount:
+    $ref: ./CreditCardAccountsBillMinimumAmount.yaml
+  isInstalment:
+    type: boolean
+    description: Indica se a fatura permite parcelamento (true) ou não (false).
+    example: false
+  financeCharges:
+    type: array
+    items:
+      $ref: ./CreditCardAccountsBillsFinanceCharge.yaml
+    minItems: 1
+    description: Lista dos encargos cobrados na fatura
+  payments:
+    type: array
+    items:
+      $ref: ./CreditCardAccountsBillsPayment.yaml
+    minItems: 0
+    description: Lista que traz os valores relativos aos pagamentos da Fatura da conta de pagamento pós-paga
+

@@ -1,0 +1,63 @@
+type: object
+description: "Conjunto de informações referentes às parcelas / prestações da operação de crédito de financiamentos contratada"
+required:
+  - typeContractRemaining
+  - typeNumberOfInstalments
+  - paidInstalments
+properties:
+  typeNumberOfInstalments:
+    $ref: ../enum/EnumTypeNumberOfInstalments.yaml
+  totalNumberOfInstalments:
+    type: number
+    example: 130632
+    maximum: 999999
+    description: |
+      Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+      [Restrição] Obrigatoriamente deve ser preenchido caso o typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
+  typeContractRemaining:
+    type: string
+    enum:
+      - DIA
+      - SEMANA
+      - MES
+      - ANO
+      - SEM_PRAZO_REMANESCENTE
+    description: |
+      Tipo de prazo remanescente do contrato referente à modalidade de crédito informada.
+  contractRemainingNumber:
+    type: number
+    maximum: 999999
+    description: |
+      Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+      [Restrição] Obrigatoriamente deve ser preenchido caso o typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
+    example: 14600
+  paidInstalments:
+    type: number
+    description: 'Quantidade de prestações pagas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero)'
+    maximum: 999
+    example: 73
+  dueInstalments:
+    type: number
+    maximum: 999
+    description: |
+      Quantidade de prestações a vencer.
+
+      [Restrição] Obrigatório para modalidades que possuam parcelas.
+    example: 57
+  pastDueInstalments:
+    type: number
+    maximum: 999
+    description: |
+      Quantidade de prestações vencidas.
+
+      [Restrição] Obrigatório para modalidades que possuam parcelas.
+    example: 73
+  balloonPayments:
+    type: array
+    items:
+      $ref: ./FinancingsBalloonPayment.yaml
+    minItems: 1
+    description: "Lista que traz as datas de vencimento e valor das parcelas não regulares do contrato da modalidade de crédito consultada"
+

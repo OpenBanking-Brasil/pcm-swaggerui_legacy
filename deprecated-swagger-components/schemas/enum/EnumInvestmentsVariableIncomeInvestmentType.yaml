@@ -1,0 +1,6 @@
+type: string
+description: Especifica o tipo de ativo negociado&#58;<br><br><ol><li>Ações</li><li>Fundo de índices</li></ol>
+enum:
+  - ACOES
+  - FUNDO_INDICES
+example: ACOES

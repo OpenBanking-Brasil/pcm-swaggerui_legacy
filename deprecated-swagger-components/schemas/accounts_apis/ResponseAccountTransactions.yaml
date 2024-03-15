@@ -1,0 +1,17 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    type: array
+    description: |
+      Lista dos lançamentos referentes às transações realizadas e de lançamentos futuros para as contas de: depósito à vista, poupança e de pagamento pré-paga
+    minItems: 0
+    items:
+      $ref: ./AccountTransactionsData.yaml
+  links:
+    $ref: ../TransactionsLinks.yaml
+  meta:
+    $ref: ../MetaOnlyRequestDateTime.yaml

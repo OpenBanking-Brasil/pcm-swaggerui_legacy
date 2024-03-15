@@ -1,0 +1,6 @@
+type: string
+enum:
+  - MAE
+  - PAI
+example: PAI
+description: Tipo de filiação.

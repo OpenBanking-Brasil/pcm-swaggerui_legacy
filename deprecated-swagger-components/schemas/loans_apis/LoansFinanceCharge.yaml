@@ -1,0 +1,27 @@
+type: object
+description: Conjunto de informações referentes à identificação da operação de crédito
+required:
+  - chargeType
+properties:
+  chargeType:
+    $ref: ../enum/EnumContractFinanceChargeType.yaml
+  chargeAdditionalInfo:
+    type: string
+    maxLength: 140
+    description: |
+      Campo para informações adicionais.
+
+      [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
+    pattern: '[\w\W\s]*'
+    example: 'Informações adicionais sobre encargos.'
+  chargeRate:
+    type: string
+    pattern: '^[01]\.\d{6}$'
+    format: double
+    maxLength: 8
+    minLength: 8
+    description: |
+      Representa o valor do encargo em percentual pactuado no contrato.
+      
+      O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros(representação de porcentagem p.ex: 0.150000. Este valor representa 15%. O valor 1 representa 100%).
+    example: '0.070000'

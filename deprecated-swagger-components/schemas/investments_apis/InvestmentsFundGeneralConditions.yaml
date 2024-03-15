@@ -1,0 +1,17 @@
+type: object
+required:
+  - minimumAmount
+  - redemption  
+  - application
+  - fundQuotaType
+properties:
+  minimumAmount:
+    $ref: ./InvestmentFundMinimumAmount.yaml
+  redemption:
+    $ref: ./Redemption.yaml
+  application:
+    $ref: ./Application.yaml
+  fundQuotaType:
+    $ref: ../enum/EnumInvestmentsFundGeneralConditionsFundQuotaType.yaml
+additionalProperties: false
+

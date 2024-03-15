@@ -1,0 +1,22 @@
+type: object
+required:
+  - amount
+properties:
+  frequency:  
+    $ref:  ../enum/EnumInformedRevenueFrequency.yaml
+  frequencyAdditionalInfo:
+    type: string
+    maxLength: 100
+    pattern: '[\w\W\s]*'
+    example: Informações adicionais
+    description: |
+      Texto livre para complementar informação relativa ao patrimonio.
+      
+      [Restrição] Preencher quando frequency for igual OUTROS.
+  amount:
+    $ref: ./InformedRevenueAmount.yaml
+  year:
+    type: number
+    maximum: 9999
+    example: 2010
+    description: Ano de referência da Renda, conforme especificação RFC-3339.

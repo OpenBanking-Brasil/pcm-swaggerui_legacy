@@ -1,0 +1,7 @@
+type: string
+description: Identificação do Tipo de telefone do cliente.
+enum:
+  - FIXO
+  - MOVEL
+  - OUTRO
+example: "FIXO"

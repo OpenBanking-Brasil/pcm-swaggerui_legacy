@@ -1,0 +1,12 @@
+type: object
+required:
+  - amount
+  - year
+properties:
+  amount:
+    $ref: ./InformedPatrimonyAmount.yaml
+  year:
+    type: number
+    maximum: 9999
+    example: 2010
+    description: Ano de referência da Renda, conforme especificação RFC-3339.

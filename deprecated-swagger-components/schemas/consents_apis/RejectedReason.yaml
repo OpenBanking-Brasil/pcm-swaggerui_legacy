@@ -1,0 +1,13 @@
+type: object
+description: Define a razão pela qual o consentimento foi rejeitado.
+required:
+  - "code"
+properties:
+  code:
+    $ref: ./EnumReasonCode.yaml
+  additionalInformation:
+    type: string
+    description: Contém informações adicionais a critério da transmissora.
+    maxLength: 140
+    pattern: '[\w\W\s]*'
+    example: 'Tempo de confirmação da múltipla alçada excedido.'

@@ -1,0 +1,25 @@
+type: object
+description: Objeto contendo dados do pagameto como moeda e valor.
+required:
+  - amount
+  - currency
+properties:
+  amount:
+    type: string
+    minLength: 4
+    maxLength: 19
+    pattern: ^((\d{1,16}\.\d{2}))$
+    example: '100000.12'
+    description: |
+      Valor da transação com 2 casas decimais. O valor deve ser o mesmo enviado no consentimento. 
+
+      Para QR Code estático com valor pré-determinado no QR Code ou para QR Code dinâmico com indicação de que o valor não pode ser alterado: O campo amount deve ser preenchido com o valor estabelecido no QR Code. 
+      Caso seja preenchido com valor divergente do QR Code, deve ser retornado um erro HTTP Status 422.
+  currency:
+    type: string
+    maxLength: 3
+    pattern: ^([A-Z]{3})$
+    example: BRL
+    description: |
+      Código da moeda nacional segundo modelo ISO-4217, ou seja, 'BRL'.  
+      Todos os valores monetários informados estão representados com a moeda vigente do Brasil.

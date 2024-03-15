@@ -1,0 +1,15 @@
+type: object
+description: |
+  Conjunto de informações das Contas de: depósito à vista, poupança e de pagamento pré-paga
+required:
+  - availableAmount
+  - blockedAmount
+  - automaticallyInvestedAmount
+properties:
+  availableAmount:
+    $ref: ./AccountBalancesDataAvailableAmount.yaml
+  blockedAmount:
+    $ref: ./AccountBalancesDataBlockedAmount.yaml
+  automaticallyInvestedAmount:
+    $ref: ./AccountBalancesDataAutomaticallyInvestedAmount.yaml
+

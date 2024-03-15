@@ -1,0 +1,9 @@
+type: string
+description: |
+  Traz os tipos de pagamento.
+  
+  [Restrição] Preenchimento obrigatório se Tipo de Transação selecionada for 'PAGAMENTO'.
+enum:
+  - A_VISTA
+  - A_PRAZO
+example: A_VISTA

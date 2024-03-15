@@ -1,0 +1,17 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    type: array
+    minItems: 0
+    description: Conjunto de informações referentes à identificação da operação de crédito de empréstimo
+    items:
+      $ref: ./LoansWarranties.yaml
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml
+

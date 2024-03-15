@@ -1,0 +1,12 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    $ref: ./AccountBalancesData.yaml
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml

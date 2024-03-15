@@ -1,0 +1,16 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    type: array
+    minItems: 0
+    items:
+      $ref: ./UnarrangedAccountOverdraftContractListData.yaml
+    description: Conjunto de informações de contratos de adiantamento a depositantes mantidos pelo cliente na instituição transmissora e para os quais ele tenha fornecido consentimento
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml

@@ -1,0 +1,40 @@
+type: object
+description: Conjunto de informações referentes aos limites da conta de pagamento pós-paga.
+required:
+  - creditLineLimitType
+  - consolidationType
+  - identificationNumber
+  - isLimitFlexible
+  - usedAmountCurrency
+  - usedAmount
+properties:
+  creditLineLimitType:
+    $ref: ../enum/EnumCreditCardAccountsLineLimitType.yaml
+  consolidationType:
+    $ref: ../enum/EnumCreditCardAccountsConsolidationType.yaml
+  identificationNumber:
+    type: string
+    description: |
+      Número de identificação do cartão: corresponde aos 4 últimos dígitos do cartão para PF, ou então, preencher com um identificador para PJ, com as caracteristicas definidas para os IDs no Open Finance.
+    maxLength: 100
+    minLength: 1
+    pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$
+    example: "4453"
+  lineName:
+    $ref: ../enum/EnumCreditCardAccountsLineName.yaml
+  lineNameAdditionalInfo:
+    type: string
+    maxLength: 50
+    pattern: '[\w\W\s]*'
+    example: "Informações adicionais e complementares."
+    description: Campo de preenchimento obrigatório se selecionada a opção 'OUTRAS' em lineName.
+  isLimitFlexible:
+    type: boolean  
+    description: 'Indica se a operação de crédito é: com limite flexível (true) ou com limite (false).'
+    example: true
+  limitAmount:
+    $ref: ./CreditCardsLimitAmount.yaml
+  usedAmount:
+    $ref: ./CreditCardsUsedAmount.yaml
+  availableAmount:
+    $ref: ./CreditCardsAvailableAmount.yaml

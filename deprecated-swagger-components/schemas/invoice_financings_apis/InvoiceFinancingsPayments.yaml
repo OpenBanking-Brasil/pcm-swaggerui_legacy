@@ -1,0 +1,26 @@
+type: object
+description: Conjunto de informações dos pagamentos referentes às operações de direitos creditórios descontados  contratadas
+required:
+  - contractOutstandingBalance
+  - releases
+properties:
+  paidInstalments:
+    type: number
+    maximum: 999
+    example: 73
+    description: Quantidade total de parcelas pagas do contrato referente à Modalidade de Crédito informada.
+  contractOutstandingBalance:
+    type: string
+    format: double
+    pattern: '^\d{1,15}\.\d{2,4}$'
+    maxLength: 20
+    minLength: 4
+    example: '1000.0400'
+    description: Valor necessario para o cliente liquidar a dívida.
+  releases:
+    type: array
+    minItems: 0
+    items:
+      $ref: ./InvoiceFinancingsReleases.yaml
+    description: Lista dos pagamentos realizados no período.
+

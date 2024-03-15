@@ -1,0 +1,7 @@
+type: string
+description: Base de cálculo
+enum:
+  - 21/252
+  - 30/360
+  - 30/365
+example: 21/252

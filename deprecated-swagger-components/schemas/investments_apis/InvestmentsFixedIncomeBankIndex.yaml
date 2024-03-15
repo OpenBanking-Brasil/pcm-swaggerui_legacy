@@ -1,0 +1,19 @@
+type: object
+required:
+  - indexer
+  - issueRemunerationRate
+properties:
+  indexer:
+    $ref: ../enum/EnumInvestmentsFixedIncomeBankIndexer.yaml
+  indexerAdditionalInfo:
+    type: string
+    description: |
+      Campo livre para preenchimento das informações adicionais referente ao encargo.
+
+      [Restrição] Obrigatório quando "indexer" for igual 'OUTROS'.
+    maxLength: 140
+    example: 'Informações adicionais'
+    pattern: '[\w\W\s]*'
+  issueRemunerationRate:
+    $ref: ./InvestmentsNoIdentificationFrequencyDistribution.yaml
+additionalProperties: false

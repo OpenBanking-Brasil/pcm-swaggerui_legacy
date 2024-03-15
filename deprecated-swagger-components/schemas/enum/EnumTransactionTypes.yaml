@@ -1,0 +1,24 @@
+type: string
+description: |
+  O campo deve classificar a transação em um dos tipos descritos. O transmissor deve classificar as transações disponíveis associando-a a um dos itens do Enum listado neste campo. 
+  A opção OUTROS só deve ser utilizada para os casos em que de fato a transação compartilhada não possa ser classificada como um dos itens deste Enum.
+enum:
+  - TED
+  - DOC
+  - PIX
+  - TRANSFERENCIA_MESMA_INSTITUICAO
+  - BOLETO
+  - CONVENIO_ARRECADACAO
+  - PACOTE_TARIFA_SERVICOS
+  - TARIFA_SERVICOS_AVULSOS
+  - FOLHA_PAGAMENTO
+  - DEPOSITO
+  - SAQUE
+  - CARTAO
+  - ENCARGOS_JUROS_CHEQUE_ESPECIAL
+  - RENDIMENTO_APLIC_FINANCEIRA
+  - PORTABILIDADE_SALARIO
+  - RESGATE_APLIC_FINANCEIRA
+  - OPERACAO_CREDITO
+  - OUTROS
+example: "PIX"

@@ -1,0 +1,12 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    $ref: ./CreditCardsAccountsIdentificationData.yaml
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml

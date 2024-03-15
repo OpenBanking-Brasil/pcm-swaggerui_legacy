@@ -1,0 +1,13 @@
+type: object
+required:
+  - data
+  - links
+  - meta
+properties:
+  data:
+    $ref: ./InvoiceFinancingsPayments.yaml
+  links:
+    $ref: ../LinksWithAbleAdditionalProperties.yaml
+  meta:
+    $ref: ../MetaWithAbleAdditionalProperties.yaml
+

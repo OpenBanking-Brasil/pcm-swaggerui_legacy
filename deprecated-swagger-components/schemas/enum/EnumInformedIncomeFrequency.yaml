@@ -1,0 +1,12 @@
+type: string
+enum:
+  - DIARIA
+  - SEMANAL
+  - QUINZENAL
+  - MENSAL
+  - BIMESTRAL
+  - TRIMESTRAL
+  - SEMESTRAL
+  - ANUAL
+  - OUTROS
+description: Traz a frequência ou período da renda informada.

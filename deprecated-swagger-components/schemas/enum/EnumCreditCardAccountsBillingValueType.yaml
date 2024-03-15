@@ -1,0 +1,16 @@
+type: string
+description: |
+ Traz os tipos dos valores relativos aos pagamentos da fatura da conta de pagamento pós-paga: (Vide Enum)
+  - Valor de pagamento da fatura com parcelamento
+  - Valor pagamento da fatura realizado
+  - Outro Valor pago na fatura
+
+  VALOR_PAGAMENTO_FATURA_PARCELADO: Quando o pagamento corresponde ao fato gerador para abertura do plano de parcelamento da fatura
+
+  VALOR_PAGAMENTO_FATURA_REALIZADO: Quando o pagamento corresponde ao valor total da fatura
+
+  OUTRO_VALOR_PAGO_FATURA: Demais casos
+enum:
+  - VALOR_PAGAMENTO_FATURA_PARCELADO
+  - VALOR_PAGAMENTO_FATURA_REALIZADO
+  - OUTRO_VALOR_PAGO_FATURA

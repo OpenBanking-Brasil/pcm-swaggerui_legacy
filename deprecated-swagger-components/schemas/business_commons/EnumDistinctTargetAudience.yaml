@@ -1,0 +1,6 @@
+type: string
+description: Público alvo (PESSOA_NATURAL ou PESSOA_JURIDICA).
+enum:
+  - PESSOA_NATURAL
+  - PESSOA_JURIDICA
+example: PESSOA_JURIDICA
