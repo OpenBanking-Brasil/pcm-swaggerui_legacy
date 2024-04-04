@@ -1152,7 +1152,24 @@ components:
           pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
           example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
         additionalInfo:
-          description: Não utilizado pelo server.
+          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [openfinancebrasil](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [tabela additional info](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v2.)
+          type: object
+          properties:
+            dropReason:
+              description: |
+                1. O campo dropReason deve ser adicionado nas informações do campo additionalInfo que deverá ser enviado no reporte do provedor do serviço consumido (papel SERVER)
+                2. O campo deve ser preenchido como “NO_CREDENTIAL" caso o CPF/CNPJ não seja cliente ou “NONE” caso contrário.
+                3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
+                4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
+                5. O provedor do serviço deverá verificar se o CPF/CNPJ informado na criação do consentimento é seu cliente antes de enviar o reporte para a PCM.
+
+              type: string
+              enum:
+                - POST /open-banking/consents/v2/consents​
+                - POST /open-banking/payments/v3/consents​
+                - POST /open-banking/payments/v4/consents​
+                - POST /open-banking/enrollments/v1/enrollments​
+                - POST /open-banking/automatic-payments/v1​/recurring-consents​
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
           type: string
