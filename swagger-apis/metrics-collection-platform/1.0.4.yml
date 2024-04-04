@@ -1514,6 +1514,34 @@ components:
             - POST /open-banking/payments/v4/consents​
             - POST /open-banking/enrollments/v1/enrollments​
             - POST /open-banking/automatic-payments/v1​/recurring-consents​
+        paymentType:
+          description: |
+            Campo para atendimento dos painéis de indicadores de Iniciação de Pagamentos​
+            1. Envio obrigatório para a role Client​
+            2. Conteúdo ENUM do novo campo
+
+            | Endpoint | Valores possíveis |
+            |----------|-------------|
+            | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+            |----------|-------------|
+            | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+            |----------|-------------|
+            | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+            |----------|-------------|
+            | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+            |----------|-------------|
+            | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+            |----------|-------------|
+            | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+            |----------|-------------|
+            | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
+            <br>
+          type: string
+          enum:
+            - IMEDIATO: Pix sem configuração de agendamento​
+            - AGENDADO: Pix com configuração de agendamento​
+            - RECORRENTE: Pix sem configuração de agendamento e configuração de recorrência​
+            - SWEEPING: para todas as chamadas de pagamentos inteligentes​
 
     OpendataAdditionalInfo:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo. Atenção especial na tabela Excel com a listagem de endpoints em https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v2.
