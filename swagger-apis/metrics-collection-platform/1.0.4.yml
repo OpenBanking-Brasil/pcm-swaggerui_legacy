@@ -1,32 +1,32 @@
 openapi: 3.0.3
 info:
-  title: "Platforma de Coleta de Métricas"
+  title: "Plataforma de Coleta de Métricas"
   description: |
     # Introdução
 
-    A Platforma de Coleta de Métricas foi idealizada com o objetivo de contabilizar as interações entre as instituições participantes, de modo a promover um ambiente equitativo e não discriminatório. Se trata de uma Platforma localizada no perímetro central, gerida pelo regulador do ecossistema.
+    A Plataforma de Coleta de Métricas foi idealizada com o objetivo de contabilizar as interações entre as instituições participantes, de modo a promover um ambiente equitativo e não discriminatório. Se trata de uma Plataforma localizada no perímetro central, gerida pelo regulador do ecossistema.
 
     ## Motivação
 
-    Para que o ecossistema do Open Finance Brasil seja saudável para instituições e clientes finais, fez-se necessária a criação de uma Platforma que deverá concentrar dados sobre as chamadas que as instituições fazem umas às outras. Dessa forma, torna-se possível coletar informações com o objetivo de se criar métricas e indicadores a fim de se ter visibilidade sobre todo o ambiente.
+    Para que o ecossistema do Open Finance Brasil seja saudável para instituições e clientes finais, fez-se necessária a criação de uma Plataforma que deverá concentrar dados sobre as chamadas que as instituições fazem umas às outras. Dessa forma, torna-se possível coletar informações com o objetivo de se criar métricas e indicadores a fim de se ter visibilidade sobre todo o ambiente.
 
     No intuito de manter a integridade e consistência nos dados, o envio destes pelas instituições deverá passar por um processo de conciliação. Quando divergente, as instituições serão notificadas e terão a possibilidade de ajustar os reportes, o que promove um ambiente saudável de auto-regulação, prevenindo assim uma disputa.
 
-    ## O que a Platforma não é
+    ## O que a Plataforma não é
 
-    A Platforma recebe os dados de maneira póstuma, ou seja, dentro do período de fechamento mas depois de a chamada concreta ter sido feita. Dada essa natureza, a Platforma não pode atuar como um agente que proíbe, bloqueia ou interfere nas interações entre as instituiçoes.
+    A Plataforma recebe os dados de maneira póstuma, ou seja, dentro do período de fechamento mas depois de a chamada concreta ter sido feita. Dada essa natureza, a Plataforma não pode atuar como um agente que proíbe, bloqueia ou interfere nas interações entre as instituiçoes.
 
-    Por mais que concentre informações importantes das chamadas entre as instituições, a Platforma não é uma ferramenta de BI, e o controle de acesso aos dados é feito em diferentes níveis (participante, regulador e administrador).
+    Por mais que concentre informações importantes das chamadas entre as instituições, a Plataforma não é uma ferramenta de BI, e o controle de acesso aos dados é feito em diferentes níveis (participante, regulador e administrador).
 
     ## Premissas Técnicas
 
-    * Tanto o envio por parte dos participantes quanto o processamento por parte da Platforma serão feitos de maneira assíncrona;
+    * Tanto o envio por parte dos participantes quanto o processamento por parte da Plataforma serão feitos de maneira assíncrona;
 
     ## Terminologia
 
     * **Server e Client**: em uma interação, a parte que solicita os dados é chamada de _client_, ao passo que a parte que devolve os dados é o _server_. O ponto de vista para o uso dessa terminologia é o tráfego dos dados da transação e não o ponto de partida da chamada. Portanto, supondo que A faça uma consulta em B pelos dados de uma conta, esses dados vão ser transmitidos por quem recebeu a solicitação, e recebidos por quem a fez, nesse caso, "A" é o Client e "B" é o Server.
 
-    * **Reporte**: no contexto da API de Coleta de Métricas, um _reporte_ é o registro da chamada que será enviado tanto pelo server quanto pelo client. Esse registro será armazenado na Platforma para posterior processo de conciliação de chamadas e extração de dados estatísticos.
+    * **Reporte**: no contexto da API de Coleta de Métricas, um _reporte_ é o registro da chamada que será enviado tanto pelo server quanto pelo client. Esse registro será armazenado na Plataforma para posterior processo de conciliação de chamadas e extração de dados estatísticos.
 
     * **Divergência**: Quando Server e Client enviam reportes, cada um destes reportes se refere à uma chamada em específico. Nos casos em que uma das partes não envia o reporte sobre essa chamada em específico, é caracterizada uma divergência. As divergências podem ser resolvidas pela chamada às operações de modificação de reportes em suas respectivas APIs. Uma divergência é considerada fechada apenas quando todos os reportes encontram sua respectiva correspondência do outro lado da chamada.
 
@@ -240,7 +240,7 @@ paths:
         - Hybrid Flow
       summary: Inclusão de relatório Hybrid Flow de redirecionamento para o servidor (lado cliente)
       description: |
-        Inclusão de relatório de redirecionamento para o servidor na Platforma. Ao enviar um relatório, a Platforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de relatório de redirecionamento para o servidor na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-client-redirect-to-server
       requestBody:
         content:
@@ -293,7 +293,7 @@ paths:
         - Hybrid Flow
       summary: Inclusão de relatório Hybrid Flow de redirecionamento para o destino (lado servidor)
       description: |
-        Inclusão de relatório de redirecionamento para o destino na Platforma. Ao enviar um relatório, a Platforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de relatório de redirecionamento para o destino na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-server-redirect-target
       requestBody:
         content:
@@ -344,7 +344,7 @@ paths:
         - Hybrid Flow
       summary: Inclusão de relatório Hybrid Flow de autenticação (lado servidor)
       description: |
-        Inclusão de relatório de autenticação na Platforma. Ao enviar um relatório, a Platforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de relatório de autenticação na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-server-authenticated
       requestBody:
         content:
@@ -397,7 +397,7 @@ paths:
         - Hybrid Flow
       summary: Inclusão de relatório Hybrid Flow de redirecionamento para o cliente (lado servidor)
       description: |
-        Inclusão de relatório de redirecionamento para o cliente na Platforma. Ao enviar um relatório, a Platforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de relatório de redirecionamento para o cliente na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-server-redirect-to-client
       requestBody:
         content:
@@ -451,7 +451,7 @@ paths:
         - Hybrid Flow
       summary: Inclusão de relatório Hybrid Flow de redirecionamento com erro para o destino (lado cliente)
       description: |
-        Inclusão de relatório de redirecionamento com erro para o destino na Platforma. Ao enviar um relatório, a Platforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de relatório de redirecionamento com erro para o destino na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-client-redirect-target-with-errors
       requestBody:
         content:
@@ -505,7 +505,7 @@ paths:
         - Hybrid Flow
       summary: Inclusão de relatório Hybrid Flow de redirecionamento sem erro para o destino (lado cliente)
       description: |
-        Inclusão de relatório de redirecionamento sem erro para o destino na Platforma. Ao enviar um relatório, a Platforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de relatório de redirecionamento sem erro para o destino na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-client-redirect-target-without-errors
       requestBody:
         content:
@@ -1288,7 +1288,7 @@ components:
           properties:
             reportId:
               description: |
-                Identificador único do registro criado na Platforma de Coleta de Métricas.
+                Identificador único do registro criado na Plataforma de Coleta de Métricas.
               type: string
               format: uuid
               maxLength: 36
@@ -1323,7 +1323,7 @@ components:
           properties:
             reportId:
               description: |
-                Identificador único do registro criado na Platforma de Coleta de Métricas.
+                Identificador único do registro criado na Plataforma de Coleta de Métricas.
               type: string
               format: uuid
               maxLength: 36
