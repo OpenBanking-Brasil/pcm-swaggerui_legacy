@@ -238,9 +238,9 @@ paths:
     post:
       tags:
         - Hybrid Flow
-      summary: Inclusão de relatório Hybrid Flow de redirecionamento para o servidor (lado cliente)
+      summary: Inclusão de report Hybrid Flow de redirecionamento para o servidor (papel client)
       description: |
-        Inclusão de relatório de redirecionamento para o servidor na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report de redirecionamento para o servidor na Plataforma. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-client-redirect-to-server
       requestBody:
         content:
@@ -291,9 +291,10 @@ paths:
     post:
       tags:
         - Hybrid Flow
-      summary: Inclusão de relatório Hybrid Flow de redirecionamento para o destino (lado servidor)
+      summary: Inclusão de report Hybrid Flow de redirecionamento para o destino (papel server)
       description: |
-        Inclusão de relatório de redirecionamento para o destino na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report da chegada de usuario no sistema da transmissora/dentendora para autenticação. Deve ser enviado antes da autenticação do usuário. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+
       operationId: add-reports-server-redirect-target
       requestBody:
         content:
@@ -342,9 +343,9 @@ paths:
     post:
       tags:
         - Hybrid Flow
-      summary: Inclusão de relatório Hybrid Flow de autenticação (lado servidor)
+      summary: Inclusão de report Hybrid Flow de autenticação (papel server)
       description: |
-        Inclusão de relatório de autenticação na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report de autenticação na plataforma que deverá ser enviado após o client se autenticar / entrar no app e antes de autorizar o consentimento. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-server-authenticated
       requestBody:
         content:
@@ -395,9 +396,9 @@ paths:
     post:
       tags:
         - Hybrid Flow
-      summary: Inclusão de relatório Hybrid Flow de redirecionamento para o cliente (lado servidor)
+      summary: Inclusão de report Hybrid Flow de redirecionamento para o cliente (papel server)
       description: |
-        Inclusão de relatório de redirecionamento para o cliente na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report de redirecionamento para o cliente na Plataforma. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-server-redirect-to-client
       requestBody:
         content:
@@ -449,9 +450,9 @@ paths:
     post:
       tags:
         - Hybrid Flow
-      summary: Inclusão de relatório Hybrid Flow de redirecionamento com erro para o destino (lado cliente)
+      summary: Inclusão de report Hybrid Flow de redirecionamento com erro para o destino (papel client)
       description: |
-        Inclusão de relatório de redirecionamento com erro para o destino na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report de redirecionamento com erro para o destino na Plataforma. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-client-redirect-target-with-errors
       requestBody:
         content:
@@ -503,9 +504,9 @@ paths:
     post:
       tags:
         - Hybrid Flow
-      summary: Inclusão de relatório Hybrid Flow de redirecionamento sem erro para o destino (lado cliente)
+      summary: Inclusão de report Hybrid Flow de redirecionamento sem erro para o destino (papel client)
       description: |
-        Inclusão de relatório de redirecionamento sem erro para o destino na Plataforma. Ao enviar um relatório, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report de redirecionamento sem erro para o destino na Plataforma. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-client-redirect-target-without-errors
       requestBody:
         content:
@@ -878,9 +879,9 @@ components:
         type:
           type: string
           enum:
-            - AWAITING_HANDOFF
-            - AWAITING_USER_AUTH
-            - AWAITING_REDIRECT_TO_APP
+            - AWAITING_HANDOFF: "Deve ser utilizado quando é mostrado ao usuário a tela de HANDOFF."
+            - AWAITING_USER_AUTH: "Deve ser reportado quando o sistema aguarda autenticação do usuário."
+            - AWAITING_REDIRECT_TO_APP: "Deve ser reportado quando o sistema direciona o usuário direto para o APP."
         timestamp:
           $ref: "#/components/schemas/Timestamp"
 
