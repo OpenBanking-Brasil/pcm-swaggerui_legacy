@@ -1027,7 +1027,86 @@ components:
           maxLength: 100
           example: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
         additionalInfo:
-          $ref: "#/components/schemas/AdditionalInfo"
+          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo. Atenção especial na tabela Excel com a listagem de endpoints em https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v2.
+          type: object
+          properties:
+            consentId:
+              description: Deve ser preenchido com a mesma string obtida no campo `.data.consentId` retornado após a chamada inicial na API "POST /consent". *Ao reportar o uso de um endpoint /token, o identificador único de consentimento só será reportado nos casos em que "grant_type" é do tipo "authorization_code" ou do tipo "refresh_token", uma vez que esta informação de consentId é inexistente quando "grant_type" é do tipo
+              type: string
+            personType:
+              description: Deve ser preenchida baseado no tipo de pessoa responsável pelo consentimento. Deverá ser obserdado se `.data.businessEntity` estiver preenchido no payload, se estiver então preencher com "PJ", se não estiver então preencher com "PF"
+              type: string
+            localInstrument:
+              description: Deve ser preenchido com a mesma string informada no payload ".data.localInstrument"
+              type: string
+            status:
+              description: Deve ser preenchido com a mesma string obtida no ".data.status"
+              type: string
+            clientIp:
+              description: Deve ser preenchido com o Endereço IPv4 ou IPv6 do client que fez a requisição
+              type: string
+            rejectReason:
+              description: Deve ser preenchido com a mesma string obtida no ".data.rejectionReason.code"
+              type: string
+            errorCodes:
+              description: Caso o HTTP Code seja 4XX ou 5XX, esse campo deve ser preenchido com a lista das strings obtidas em ".errors[].code" . Não havendo string, deve ser enviada uma lista vazia.
+              type: string
+            webhookEnable:
+              description: Deve ser preenchido com o valor booleano TRUE caso haja pelo menos um item indicado na lista do campo ".webhook_uris" no payload, caso contrário deverá ser preenchido com o valor booleano FALSE
+              type: string
+            webhookInteractionId:
+              description: Caso o GET esteja sendo feito após o estímulo do webhook, o x-webhook-interaction-id deverá ser indicado
+              type: string
+            enrollmentId:
+              description: Deve ser preenchido com a mesma string obtida no campo `.data.enrollmentId` retornado após a chamada inicial na API "POST /enrollments". *Ao reportar o uso de um endpoint /token, o identificador único de consentimento só será reportado nos casos em que "grant_type" é do tipo "authorization_code" ou do tipo "refresh_token", uma vez que esta informação de enrollmentId é inexistente quando "grant_type" é do tipo "client_credentials".
+              type: string
+            authenticatorAttachment:
+              description: Deve ser preenchido com a mesma string definida em ".data.authenticatorAttachment".  Não havendo string, deve ser explicitamente enviada esse additionalInfo como sendo uma string vazia.
+              type: string
+            platform:
+              description: Deve ser preenchido com a mesma string definida em ".data.platform"
+              type: string
+            rp:
+              description: Deve ser preenchido com a mesma string definida em ".data.rp"
+              type: string
+            rejectionReasonCode:
+              description: Deve ser preenchido com a mesma string obtida no ".data.rejectionReason.code"
+              type: string
+            rejectionReasonDetail:
+              description: Deve ser preenchido com a mesma string obtida no ".data.rejectionReason.detail"
+              type: string
+            authorisationFlow:
+              description: Deve ser preenchido com a mesma string obtida no ".data.authorisationFlow"
+              type: string
+            paymentType:
+              description: |
+                Identifica o modo de pagamento acionado no consentimento
+                1. Envio obrigatório para a role Client​
+                2. Conteudo ENUM do novo campo varia de acordo com o endpoint conforme tabela abaixo
+
+                | Endpoint | Valores possíveis |
+                |----------|-------------|
+                | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+                |----------|-------------|
+                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+                |----------|-------------|
+                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+                |----------|-------------|
+                | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+                |----------|-------------|
+                | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+                |----------|-------------|
+                | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+                |----------|-------------|
+                | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
+                <br>
+              type: string
+              enum:
+                - IMEDIATO: Pix sem configuração de agendamento​
+                - AGENDADO: Pix com configuração de agendamento​
+                - RECORRENTE: Pix sem configuração de agendamento e configuração de recorrência​
+                - SWEEPING: para todas as chamadas de pagamentos inteligentes​
+
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
           type: string
@@ -1492,6 +1571,14 @@ components:
           type: string
         authorisationFlow:
           description: Deve ser preenchido com a mesma string obtida no ".data.authorisationFlow"
+          type: string
+        dropReason:
+          description: |
+            1. O campo dropReason deve ser adicionado nas informações do campo additionalInfo que deverá ser enviado no reporte do provedor do serviço consumido (papel SERVER)
+            2. O campo deve ser preenchido como “NO_CREDENTIAL" caso o CPF/CNPJ não seja cliente ou “NONE” caso contrário.
+            3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
+            4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
+
           type: string
         paymentType:
           description: |
