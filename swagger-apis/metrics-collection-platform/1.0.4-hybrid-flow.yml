@@ -882,7 +882,7 @@ components:
                 2. O campo deve ser preenchido como “NO_CREDENTIAL" caso o CPF/CNPJ não seja cliente ou “NONE” caso contrário.
                 3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
-
+                5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
               type: string
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
@@ -1219,7 +1219,7 @@ components:
             2. O campo deve ser preenchido como “NO_CREDENTIAL" caso o CPF/CNPJ não seja cliente ou “NONE” caso contrário.
             3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
             4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
-
+            5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
           type: string
         paymentType:
           description: |
