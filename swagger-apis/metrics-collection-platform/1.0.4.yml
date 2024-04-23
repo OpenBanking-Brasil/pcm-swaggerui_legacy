@@ -1861,11 +1861,11 @@ components:
 
             | Endpoint | Valores possíveis |
             |----------|-------------|
-            | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+            | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
             |----------|-------------|
-            | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+            | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
             |----------|-------------|
-            | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
+            | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
             |----------|-------------|
             | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
             |----------|-------------|
@@ -1877,9 +1877,9 @@ components:
             <br>
           type: string
           enum:
-            - IMEDIATO: Pix sem configuração de agendamento​
-            - AGENDADO: Pix com configuração de agendamento​
-            - RECORRENTE: Pix sem configuração de agendamento e configuração de recorrência​
+            - IMMEDIATE: Pix sem configuração de agendamento​
+            - SCHEDULED: Pix com configuração de agendamento​
+            - RECURRENT: Pix sem configuração de agendamento e configuração de recorrência​
             - SWEEPING: para todas as chamadas de pagamentos inteligentes​
         RevocationReasonCode:
           description: |
