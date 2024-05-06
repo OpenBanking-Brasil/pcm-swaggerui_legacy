@@ -792,9 +792,9 @@ components:
     Platform:
       type: string
       enum:
-        - browser
-        - app
-      example: browser
+        - BROWSER
+        - APP
+      example: BROWSER
     URI:
       type: string
       format: uri
@@ -825,15 +825,15 @@ components:
 
     OSType:
       type: string
-      example: linux
+      example: LINUX
       enum:
-        - linux
-        - macos
-        - unix
-        - windows
-        - ios
-        - android
-        - other
+        - LINUX
+        - MACOS
+        - UNIX
+        - WINDOWS
+        - IOS
+        - ANDROID
+        - OTHER
     HybridFlowClientRedirectToServerReportRequest:
       description: ""
       type: object
@@ -850,11 +850,11 @@ components:
           $ref: "#/components/schemas/ConsentId"
         uriAuthorizationEndpoint:
           $ref: "#/components/schemas/URI"
-        Platform:
+        platform:
           $ref: "#/components/schemas/Platform"
         osVersion:
           type: string
-          example: "String obtida pelo user-agent/app utilizando a infraestrutura de consulta disponível em seu ambiente"
+          example: "20.04"
         os:
           $ref: "#/components/schemas/OSType"
         timestamp:
@@ -885,15 +885,15 @@ components:
           $ref: "#/components/schemas/URI"
         osVersion:
           type: string
-          example: "String obtida pelo user-agent/app utilizando a infraestrutura de consulta disponível em seu ambiente"
+          example: "20.04"
         os:
           $ref: "#/components/schemas/OSType"
         type:
           type: string
           enum:
-            - AWAITING_HANDOFF: "Deve ser utilizado quando é mostrado ao usuário a tela de HANDOFF."
-            - AWAITING_USER_AUTH: "Deve ser reportado quando o sistema aguarda autenticação do usuário."
-            - AWAITING_REDIRECT_TO_APP: "Deve ser reportado quando o sistema direciona o usuário direto para o APP."
+            - AWAITING_HANDOFF
+            - AWAITING_USER_AUTH
+            - AWAITING_REDIRECT_TO_APP
         timestamp:
           $ref: "#/components/schemas/Timestamp"
         serverOrgId:
@@ -909,7 +909,7 @@ components:
       type: object
       required:
         - "consentId"
-        - "Platform"
+        - "platform"
         - "osVersion"
         - "os"
         - timestamp
@@ -917,11 +917,11 @@ components:
       properties:
         consentId:
           $ref: "#/components/schemas/ConsentId"
-        Platform:
+        platform:
           $ref: "#/components/schemas/Platform"
         osVersion:
           type: string
-          example: "String obtida pelo user-agent/app utilizando a infraestrutura de consulta disponível em seu ambiente"
+          example: "20.04"
         os:
           $ref: "#/components/schemas/OSType"
         timestamp:
@@ -939,7 +939,7 @@ components:
       required:
         - "consentId"
         - "uri_callback"
-        - "Platform"
+        - "platform"
         - "osVersion"
         - "os"
         - "type"
@@ -950,11 +950,11 @@ components:
           $ref: "#/components/schemas/ConsentId"
         uri_callback:
           $ref: "#/components/schemas/URI"
-        Platform:
+        platform:
           $ref: "#/components/schemas/Platform"
         osVersion:
           type: string
-          example: "String obtida pelo user-agent/app utilizando a infraestrutura de consulta disponível em seu ambiente"
+          example: "20.04"
         os:
           $ref: "#/components/schemas/OSType"
         type:
@@ -977,7 +977,7 @@ components:
       type: object
       required:
         - "consentId"
-        - "Platform"
+        - "platform"
         - "osVersion"
         - "os"
         - timestamp
@@ -985,11 +985,11 @@ components:
       properties:
         consentId:
           $ref: "#/components/schemas/ConsentId"
-        Platform:
+        platform:
           $ref: "#/components/schemas/Platform"
         osVersion:
           type: string
-          example: "String obtida pelo user-agent/app utilizando a infraestrutura de consulta disponível em seu ambiente"
+          example: "20.04"
         os:
           $ref: "#/components/schemas/OSType"
         timestamp:
@@ -1007,7 +1007,7 @@ components:
       type: object
       required:
         - "consentId"
-        - "Platform"
+        - "platform"
         - "osVersion"
         - "os"
         - "error"
@@ -1016,14 +1016,11 @@ components:
       properties:
         consentId:
           $ref: "#/components/schemas/ConsentId"
-        Platform:
-          type: string
-          enum:
-            - browser
-            - app
+        platform:
+          $ref: "#/components/schemas/Platform"
         osVersion:
           type: string
-          example: "String obtida pelo user-agent/app utilizando a infraestrutura de consulta disponível em seu ambiente"
+          example: "20.04"
         os:
           $ref: "#/components/schemas/OSType"
         error:
