@@ -1080,7 +1080,7 @@ components:
           maxLength: 100
           example: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
         additionalInfo:
-          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo. Atenção especial na tabela Excel com a listagem de endpoints em https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v2.
+          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v).
           type: object
           properties:
             consentId:
@@ -1138,26 +1138,26 @@ components:
                 2. Conteudo ENUM do novo campo varia de acordo com o endpoint conforme tabela abaixo
 
                 | Endpoint | Valores possíveis |
-                |-------------------------------------|-------------------------------|
-                | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
-                |-------------------------------------|-------------------------------|
-                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
-                |-------------------------------------|-------------------------------|
-                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMEDIATO<br>AGENDADO<br>RECORRENTE​
-                |-------------------------------------|-------------------------------|
+                |----------|-------------|
+                | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                |----------|-------------|
+                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                |----------|-------------|
+                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                |----------|-------------|
                 | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
-                |-------------------------------------|-------------------------------|
+                |----------|-------------|
                 | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
-                |-------------------------------------|-------------------------------|
+                |----------|-------------|
                 | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
-                |-------------------------------------|-------------------------------|
+                |----------|-------------|
                 | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
                 <br>
               type: string
               enum:
-                - IMEDIATO: Pix sem configuração de agendamento​
-                - AGENDADO: Pix com configuração de agendamento​
-                - RECORRENTE: Pix sem configuração de agendamento e configuração de recorrência​
+                - IMMEDIATE: Pix sem configuração de agendamento​
+                - SCHEDULED: Pix com configuração de agendamento​
+                - RECURRENT: Pix sem configuração de agendamento e configuração de recorrência​
                 - SWEEPING: para todas as chamadas de pagamentos inteligentes​
             dropReason:
               description: |
@@ -1172,15 +1172,22 @@ components:
                 Código indicador do motivo da revogação
                 1. Envio obrigatório para as roles Server e Client
 
-                | Endpoints
-                |-------------------------------------
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; 
-                |-------------------------------------
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;    
-                |-------------------------------------
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp;
-                |-------------------------------------
-
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
             RevocationReasonDetail:
@@ -1188,14 +1195,22 @@ components:
                 Detalhe sobre o motivo de revogação indicado no campo
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints
-                |-------------------------------------
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; 
-                |-------------------------------------
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;    
-                |-------------------------------------
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp;
-                |-------------------------------------
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
             RevokedBy:
@@ -1203,14 +1218,22 @@ components:
                 Quem iniciou a solicitação de revogação 
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>USUARIO<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<br>DETENTORA |
-                |------------------------------- | ----------------------|
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1222,14 +1245,22 @@ components:
                 Canal onde iniciou-se o processo de revogação
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1240,14 +1271,22 @@ components:
                 Quem iniciou a solicitação de rejeição
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<BR>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>USUARIO<BR>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<BR>DETENTORA |
-                |------------------------------- | ----------------------|
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1259,14 +1298,22 @@ components:
                 Canal onde iniciou-se o processo de rejeição
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis |
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------| 
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1397,7 +1444,7 @@ components:
           pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
           example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
         additionalInfo:
-          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [openfinancebrasil](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2
+          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [openfinancebrasil](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2)
           type: object
           properties:
             dropReason:
@@ -1413,15 +1460,22 @@ components:
                 Código indicador do motivo da revogação
                 1. Envio obrigatório para as roles Server e Client
 
-                | Endpoints
-                |-------------------------------------
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; 
-                |-------------------------------------
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;    
-                |-------------------------------------
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp;
-                |-------------------------------------
-
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
             RevocationReasonDetail:
@@ -1429,14 +1483,22 @@ components:
                 Detalhe sobre o motivo de revogação indicado no campo
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints
-                |-------------------------------------
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; 
-                |-------------------------------------
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;    
-                |-------------------------------------
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp;
-                |-------------------------------------
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
             RevokedBy:
@@ -1444,14 +1506,22 @@ components:
                 Quem iniciou a solicitação de revogação 
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>USUARIO<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<br>DETENTORA |
-                |------------------------------- | ----------------------|
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1463,14 +1533,22 @@ components:
                 Canal onde iniciou-se o processo de revogação
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1481,14 +1559,22 @@ components:
                 Quem iniciou a solicitação de rejeição
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<BR>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>USUARIO<BR>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>USUARIO<BR>DETENTORA |
-                |------------------------------- | ----------------------|
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1500,14 +1586,22 @@ components:
                 Canal onde iniciou-se o processo de rejeição
                 1. Envio obrigatório para a role Server e Client
 
-                | Endpoints | Valores possíveis |
-                |------------------------------- | ----------------------|
-                | <br>GET /recurring-consents&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>POST /recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;  | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------|
-                | <br>PATCH /recurring-consents/{recurringConsentId}​&nbsp;&nbsp;&nbsp; | <br>INICIADORA<br>DETENTORA |
-                |------------------------------- | ----------------------| 
+                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
                 <br>
               type: string
               enum:
@@ -1790,7 +1884,7 @@ components:
         - "/open-banking/insurance/v1/personals"
 
     AdditionalInfo:
-      description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo. Atenção especial na tabela Excel com a listagem de endpoints em https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2.
+      description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2).
       type: object
 
       properties:
@@ -1882,22 +1976,22 @@ components:
           description: |
             Código indicador do motivo da revogação
 
-            | Endpoint                                                        | Descrição Jornada                                                                                                            | Obrigatoriedade Client               | Obrigatoriedade Server
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------
+            | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             <br>
            
           type: string
@@ -1905,22 +1999,22 @@ components:
           description: |
             Detalhe sobre o motivo de revogação indicado no campo
 
-            | Endpoint                                                        | Descrição Jornada                                                                                                            | Obrigatoriedade Client               | Obrigatoriedade Server
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------
+            | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             <br>
 
           type: string
@@ -1928,22 +2022,22 @@ components:
           description: |
             Quem iniciou a solicitação de revogação 
 
-            | Endpoint                                                        | Descrição Jornada                                                                                                            | Obrigatoriedade Client               | Obrigatoriedade Server
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------
+            | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             <br>
 
           type: string
@@ -1955,22 +2049,22 @@ components:
           description: |
             Canal onde iniciou-se o processo de revogação
 
-            | Endpoint                                                        | Descrição Jornada                                                                                                            | Obrigatoriedade Client               | Obrigatoriedade Server
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------
+            | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             <br>
 
           type: string
@@ -1981,22 +2075,22 @@ components:
           description: |
             Quem iniciou a solicitação de rejeição
 
-            | Endpoint                                                        | Descrição Jornada                                                                                                            | Obrigatoriedade Client               | Obrigatoriedade Server
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------
+            | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             <br>
 
           type: string
@@ -2008,22 +2102,22 @@ components:
           description: |
             Canal onde iniciou-se o processo de rejeição
 
-            | Endpoint                                                        | Descrição Jornada                                                                                                            | Obrigatoriedade Client               | Obrigatoriedade Server
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------
+            | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
-            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+            | --------- | ----------------- | ----------------------- | ----------------------- |        
+            | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-            | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------            
+            | --------- | ----------------- | ----------------------- | ----------------------- |
             <br>
 
           type: string
@@ -2031,7 +2125,7 @@ components:
             - INICIADORA
             - DETENTORA
     OpendataAdditionalInfo:
-      description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo. Atenção especial na tabela Excel com a listagem de endpoints em https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2.
+      description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2).
       type: object
       properties: {}
 
