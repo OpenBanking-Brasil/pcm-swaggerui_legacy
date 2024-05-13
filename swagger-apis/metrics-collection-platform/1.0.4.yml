@@ -4,17 +4,17 @@ info:
   description: |
     # Introdução
 
-    A Plataforma de Coleta de Métricas foi idealizada com o objetivo de contabilizar as interações entre as instituições participantes, de modo a promover um ambiente equitativo e não discriminatório. Se trata de uma Plataforma localizada no perímetro central, gerida pelo regulador do ecossistema.
+    A Plataforma de Coleta de Métricas foi idealizada para contabilizar as interações entre as instituições participantes, de modo a promover um ambiente equitativo e não discriminatório. Se trata de uma Plataforma localizada no perímetro central, gerida pelo regulador do ecossistema.
 
     ## Motivação
 
-    Para que o ecossistema do Open Finance Brasil seja saudável para instituições e clientes finais, fez-se necessária a criação de uma Plataforma que deverá concentrar dados sobre as chamadas que as instituições fazem umas às outras. Dessa forma, torna-se possível coletar informações com o objetivo de se criar métricas e indicadores a fim de se ter visibilidade sobre todo o ambiente.
+    Para que o ecossistema do Open Finance Brasil seja saudável para instituições e clientes finais, fez-se necessária a criação de uma Plataforma que deverá concentrar dados sobre as chamadas que as instituições fazem umas às outras. Dessa forma, permite-se coletar informações visando criar métricas e indicadores a fim de se ter visibilidade sobre todo o ambiente.
 
-    No intuito de manter a integridade e consistência nos dados, o envio destes pelas instituições deverá passar por um processo de conciliação. Quando divergente, as instituições serão notificadas e terão a possibilidade de ajustar os reportes, o que promove um ambiente saudável de auto-regulação, prevenindo assim uma disputa.
+    No intuito de manter a integridade e consistência nos dados, o envio destes pelas instituições deverá passar por um processo de conciliação. Quando divergente, as instituições serão notificadas e terão a possibilidade de ajustar os reportes, o que promove um ambiente saudável de autorregulação, prevenindo assim uma disputa.
 
     ## O que a Plataforma não é
 
-    A Plataforma recebe os dados de maneira póstuma, ou seja, dentro do período de fechamento mas depois de a chamada concreta ter sido feita. Dada essa natureza, a Plataforma não pode atuar como um agente que proíbe, bloqueia ou interfere nas interações entre as instituiçoes.
+    A Plataforma recebe os dados de maneira póstuma, ou seja, dentro do período de fechamento, mas após a chamada concreta ter sido feita. Dada essa natureza, a Plataforma não pode atuar como um agente que proíbe, bloqueia ou interfere nas interações entre as instituições.
 
     Por mais que concentre informações importantes das chamadas entre as instituições, a Plataforma não é uma ferramenta de BI, e o controle de acesso aos dados é feito em diferentes níveis (participante, regulador e administrador).
 
@@ -28,7 +28,7 @@ info:
 
     * **Reporte**: no contexto da API de Coleta de Métricas, um _reporte_ é o registro da chamada que será enviado tanto pelo server quanto pelo client. Esse registro será armazenado na Plataforma para posterior processo de conciliação de chamadas e extração de dados estatísticos.
 
-    * **Divergência**: Quando Server e Client enviam reportes, cada um destes reportes se refere à uma chamada em específico. Nos casos em que uma das partes não envia o reporte sobre essa chamada em específico, é caracterizada uma divergência. As divergências podem ser resolvidas pela chamada às operações de modificação de reportes em suas respectivas APIs. Uma divergência é considerada fechada apenas quando todos os reportes encontram sua respectiva correspondência do outro lado da chamada.
+    * **Divergência**: Quando Server e Client enviam reportes, cada um destes reportes se refere a uma chamada em específico. Nos casos em que uma das partes não envia o reporte sobre essa chamada em específico, é caracterizada uma divergência. As divergências podem ser resolvidas pela chamada às operações de modificação de reportes em suas respectivas APIs. Uma divergência é considerada fechada apenas quando todos os reportes encontram sua respectiva correspondência do outro lado da chamada.
 
 
     Para informações detalhadas sobre a PCM, consulte o [site da documentação da Plataforma](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/17378055/Plataforma+de+Coleta+de+M+tricas).
@@ -50,12 +50,12 @@ tags:
       A Private API fornece operações que permitem a inclusão dos reportes que representam transações entre participantes do ecossistema do Open Finance.
   - name: Opendata API
     description: |
-      A Opndata API fornece operações que permitem a inclusão dos reportes cujas chamadas foram feitas nas API de dados abertos do Open Finance, e que portanto não sofrem processo de conciliação.
+      A Opendata API fornece operações que permitem a inclusão dos reportes cujas chamadas foram feitas nas API de dados abertos do Open Finance o qual não sofrem processo de conciliação.
   - name: Hybrid Flow API
     description: |
-      Oferece operações que permitem a inclusão de reportes relativos a jornada de autorização de consentimento. Os reportes podem ser feitos até às 08h00 de D+1 da data da ocorrência e não precisam ser enviados em ordem.
+      Oferece operações que permitem a inclusão de reportes relativos à jornada de autorização de consentimento. Os reportes podem ser feitos até às 08h00 de D+1 da data da ocorrência e não precisam ser enviados em ordem.
 
-      [ver diagrama de sequência](https://github.com/OpenBanking-Brasil/specs-pcm/blob/feature/PCM-122/openapi/hybrid-flow-diagram.svg?raw=true)
+      [Ver diagrama de sequência](https://github.com/OpenBanking-Brasil/specs-pcm/blob/feature/PCM-122/openapi/hybrid-flow-diagram.svg?raw=true)
 
 paths:
   "/report-api/v1/private/report":
@@ -64,9 +64,9 @@ paths:
         - Private API
       summary: Inclusão de reportes
       description: |
-        Inclusão de reportes na plataforma. Ao enviar um lote de reportes, a plataforma vai fazer o processo de validação de cada reporte de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso **todos** dos reportes enviados forem aceitos. Caso pelo menos 1 reporte esteja inconsistente, o status de retorno será 207 - vide documentação de cada status de retorno para maiores informações. 
+        Inclusão de reportes na plataforma. Ao enviar um lote de reportes, a plataforma vai fazer o processo de validação de cada reporte de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso **todos** dos reportes enviados forem aceitos. Caso pelo menos 1 reporte esteja inconsistente, o status de retorno será 207 - veja documentação de cada status de retorno para mais informações. 
 
-        Os dados que são inseridos na API de Reporte são sempre processados de maneira assíncrona, e sua persistência se utiliza de consistência posterior (eventual consistency), portanto, um registro tem um tempo de processamento em que ele não estará disponível para consulta até que ele seja persistido.
+        Os dados inseridos na API de Reporte são sempre processados de maneira assíncrona, e sua persistência se utiliza de consistência posterior (eventual consistency), portanto, um registro tem um tempo de processamento em que ele não estará disponível para consulta até que ele seja persistido.
 
         O limite de reportes de cada envio de lote é de 5.000 entradas no array.
       operationId: add-reports
@@ -128,7 +128,7 @@ paths:
       responses:
         "200":
           description: |
-            O status 200 representa a situação onde todos os registros enviados no lote foram validados e serão direcionados para processamento. Se pelo menos 1 registro contiver problemas de validação, o retorno será 207 (vide descrição do status).
+            O status 200 representa a situação onde todos os registros enviados no lote foram validados e serão direcionados para processamento. Se pelo menos 1 registro contiver problemas de validação, o retorno será 207 (veja descrição do status).
 
             A operação vai devolver um array com todos os resultados, e garante que ele esteja na mesma ordem do array da requisição.
           content:
@@ -308,7 +308,7 @@ paths:
       responses:
         "200":
           description: |
-            O status 200 representa a situação onde  o registro enviado foi validado e será validado. Se o registro contiver problemas de validação.
+            O status 200 representa a situação onde o registro enviado foi validado e será validado. Se o registro contiver problemas de validação.
             A operação vai devolver um objeto com resultado.
           content:
             application/json:
@@ -560,7 +560,7 @@ paths:
         - Private API
       summary: Consulta um report em específico usando um identificador
       description: |
-        Operação que permite a consulta de um reporte em específico através de um identificador. A busca por reportes estará sempre no contexto do usuário representado pelo token de acesso, ou seja, o _participante_ só terá acesso à reportes em que instituição que ele pertence é parte, seja como client ou como server.
+        Operação que permite a consulta de um reporte em específico mediante um identificador. A busca por reportes estará sempre no contexto do usuário representado pelo token de acesso, ou seja, o _participante_ só terá acesso a reportes em que instituição que ele pertence é parte, seja como client ou como server.
 
         O processamento do registro ocorre de maneira assíncrona, o que pode gerar um cenário de consistência eventual: caso a consulta seja feita imediatamente após a inclusão, é possível que o registro ainda não esteja disponível para consulta.
       operationId: report-by-id
@@ -602,7 +602,7 @@ paths:
         - Private API
       summary: Modifica um reporte baseado em seu reportId
       description: |
-        Operação que permite a alteração de parâmetros de um reporte com base em seu reportId. A alteração do report é feita de forma assíncrona. Logo, se for feito um GET logo apos o PUT o reporte ainda será entregue sem alterações. Não resubmeta o PUT. Importante: Apenas os campos statusCode, httpMethod, processTimespan e endpoint podem ser modificados nessa operação. Apenas reportes no estado PAIRED_INCONSISTENT podem ser modificados. Necessidades adicionais de modificação por API podem ser sugeridas ao email: gt-arquitetura@openfinancebrasil.org.br
+        Operação que permite a alteração de parâmetros de um reporte com base em seu reportId. A alteração do report é feita de forma assíncrona. Logo, se for feito um GET logo após o PUT o reporte ainda será entregue sem alterações. Não ressubmeta o PUT. Importante: Apenas os campos statusCode, httpMethod, processTimespan e endpoint podem ser modificados nessa operação. Apenas reportes no estado PAIRED_INCONSISTENT podem ser modificados. Necessidades adicionais de modificação por API podem ser sugeridas ao email: gt-arquitetura@openfinancebrasil.org.br
       operationId: put-report-by-id
       parameters:
         - name: reportId
@@ -658,9 +658,9 @@ paths:
       summary: Inclusão de reportes
       description: |
 
-        Inclusão de reportes de dados abertos na plataforma. Ao enviar um lote de reportes, a plataforma vai fazer o processo de validação sintática de cada reporte de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso **todos** dos reportes enviados forem aceitos. Caso pelo menos 1 reporte esteja inconsistente, o status de retorno será 207 - vide documentação de cada status de retorno para maiores informações. 
+        Inclusão de reportes de dados abertos na plataforma. Ao enviar um lote de reportes, a plataforma vai fazer o processo de validação sintática de cada reporte de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso **todos** dos reportes enviados forem aceitos. Caso pelo menos 1 reporte esteja inconsistente, o status de retorno será 207 - veja documentação de cada status de retorno para mais informações. 
 
-        Os dados que são inseridos na API de Reporte são sempre processados de maneira assíncrona, e sua persistência se utiliza de consistência posterior (eventual consistency), portanto, um registro tem um tempo de processamento em que ele não estará disponível para consulta até que ele seja persistido.
+        Os dados inseridos na API de Reporte são sempre processados de maneira assíncrona, e sua persistência se utiliza de consistência posterior (eventual consistency), portanto, um registro tem um tempo de processamento em que ele não estará disponível para consulta até que ele seja persistido.
 
         O limite de registros de cada lote é de 5.000 registros.
       operationId: add-opendata-reports
@@ -695,7 +695,7 @@ paths:
       responses:
         "200":
           description: |
-            O status 200 representa a situação onde todos os registros enviados no lote foram validados e serão direcionados para processamento. Se pelo menos 1 registro contiver problemas de validação, o retorno será 207 (vide descrição do status).
+            O status 200 representa a situação onde todos os registros enviados no lote foram validados e serão direcionados para processamento. Se pelo menos 1 registro contiver problemas de validação, o retorno será 207 (veja descrição do status).
 
             A operação vai devolver um array com todos os resultados, e garante que ele esteja na mesma ordem do array da requisição.
           content:
@@ -1037,7 +1037,7 @@ components:
           example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
 
     ClientReportRequest:
-      description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Client (iniciador da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private
+      description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Client (iniciador da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
       type: object
       required:
         - endpoint
@@ -1053,7 +1053,7 @@ components:
         - role
       properties:
         fapiInteractionId:
-          description: UUID que identifica uma transação específica entre dois participantes. Esse dado pode ser encontrado no header x-fapi-interaction-id que é informado pelo Client e devolvido pelo Server. Mais informações em [Cabeçalhos HTTP](https://openbanking-brasil.github.io/areadesenvolvedor/#cabecalhos-http) na documentação do Open Finance Brasil. O envio dessa informação é obrigatório exceto nos casos ontem ela não esteja disponível, como por exemplo em respostas com status 5xx, ou em chamdas que terminaram por timeout onde o reporte tem que ser enviado mas sem esse atributo. Em todos os demais cenários, o envio é obrigatório.
+          description: UUID que identifica uma transação específica entre dois participantes. Esse dado pode ser encontrado no header x-fapi-interaction-id informado pelo Client e devolvido pelo Server. Mais informações em [Cabeçalhos HTTP](https://openbanking-brasil.github.io/areadesenvolvedor/#cabecalhos-http) na documentação do Open Finance Brasil. O envio dessa informação é obrigatório, exceto nos casos ontem ela não esteja disponível como, por exemplo, em respostas com status 5xx, ou em chamadas que terminaram por timeout onde o reporte tem que ser enviado, mas sem esse atributo. Nos demais cenários, o envio é obrigatório.
           type: string
           format: uuid
           maxLength: 36
@@ -1353,7 +1353,7 @@ components:
           example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
         endpointUriPrefix:
           description: |
-            Endereço do servidor de destino da chamada incluindo o prefixo quando houver. O formato do campo deverá ser o seguinte: `https://{host}/{prefixo}`, sendo:
+            Endereço do servidor de destino da chamada, incluindo o prefixo quando houver. O formato do campo deverá ser o seguinte: `https://{host}/{prefixo}`, sendo:
 
             * `host`: endereço FQDN do servidor de destino
             * `prefixo`: toda a parte do path que vem antes da string `/open-banking`
@@ -1378,7 +1378,7 @@ components:
             - SERVER
 
     ServerReportRequest:
-      description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private
+      description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
       type: object
       required:
         - fapiInteractionId
@@ -1455,158 +1455,6 @@ components:
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
               type: string
-            RevocationReasonCode:
-              description: |
-                Código indicador do motivo da revogação
-                1. Envio obrigatório para as roles Server e Client
-
-                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                <br>
-              type: string
-            RevocationReasonDetail:
-              description: |
-                Detalhe sobre o motivo de revogação indicado no campo
-                1. Envio obrigatório para a role Server e Client
-
-                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                <br>
-              type: string
-            RevokedBy:
-              description: |
-                Quem iniciou a solicitação de revogação 
-                1. Envio obrigatório para a role Server e Client
-
-                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                <br>
-              type: string
-              enum:
-                - INICIADORA: apenas para a role CLient
-                - USUARIO: para a role Server e Client
-                - DETENTORA: apenas para a role Server
-            RevokedFrom:
-              description: |
-                Canal onde iniciou-se o processo de revogação
-                1. Envio obrigatório para a role Server e Client
-
-                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                <br>
-              type: string
-              enum:
-                - INICIADORA: para a role Server e Client
-                - DETENTORA: apenas para a role Server
-            RejectedBy:
-              description: |
-                Quem iniciou a solicitação de rejeição
-                1. Envio obrigatório para a role Server e Client
-
-                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                <br>
-              type: string
-              enum:
-                - INICIADORA: apenas para a role Client
-                - USUARIO: para a role Server e Client
-                - DETENTORA: apenas para a role Server
-            RejectedFrom:
-              description: |
-                Canal onde iniciou-se o processo de rejeição
-                1. Envio obrigatório para a role Server e Client
-
-                | Endpoint  | Descrição Jornada | Obrigatoriedade Client  | Obrigatoriedade Server  |
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | POST /automatic-payments/v1/recurring-consents                  | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/recurring-consents/{consentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/recurring-consents/{consentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | POST /automatic-payments/v1/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
-                | --------- | ----------------- | ----------------------- | ----------------------- |        
-                | GET /automatic-payments/v1/pix/recurring-payments?consentId=​    | Pix – Consulta informações de transações de pagamentos associadas a um consentimento​                                         | -                                
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | GET /automatic-payments/v1/pix/recurring-payments/{paymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
-                | --------- | ----------------- | ----------------------- | ----------------------- |
-                <br>
-              type: string
-              enum:
-                - INICIADORA: para a role Server e Client
-                - DETENTORA: apenas para a role Server
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
           type: string
@@ -1615,7 +1463,7 @@ components:
             - SERVER
 
     OpendataReportRequest:
-      description: Modelo que representa os dados a serem enviados às APIs de dados abertos. Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Reportes-OpenData.
+      description: Modelo que representa os dados a serem enviados às APIs de dados abertos. Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Reportes-OpenData](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Reportes-OpenData).
       additionalProperties: false
       type: object
       required:
@@ -1678,7 +1526,7 @@ components:
           maxLength: 100
           example: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
         message:
-          description: Caso a solicitação contenha algum problema em seu formato, ou caso haja algum tipo de falha detectável no momento da requisição, esse campo trará detalhes sobre o erro ocorrido. Informações adicionais sobre os tipos de erros podem ser encontradas em https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM
+          description: Caso a solicitação contenha algum problema em seu formato, ou caso haja algum tipo de falha detectável no momento da requisição, esse campo trará detalhes sobre o erro ocorrido. Informações adicionais sobre os tipos de erros podem ser encontradas em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM)
           type: string
           pattern: ^[- /:_.',0-9a-zA-Z]{0,200}$
           maxLength: 200
@@ -1702,7 +1550,7 @@ components:
     ReportStatus:
       description: |
         Informa o status do registro de reporte.
-        * **DISCARDED**: O status `DISCARDED` indica que o reporte que foi enviado pelo participante foi rejeitado pela PCM. O motivo do descarte será enviado junto com a resposta, podendo ser por conta de um reporte inválido ou por um erro no processamento. Não é possível modificar um reporte `DISCARDED`, portanto o reportador deverá corrigir o registro que apresentou erro e reenviar via POST.
+        * **DISCARDED**: O status `DISCARDED` indica que o reporte enviado pelo participante foi rejeitado pela PCM. O motivo do descarte será enviado com a resposta, podendo ser por conta de um reporte inválido ou por um erro no processamento. Não é possível modificar um reporte `DISCARDED`, portanto o reportador deverá corrigir o registro que apresentou erro e reenviar via POST.
         * **SINGLE**: O status `SINGLE` indica que o reporte em questão não tem uma contraparte. Ele é utilizado em casos onde a conciliação entre dois reportes não é possível.
         * **ACCEPTED**: O status `ACCEPTED` indica que a validação de formato do reporte não tem erros e este será enviado para processamento.
         * **UNPAIRED**: O status `UNPAIRED` significa que o reporte atual não possui uma correspondência em outro reporte através do atributo `fapiInteractionId`. Indica um reporte _divergente_.
