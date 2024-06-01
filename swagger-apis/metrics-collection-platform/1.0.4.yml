@@ -1729,6 +1729,23 @@ components:
         - "/open-banking/pension/v2/risk-coverages"
         - "/open-banking/pension/v2/survival-coverages"
         - "/open-banking/insurance/v2/personals"
+        - "/open-banking/pension/v1/risk-coverages"
+        - "/open-banking/insurance/v1/automotives"
+        - "/open-banking/insurance/v1/homes"
+        - "/open-banking/insurance/v1/personals"
+        - "/open-banking/opendata-capitalization/v2/bonds"
+        - "/open-banking/opendata-pension/v2/risk-coverages"
+        - "/open-banking/opendata-pension/v2/survival-coverages"
+        - "/open-banking/opendata-insurance/v2/personals"
+        - "/open-banking/opendata-investments/v1/funds"
+        - "/open-banking/opendata-investments/v1/bank-fixed-incomes"
+        - "/open-banking/opendata-investments/v1/credit-fixed-incomes"
+        - "/open-banking/opendata-investments/v1/variable-incomes"
+        - "/open-banking/opendata-investments/v1/treasure-titles"
+        - "/open-banking/opendata-exchange/v1/online-rates"
+        - "/open-banking/opendata-exchange/v1/vet-values"
+        - "/open-banking/opendata-acquiring-services/v1/personals"
+        - "/open-banking/opendata-acquiring-services/v1/businesses"
 
     AdditionalInfo:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2).
