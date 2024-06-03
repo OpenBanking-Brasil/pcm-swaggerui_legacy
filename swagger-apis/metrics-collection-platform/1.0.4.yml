@@ -57,7 +57,7 @@ tags:
 
       [Ver diagrama de sequência](https://github.com/OpenBanking-Brasil/specs-pcm/blob/feature/PCM-122/openapi/hybrid-flow-diagram.svg?raw=true)
       
-      [Ver diagrama da API](https://raw.githubusercontent.com/OpenBanking-Brasil/specs-pcm/feature/PCM-122/openapi/Diagrama%20API%20PCM%20Hybrid%20Flow_v3.drawio.svg)
+      [Ver fluxograma de envio de reports](https://raw.githubusercontent.com/OpenBanking-Brasil/specs-pcm/feature/PCM-122/openapi/Diagrama%20API%20PCM%20Hybrid%20Flow_v3.drawio.svg)
 
 paths:
   "/report-api/v1/private/report":
