@@ -55,7 +55,7 @@ tags:
     description: |
       Oferece operações que permitem a inclusão de reportes relativos à jornada de autorização de consentimento. Os reportes podem ser feitos até às 08h00 de D+1 da data da ocorrência e não precisam ser enviados em ordem.
 
-      [Ver diagrama de sequência](https://github.com/OpenBanking-Brasil/specs-pcm/blob/feature/PCM-122/openapi/hybrid-flow-diagram.svg?raw=true)
+      [Ver diagrama de sequência](https://github.com/OpenBanking-Brasil/specs-pcm/blob/feature/PCM-122/openapi/hybrid-flow-diagram.svg?raw=true), [ver diagrama da API](https://raw.githubusercontent.com/OpenBanking-Brasil/specs-pcm/feature/PCM-122/openapi/Diagrama%20API%20PCM%20Hybrid%20Flow_v3.drawio.svg)
 
 paths:
   "/report-api/v1/private/report":
