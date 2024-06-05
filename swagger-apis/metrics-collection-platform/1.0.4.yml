@@ -1551,15 +1551,17 @@ components:
       additionalProperties: false
       required:
         - reportId
-      type: object
-      properties:
-        reportId:
-          description: Identificator único interno do reporte no formato UUID v4.
-          type: string
-          format: uuid
-          maxLength: 36
-          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          example: "9a97c2df-b261-4fc2-aa66-d1b5168397da"
+      type: array
+      items:
+        type: object
+        properties:
+          reportId:
+            description: Identificator único interno do reporte no formato UUID v4.
+            type: string
+            format: uuid
+            maxLength: 36
+            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            example: "9a97c2df-b261-4fc2-aa66-d1b5168397da"
 
     ReportStatus:
       description: |
