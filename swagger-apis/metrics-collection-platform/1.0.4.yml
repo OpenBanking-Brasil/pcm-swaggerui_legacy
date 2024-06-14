@@ -839,11 +839,12 @@ components:
     HybridFlowClientRedirectToServerReportRequest:
       description: ""
       type: array
+      minItems: 0
+      maxItems: 1000
       items:
         type: object
         required:
           - "consentId"
-          - "uriAuthorizationEndpoint"
           - "platform"
           - "osVersion"
           - "os"
@@ -874,11 +875,12 @@ components:
     HybridFlowServerRedirectTargetReportRequest:
       description: ""
       type: array
+      minItems: 0
+      maxItems: 1000
       items:
         type: object
         required:
           - "consentId"
-          - "uriAuthorizationEndpoint"
           - "osVersion"
           - "os"
           - "type"
@@ -913,6 +915,8 @@ components:
     HybridFlowServerAuthenticatedRequest:
       description: ""
       type: array
+      minItems: 0
+      maxItems: 1000
       items:
         type: object
         required:
@@ -944,6 +948,8 @@ components:
     HybridFlowServerRedirectToClientRequest:
       description: ""
       type: array
+      minItems: 0
+      maxItems: 1000
       items:
         type: object
         required:
@@ -985,6 +991,8 @@ components:
     HybridFlowServerRedirectTargetWithoutErrorsRequest:
       description: ""
       type: array
+      minItems: 0
+      maxItems: 1000
       items:
         type: object
         required:
@@ -1017,6 +1025,8 @@ components:
     HybridFlowServerRedirectTargetWithErrorsRequest:
       description: ""
       type: array
+      minItems: 0
+      maxItems: 1000
       items:
         type: object
         required:
