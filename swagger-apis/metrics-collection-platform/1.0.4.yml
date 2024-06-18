@@ -1104,7 +1104,7 @@ components:
           maxLength: 100
           example: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
         additionalInfo:
-          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade%20(cliente%20server).xlsx?api=v).
+          description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [openfinancebrasil](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2](https://openfinancebrasil.atlassian.net/wiki/download/attachments/37879861/Tabela%20additionalInfo%20%E2%80%93%20campos%20contexto%20e%20obrigatoriedade_v17-.xlsx?api=v2)
           type: object
           properties:
             consentId:
