@@ -858,7 +858,38 @@ components:
           - clientOrgId
         properties:
           consentId:
-            $ref: "#/components/schemas/ConsentId"
+            type: string
+            pattern: ^(?!\s)[\w\W\s]*[^\s]$
+            maxLength: 256
+            example: urn:bancoex:C1DD33123
+            description: |
+      
+              O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
+              Um URN, conforme definido na RFC8141 é um Uniform Resource Identifier - URI - que é atribuído sob o URI scheme "urn" e um namespace URN específico, com a intenção de que o URN seja um identificador de recurso persistente e independente da localização.  
+              Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+      
+              * o namespace(urn)
+              * o identificador associado ao namespace da instituição transnmissora (bancoex)
+              * o identificador específico dentro do namespace (C1DD33123).
+              Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na RFC8141.
+                uriAuthorizationEndpoint:
+                  $ref: "#/components/schemas/URI"
+                platform:
+                  $ref: "#/components/schemas/Platform"
+                osVersion:
+                  type: string
+                  example: "20.04"
+                os:
+                  $ref: "#/components/schemas/OSType"
+                timestamp:
+                  $ref: "#/components/schemas/Timestamp"
+                clientOrgId:
+                  description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                  type: string
+                  format: uuid
+                  maxLength: 36
+                  pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                  example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
 
     HybridFlowServerRedirectTargetReportRequest:
       description: ""
