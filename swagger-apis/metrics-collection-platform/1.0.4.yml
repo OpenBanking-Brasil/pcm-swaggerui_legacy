@@ -859,6 +859,45 @@ components:
         properties:
           consentId:
             $ref: "#/components/schemas/ConsentId"
+          uriAuthorizationEndpoint:
+            type: string
+            format: uri
+            pattern: ^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$
+            maxLength: 2000
+            example: https://api.banco.com.br/open-banking/api/v1/resource
+          platform:
+            type: string
+            enum:
+              - BROWSER
+              - APP
+            example: BROWSER
+          osVersion:
+            type: string
+            example: "20.04"
+          os:
+            type: string
+            example: LINUX
+            enum:
+              - LINUX
+              - MACOS
+              - UNIX
+              - WINDOWS
+              - IOS
+              - ANDROID
+              - OTHER
+          timestamp:
+            description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
+            type: string
+            format: date-time
+            maxLength: 28
+            example: "2021-11-11T18:08:08.278Z"
+          clientOrgId:
+            description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+            type: string
+            format: uuid
+            maxLength: 36
+            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
 
     HybridFlowServerRedirectTargetReportRequest:
       description: ""
