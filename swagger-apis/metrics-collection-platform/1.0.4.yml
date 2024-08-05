@@ -812,19 +812,24 @@ components:
       example: "2021-11-11T18:08:08.278Z"
     ConsentId:
       type: string
-      pattern: ^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*'%\/?#]+$
+      pattern: ^(?!\s)[\w\W\s]*[^\s]$
       maxLength: 256
       example: urn:bancoex:C1DD33123
       description: |
 
-        O consentId é o identificador único do consentimento e deverá ser um URN - Uniform Resource Name.  
-        Um URN, conforme definido na RFC8141 é um Uniform Resource Identifier - URI - que é atribuído sob o URI scheme "urn" e um namespace URN específico, com a intenção de que o URN seja um identificador de recurso persistente e independente da localização.  
-        Considerando a string urn:bancoex:C1DD33123 como exemplo para consentId temos:
+        O consentId deve ser preenchido com a mesma string do identificador único de um fluxo de consentimento de dados, de pagamento ou de vínculo
 
-        * o namespace(urn)
-        * o identificador associado ao namespace da instituição transnmissora (bancoex)
-        * o identificador específico dentro do namespace (C1DD33123).
-        Informações mais detalhadas sobre a construção de namespaces devem ser consultadas na RFC8141.
+        exemplos:    
+        
+          * pós `POST` /open-banking/payments/v4/consents utilizar a string obtida/enviada em data.consentId
+        
+          * pós `POST` /open-banking/consents/v3/consents utilizar a string obtida/enviada em data.consentId
+        
+          * pós `POST` /automatic-payments/v1/recurring-consents utilizar a string obtida/enviada em data.recurringConsentId
+        
+          * pós `POST` /automatic-payments/v1/pix/recurring-payments utilizar a string obtida/enviada em data.recurringConsentId
+        
+          * pós `POST` /open-banking/enrollments/v1/enrollments utilizar a string obtida/enviada em data.enrollmentId
 
     OSType:
       type: string
