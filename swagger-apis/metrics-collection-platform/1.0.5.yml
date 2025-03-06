@@ -1394,8 +1394,8 @@ components:
               description: |
                 Contagem de acionamentos feitos por produtos.
 
-                REGRA: 
-                  Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
+                Regras: 
+                  - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
               type: string
             fixedAmount:
               description: |
@@ -1601,6 +1601,81 @@ components:
                 3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
+              type: string
+            automaticSweeping:
+              description: |
+                Contagem de acionamentos feitos por produtos.
+
+                Regras: 
+                  - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
+              type: string
+            fixedAmount:
+              description: |
+                Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
+                
+                Regras:
+                  - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
+                  - Se enviado fixedAmount, “FIXO”; ou
+                  - Se enviado maximumVariableAmount, “VARIAVEL”​
+              type: string
+            interval:
+              description: |
+                Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
+
+                Regras:
+                  - Preencher com o valor do campo "interval"​
+              type: string
+            firstPayment:
+              description: |
+                Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
+
+                Regras:
+                  - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
+                  - Se não preenchido objeto firstPayment, enviar "FALSE"
+              type: boolean
+            minimumVariableAmount:
+              description: |
+                Valida se possui o valor mínimo definido pelo usuário recebedor​.
+
+                Regras:
+                  1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
+                  2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
+              type: boolean
+            isRetryAccepted:
+              description: |
+                Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
+                
+                Regras:
+                  - Preencher com o valor do campo "isRetryAccepted"​
+              type: string
+            recurringPaymentId:
+              description: |
+                Contagem de acionamentos feitos no pagamento
+
+                Regras:
+                  - Para Pagamentos v4: Preencher com o valor do campo "/data/paymentId"
+                  - Para Pagamentos Automáticos v2: Preencher com o valor do campo "/data/recurringPaymentId"​
+              type: string
+            originalRecurringPaymentId:
+              description: |
+                Identifica o primeiro pagamento da recorrência em relação as retentativas​.
+
+                Regras:
+                  - Preencher com o valor do campo "originalRecurringPaymentId"​
+              type: string
+            paymentReference:
+              description: |
+                Identifica a referência do pagamento no tempo (semanal, mensal, trimestral...).
+                
+                Regras:​
+                  - Preencher com o valor do campo "paymentReference"
+              type: string
+            cancellationReason: 
+              description: |
+                Identifica o estado que o pagamento estava quando foi cancelado​.
+
+                Regras:
+                  - Preencher com o valor do campo "cancellation.reason"
               type: string
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
@@ -2137,10 +2212,161 @@ components:
           enum:
             - INICIADORA
             - DETENTORA
+        automaticSweeping:
+              description: |
+                Contagem de acionamentos feitos por produtos.
+
+                Regras: 
+                  - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
+              type: string
+        fixedAmount:
+          description: |
+            Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
+            
+            Regras:
+              - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
+              - Se enviado fixedAmount, “FIXO”; ou
+              - Se enviado maximumVariableAmount, “VARIAVEL”​
+          type: string
+        interval:
+          description: |
+            Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
+            
+            Regras:
+              - Preencher com o valor do campo "interval"​
+          type: string
+        firstPayment:
+          description: |
+            Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
+            
+            Regras:
+              - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
+              - Se não preenchido objeto firstPayment, enviar "FALSE"
+          type: boolean
+        minimumVariableAmount:
+          description: |
+            Valida se possui o valor mínimo definido pelo usuário recebedor​.
+            
+            Regras:
+              1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
+              2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
+          type: boolean
+        isRetryAccepted:
+          description: |
+            Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
+            
+            Regras:
+              - Preencher com o valor do campo "isRetryAccepted"​
+          type: string
+        recurringPaymentId:
+          description: |
+            Contagem de acionamentos feitos no pagamento
+            
+            Regras:
+              - Para Pagamentos v4: Preencher com o valor do campo "/data/paymentId"
+              - Para Pagamentos Automáticos v2: Preencher com o valor do campo "/data/recurringPaymentId"​
+          type: string
+        originalRecurringPaymentId:
+          description: |
+            Identifica o primeiro pagamento da recorrência em relação as retentativas​.
+            
+            Regras:
+              - Preencher com o valor do campo "originalRecurringPaymentId"​
+          type: string
+        paymentReference:
+          description: |
+            Identifica a referência do pagamento no tempo (semanal, mensal, trimestral...).
+            
+            Regras:​
+              - Preencher com o valor do campo "paymentReference"
+          type: string
+        cancellationReason: 
+          description: |
+            Identifica o estado que o pagamento estava quando foi cancelado​.
+            
+            Regras:
+              - Preencher com o valor do campo "cancellation.reason"
+          type: string
+        
     OpendataAdditionalInfo:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo).
       type: object
-      properties: {}
+      properties: 
+        automaticSweeping:
+          description: |
+            Contagem de acionamentos feitos por produtos.
+            
+            Regras: 
+              - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
+          type: string
+        fixedAmount:
+          description: |
+            Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
+            
+            Regras:
+              - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
+              - Se enviado fixedAmount, “FIXO”; ou
+              - Se enviado maximumVariableAmount, “VARIAVEL”​
+          type: string
+        interval:
+          description: |
+            Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
+            
+            Regras:
+              - Preencher com o valor do campo "interval"​
+          type: string
+        firstPayment:
+          description: |
+            Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
+            
+            Regras:
+              - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
+              - Se não preenchido objeto firstPayment, enviar "FALSE"
+          type: boolean
+        minimumVariableAmount:
+          description: |
+            Valida se possui o valor mínimo definido pelo usuário recebedor​.
+            
+            Regras:
+              1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
+              2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
+          type: boolean
+        isRetryAccepted:
+          description: |
+            Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
+            
+            Regras:
+              - Preencher com o valor do campo "isRetryAccepted"​
+          type: string
+        recurringPaymentId:
+          description: |
+            Contagem de acionamentos feitos no pagamentos
+
+            Regras:
+              - Para Pagamentos v4: Preencher com o valor do campo "/data/paymentId"
+              - Para Pagamentos Automáticos v2: Preencher com o valor do campo "/data/recurringPaymentId"​
+          type: string
+        originalRecurringPaymentId:
+          description: |
+            Identifica o primeiro pagamento da recorrência em relação as retentativas​.
+            
+            Regras:
+              - Preencher com o valor do campo "originalRecurringPaymentId"​
+          type: string
+        paymentReference:
+          description: |
+            Identifica a referência do pagamento no tempo (semanal, mensal, trimestral...).
+            
+            Regras:​
+              - Preencher com o valor do campo "paymentReference"
+          type: string
+        cancellationReason: 
+          description: |
+            Identifica o estado que o pagamento estava quando foi cancelado​.
+            
+            Regras:
+              - Preencher com o valor do campo "cancellation.reason"
+          type: string
 
     GenericError:
       description: Representa uma resposta de erro genérica.
