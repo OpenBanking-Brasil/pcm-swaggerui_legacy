@@ -1390,13 +1390,6 @@ components:
               enum:
                 - INICIADORA
                 - DETENTORA
-            automaticSweeping:
-              description: |
-                Contagem de acionamentos feitos por produtos.
-
-                Regras: 
-                  - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
-              type: string
             fixedAmount:
               description: |
                 Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
@@ -1415,20 +1408,12 @@ components:
               type: string
             firstPayment:
               description: |
-                Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
-
-                Regras:
-                  - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
-                  - Se não preenchido objeto firstPayment, enviar "FALSE"
-              type: boolean
+                Valida se o serviço possui um pagamento associado na adesão.
+              type: string
             minimumVariableAmount:
               description: |
                 Valida se possui o valor mínimo definido pelo usuário recebedor​.
-
-                Regras:
-                  1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
-                  2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
-              type: boolean
+              type: string
             isRetryAccepted:
               description: |
                 Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
@@ -1602,12 +1587,28 @@ components:
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
               type: string
-            automaticSweeping:
+            paymentType:
               description: |
-                Contagem de acionamentos feitos por produtos.
+                Identifica o modo de pagamento acionado no consentimento
+                1. Envio obrigatório para a role Client​
+                2. Conteudo ENUM do novo campo varia de acordo com o endpoint conforme tabela abaixo
 
-                Regras: 
-                  - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
+                | Endpoint | Valores possíveis |
+                |----------|-------------|
+                | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                |----------|-------------|
+                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                |----------|-------------|
+                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                |----------|-------------|
+                | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+                |----------|-------------|
+                | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+                |----------|-------------|
+                | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+                |----------|-------------|
+                | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
+                <br>
               type: string
             fixedAmount:
               description: |
@@ -1627,20 +1628,12 @@ components:
               type: string
             firstPayment:
               description: |
-                Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
-
-                Regras:
-                  - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
-                  - Se não preenchido objeto firstPayment, enviar "FALSE"
-              type: boolean
+                Valida se o serviço possui um pagamento associado na adesão.
+              type: string
             minimumVariableAmount:
               description: |
                 Valida se possui o valor mínimo definido pelo usuário recebedor​.
-
-                Regras:
-                  1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
-                  2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
-              type: boolean
+              type: string
             isRetryAccepted:
               description: |
                 Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
@@ -2212,13 +2205,6 @@ components:
           enum:
             - INICIADORA
             - DETENTORA
-        automaticSweeping:
-              description: |
-                Contagem de acionamentos feitos por produtos.
-
-                Regras: 
-                  - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
-              type: string
         fixedAmount:
           description: |
             Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
@@ -2237,20 +2223,12 @@ components:
           type: string
         firstPayment:
           description: |
-            Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
-            
-            Regras:
-              - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
-              - Se não preenchido objeto firstPayment, enviar "FALSE"
-          type: boolean
+            Valida se o serviço possui um pagamento associado na adesão.
+          type: string
         minimumVariableAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
-            
-            Regras:
-              1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
-              2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
-          type: boolean
+          type: string
         isRetryAccepted:
           description: |
             Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
@@ -2292,12 +2270,28 @@ components:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo).
       type: object
       properties: 
-        automaticSweeping:
+        paymentType:
           description: |
-            Contagem de acionamentos feitos por produtos.
+            Identifica o modo de pagamento acionado no consentimento
+            1. Envio obrigatório para a role Client​
+            2. Conteudo ENUM do novo campo varia de acordo com o endpoint conforme tabela abaixo
             
-            Regras: 
-              - Incluir na descrição do campo a possibilidade de envio do valor “AUTOMATIC”​
+            | Endpoint | Valores possíveis |
+            |----------|-------------|
+            | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+            |----------|-------------|
+            | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+            |----------|-------------|
+            | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+            |----------|-------------|
+            | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+            |----------|-------------|
+            | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+            |----------|-------------|
+            | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
+            |----------|-------------|
+            | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
+            <br>
           type: string
         fixedAmount:
           description: |
@@ -2317,20 +2311,12 @@ components:
           type: string
         firstPayment:
           description: |
-            Valida se o serviço possui um pagamento associado na adesão. Se preenchido objeto firstPayment, enviar "TRUE"; ou​  Se não preenchido objeto firstPayment, enviar "FALSE"​
-            
-            Regras:
-              - Se preenchido objeto firstPayment, enviar "TRUE"; ou​
-              - Se não preenchido objeto firstPayment, enviar "FALSE"
-          type: boolean
+            Valida se o serviço possui um pagamento associado na adesão.
+          type: string
         minimumVariableAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
-            
-            Regras:
-              1. Se preenchido campo “minimumVariableAmount”, enviar "TRUE"; ou​
-              2. Se não preenchido campo “minimumVariableAmount”enviar "FALSE"​
-          type: boolean
+          type: string
         isRetryAccepted:
           description: |
             Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
