@@ -1390,15 +1390,10 @@ components:
               enum:
                 - INICIADORA
                 - DETENTORA
-            fixedAmount:
+            amountType:
               description: |
                 Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
-                
-                Regras:
-                  - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
-                  - Se enviado fixedAmount, “FIXO”; ou
-                  - Se enviado maximumVariableAmount, “VARIAVEL”​
-              type: string
+              type: number
             interval:
               description: |
                 Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
@@ -1406,14 +1401,14 @@ components:
                 Regras:
                   - Preencher com o valor do campo "interval"​
               type: string
-            firstPayment:
+            isFirstPayment:
               description: |
                 Valida se o serviço possui um pagamento associado na adesão.
-              type: string
-            minimumVariableAmount:
+              type: boolean
+            hasMinimumAmount:
               description: |
                 Valida se possui o valor mínimo definido pelo usuário recebedor​.
-              type: string
+              type: boolean
             isRetryAccepted:
               description: |
                 Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
@@ -1586,89 +1581,6 @@ components:
                 3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
-              type: string
-            paymentType:
-              description: |
-                Identifica o modo de pagamento acionado no consentimento
-                1. Envio obrigatório para a role Client​
-                2. Conteudo ENUM do novo campo varia de acordo com o endpoint conforme tabela abaixo
-
-                | Endpoint | Valores possíveis |
-                |----------|-------------|
-                | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
-                |----------|-------------|
-                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
-                |----------|-------------|
-                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
-                |----------|-------------|
-                | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
-                |----------|-------------|
-                | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
-                |----------|-------------|
-                | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
-                |----------|-------------|
-                | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
-                <br>
-              type: string
-            fixedAmount:
-              description: |
-                Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
-                
-                Regras:
-                  - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
-                  - Se enviado fixedAmount, “FIXO”; ou
-                  - Se enviado maximumVariableAmount, “VARIAVEL”​
-              type: string
-            interval:
-              description: |
-                Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
-
-                Regras:
-                  - Preencher com o valor do campo "interval"​
-              type: string
-            firstPayment:
-              description: |
-                Valida se o serviço possui um pagamento associado na adesão.
-              type: string
-            minimumVariableAmount:
-              description: |
-                Valida se possui o valor mínimo definido pelo usuário recebedor​.
-              type: string
-            isRetryAccepted:
-              description: |
-                Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
-                
-                Regras:
-                  - Preencher com o valor do campo "isRetryAccepted"​
-              type: string
-            recurringPaymentId:
-              description: |
-                Contagem de acionamentos feitos no pagamento
-
-                Regras:
-                  - Para Pagamentos v4: Preencher com o valor do campo "/data/paymentId"
-                  - Para Pagamentos Automáticos v2: Preencher com o valor do campo "/data/recurringPaymentId"​
-              type: string
-            originalRecurringPaymentId:
-              description: |
-                Identifica o primeiro pagamento da recorrência em relação as retentativas​.
-
-                Regras:
-                  - Preencher com o valor do campo "originalRecurringPaymentId"​
-              type: string
-            paymentReference:
-              description: |
-                Identifica a referência do pagamento no tempo (semanal, mensal, trimestral...).
-                
-                Regras:​
-                  - Preencher com o valor do campo "paymentReference"
-              type: string
-            cancellationReason: 
-              description: |
-                Identifica o estado que o pagamento estava quando foi cancelado​.
-
-                Regras:
-                  - Preencher com o valor do campo "cancellation.reason"
               type: string
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
@@ -2205,15 +2117,10 @@ components:
           enum:
             - INICIADORA
             - DETENTORA
-        fixedAmount:
+        amountType:
           description: |
             Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
-            
-            Regras:
-              - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
-              - Se enviado fixedAmount, “FIXO”; ou
-              - Se enviado maximumVariableAmount, “VARIAVEL”​
-          type: string
+          type: number
         interval:
           description: |
             Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
@@ -2221,14 +2128,14 @@ components:
             Regras:
               - Preencher com o valor do campo "interval"​
           type: string
-        firstPayment:
+        isFirstPayment:
           description: |
             Valida se o serviço possui um pagamento associado na adesão.
-          type: string
-        minimumVariableAmount:
+          type: boolean
+        hasMinimumAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
-          type: string
+          type: boolean
         isRetryAccepted:
           description: |
             Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
@@ -2273,7 +2180,7 @@ components:
         paymentType:
           description: |
             Identifica o modo de pagamento acionado no consentimento
-            1. Envio obrigatório para a role Client​
+            1. Envio obrigatório para a role Client​ 
             2. Conteudo ENUM do novo campo varia de acordo com o endpoint conforme tabela abaixo
             
             | Endpoint | Valores possíveis |
@@ -2293,15 +2200,10 @@ components:
             | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
             <br>
           type: string
-        fixedAmount:
+        amountType:
           description: |
             Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
-            
-            Regras:
-              - Se não enviando nem fixedAmount e nem maximumVariableAmount, “VARIAVEL”; ou
-              - Se enviado fixedAmount, “FIXO”; ou
-              - Se enviado maximumVariableAmount, “VARIAVEL”​
-          type: string
+          type: number
         interval:
           description: |
             Periodicidade que a recorrência foi definida (semanal, trimestral, anual...)​.
@@ -2309,14 +2211,14 @@ components:
             Regras:
               - Preencher com o valor do campo "interval"​
           type: string
-        firstPayment:
+        isFirstPayment:
           description: |
             Valida se o serviço possui um pagamento associado na adesão.
-          type: string
-        minimumVariableAmount:
+          type: boolean
+        hasMinimumAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
-          type: string
+          type: boolean
         isRetryAccepted:
           description: |
             Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
