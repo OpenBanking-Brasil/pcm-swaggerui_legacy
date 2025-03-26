@@ -818,13 +818,10 @@ paths:
                   - timestamp: "2021-11-11T18:08:08.894Z"
                     organizationId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     role: CLIENT
-                    dataScope: ""
-                    totalPf: ""
-                    totalPj: ""
-                    stockList: ""
+                    dataScope: "DADOS"
+                    personType: "PF"
                     clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
                     serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                    activeConsentActiveQtty: ""
                     endpoint: "/open-banking/products-services/v1/business-financings"
                     statusCode: 200
                     httpMethod: POST
@@ -833,13 +830,10 @@ paths:
                   - timestamp: "2021-11-11T19:41:41.811Z"
                     organizationId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     role: SERVER
-                    dataScope: ""
-                    totalPf: ""
-                    totalPj: ""
-                    stockList: ""
+                    dataScope: "DADOS"
+                    personType: "PJ"
                     clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
                     serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                    activeConsentActiveQtty: ""
                     endpoint: "/open-banking/products-services/v1/business-financings"
                     statusCode: 200
                     httpMethod: POST
@@ -862,14 +856,8 @@ paths:
                 Todos Processados:
                   description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
                   value:
-                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                      correlationId: wNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf
-                      status: ACCEPTED
-                    - reportId: 4095388d-f44f-499a-a9a7-2dbffce1bb8a
-                      correlationId: 8qPzRL4nBzesCc3H1827UlqqEuTT4F5lN82DuJllcnL5VnnY5j
-                      status: ACCEPTED
-                    - reportId: 0f3fcceb-39f6-41b4-a75d-8444244bd836
-                      status: ACCEPTED
+                    reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    status: ACCEPTED
 
         "207":
           description: |
@@ -888,15 +876,9 @@ paths:
                   description: |
                     No caso apresentado é o resultado onde o exemplo "Request com falha" foi enviado: o registro com o _fapiInteractionId_ `d78fc4e5-37ca-4da3-adf2-9b082bf92280` apresentou uma falha na validação, mas os demais foram enviados para processamento. Como um dos registros não foi validado, o status de retorno passa a ser 207, e os demais registros são processados normalmente.
                   value:
-                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                      correlationId: wNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf
-                      status: DISCARDED
-                      message: "Missing fields: 'fapiInteractionId'"
-                    - reportId: 4095388d-f44f-499a-a9a7-2dbffce1bb8a
-                      correlationId: 8qPzRL4nBzesCc3H1827UlqqEuTT4F5lN82DuJllcnL5VnnY5j
-                      status: ACCEPTED
-                    - reportId: 0f3fcceb-39f6-41b4-a75d-8444244bd836
-                      status: ACCEPTED
+                    reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    status: DISCARDED
+                    message: "Invalid field value, httpMethod: httpMethod must be in enum"
                 "Todos registros com falha":
                   description: |
                     Neste caso, parte-se da premissa que todos os registros foram enviados sem _correlationId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
