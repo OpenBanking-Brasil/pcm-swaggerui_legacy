@@ -2467,7 +2467,7 @@ components:
                 example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
               totalActiveConsentiments: 
                 description: "Estoque total de consetimentos ativos"
-                type: string
+                type: number
 
     ConsentStockResponse:
       description: Representa os dados que serão retornados pelas operações de inclusão de consentiments.
