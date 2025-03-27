@@ -797,47 +797,32 @@ paths:
     post:
       tags:
         - Consents API
-      summary:
-      description:
+      summary: ""
+      description: ""
       operationId: add-reports
       requestBody:
         content:
           application/json:
             schema:
-              type: array
-              maxItems: 5000
-              items:
-                oneOf:
-                  - $ref: "#/components/schemas/ClientReportRequest"
-                  - $ref: "#/components/schemas/ServerReportRequest"
+              $ref: "#/components/schemas/ConsentStockRequest"
 
             examples:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  - timestamp: "2021-11-11T18:08:08.894Z"
-                    organizationId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                    role: CLIENT
-                    dataScope: "DADOS"
-                    personType: "PF"
-                    clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
-                    serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                    endpoint: "/open-banking/products-services/v1/business-financings"
-                    statusCode: 200
-                    httpMethod: POST
-                    endpointUriPrefix: "https://ofin.bank.com/"
-                  
-                  - timestamp: "2021-11-11T19:41:41.811Z"
-                    organizationId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                    role: SERVER
-                    dataScope: "DADOS"
-                    personType: "PJ"
-                    clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
-                    serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                    endpoint: "/open-banking/products-services/v1/business-financings"
-                    statusCode: 200
-                    httpMethod: POST
-                    endpointUriPrefix: "https://ofin.bank.com/"
+                  timestamp: "2021-11-11T18:08:08.894Z"
+                  orgId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                  role: CLIENT
+                  scope: "DADOS"
+                  totalCustomerPF: 10
+                  totalCustomerPJ: 10
+                  consentmentsStockList: 
+                    - clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
+                      serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
+                      totalActiveConsentiments: 222
+                    - clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
+                      serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
+                      totalActiveConsentiments: 223
         required: true
       responses:
         "200":
@@ -1798,7 +1783,7 @@ components:
           type: string
           pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
           maxLength: 100
-          example: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+          example: "xxuGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
         message:
           description: Caso a solicitação contenha algum problema em seu formato, ou caso haja algum tipo de falha detectável no momento da requisição, esse campo trará detalhes sobre o erro ocorrido. Informações adicionais sobre os tipos de erros podem ser encontradas em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM)
           type: string
@@ -2418,6 +2403,96 @@ components:
       type: object
       additionalProperties: false
       example: {}
+
+    ConsentStockRequest:
+      description: ""
+      type: object
+      required:
+        - "timestamp"
+        - "orgId"          
+        - "role"
+        - "scope"
+        - "totalAmountOfUniqueClients"
+        - "clientOrgId"
+        - "serverOrgId"
+      properties:
+        timestamp:
+          description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
+          type: string
+          format: date-time
+          maxLength: 28
+          example: "2021-11-11T18:08:08.278Z"
+        orgId: 
+          description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+          type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
+        role:
+          description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
+          type: string
+          enum:
+            - CLIENT
+            - SERVER
+        scope:
+          description: "A ser preenchido com a role 'Dados'"
+          type: string
+          enum:
+            - DADOS
+        totalCustomerPF:
+          description: "A ser preenchido com o total de clientes PF com consentimentos ativos. Formato: Númerico inteiro natural"
+          type: number
+        totalCustomerPJ:
+          description: "A ser preenchido com o total de clientes PJ com consentimentos ativos. Formato: Númerico inteiro natural"
+          type: number
+        consentmentsStockList:
+          type: array
+          items:
+            type: object
+            properties:
+              clientOrgId:
+                description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                type: string
+                format: uuid
+                maxLength: 36
+                pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
+              serverOrgId:
+                description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                type: string
+                format: uuid
+                maxLength: 36
+                pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
+              totalActiveConsentiments: 
+                description: "Estoque total de consetimentos ativos"
+                type: string
+
+    ConsentStockResponse:
+      description: Representa os dados que serão retornados pelas operações de inclusão de consentiments.
+      additionalProperties: false
+      required:
+        - reportId
+        - status
+      type: object
+      properties:
+        reportId:
+          description: Identificator único interno do reporte no formato UUID v4.
+          type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "9a97c2df-b261-4fc2-aa66-d1b5168397da"
+        status:
+          $ref: "#/components/schemas/ReportStatus"
+        message:
+          description: Caso a solicitação contenha algum problema em seu formato, ou caso haja algum tipo de falha detectável no momento da requisição, esse campo trará detalhes sobre o erro ocorrido. Informações adicionais sobre os tipos de erros podem ser encontradas em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM)
+          type: string
+          pattern: ^[- /:_.',0-9a-zA-Z]{0,200}$
+          maxLength: 200
+          example: "Missing fields: 'fapiInteractionId', 'endpoint'"
+           
 
   securitySchemes:
     PCMAccessToken:
