@@ -33,7 +33,7 @@ info:
 
     Para informações detalhadas sobre a PCM, consulte o [site da documentação da Plataforma](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/17378055/Plataforma+de+Coleta+de+M+tricas).
 
-  version: 1.0.7
+  version: 1.0.7 Beta
 
 security:
   - PCMAccessToken: []
@@ -2420,6 +2420,7 @@ components:
         - "totalAmountOfUniqueClients"
         - "clientOrgId"
         - "serverOrgId"
+        - "consentmentsStockList"
       properties:
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
@@ -2453,8 +2454,13 @@ components:
           type: number
         consentmentsStockList:
           type: array
+          minItems: 0
           items:
             type: object
+            required:
+              - clientOrgId
+              - serverOrgId
+              - totalActiveConsentiments
             properties:
               clientOrgId:
                 description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
