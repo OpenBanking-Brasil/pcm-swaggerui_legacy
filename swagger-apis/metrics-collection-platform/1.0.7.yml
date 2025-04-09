@@ -58,7 +58,6 @@ tags:
       [Ver diagrama de sequência](https://github.com/OpenBanking-Brasil/specs-pcm/blob/feature/PCM-122/openapi/hybrid-flow-diagram.svg?raw=true)
       
       [Ver fluxograma de envio de reports](https://raw.githubusercontent.com/OpenBanking-Brasil/specs-pcm/feature/PCM-122/openapi/Diagrama%20API%20PCM%20Hybrid%20Flow_v3.drawio.svg)
-
   - name: "Consents API"
     description: |
       API dedicada para obtenção de estoque de consentimento, à partir do auto reporte das instituições, com endpoint único para os papeis Client/Server.
@@ -797,8 +796,9 @@ paths:
     post:
       tags:
         - Consents API
-      summary: ""
-      description: ""
+      summary: Gerencia informações referentes ao estoque de consentimentos ativos
+      description: |
+        API dedicada à obtenção de estoque de consentimentos, a partir do autorreporte das instituições, com endpoint único para os papeis Client/Server. Registra a quantidade total de estoque de consentimentos ativos até a data de referência, assegurando que a quantidade de consentimentos únicos para PF/PJ não exceda a quantidade de consentimentos ativos. Deve-se garantir o envio os dados relativos a uma data de referência até 08h00 do dia seguinte. 
       operationId: add-reports
       requestBody:
         content:
@@ -929,18 +929,21 @@ components:
         - BROWSER
         - APP
       example: BROWSER
+
     URI:
       type: string
       format: uri
       pattern: ^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$
       maxLength: 2000
       example: https://api.banco.com.br/open-banking/api/v1/resource
+
     Timestamp:
       description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
       type: string
       format: date-time
       maxLength: 28
       example: "2021-11-11T18:08:08.278Z"
+
     ConsentId:
       type: string
       pattern: ^urn:[a-zA-Z0-9][a-zA-Z0-9\-]{0,31}:[a-zA-Z0-9()+,\-.:=@;$_!*''%\/?#]+$
@@ -973,6 +976,7 @@ components:
         - IOS
         - ANDROID
         - OTHER
+
     HybridFlowClientRedirectToServerReportRequest:
       description: ""
       type: array
@@ -1103,6 +1107,7 @@ components:
             maxLength: 36
             pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
             example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
+
     HybridFlowServerRedirectToClientRequest:
       description: ""
       type: array
@@ -2493,7 +2498,6 @@ components:
           maxLength: 200
           example: "Missing fields: 'fapiInteractionId', 'endpoint'"
            
-
   securitySchemes:
     PCMAccessToken:
       type: http
