@@ -2423,20 +2423,20 @@ components:
         - "consentmentsStockList"
       properties:
         timestamp:
-          description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
+          description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição. Deve conter a data a que se referem os dados de consentimento enviados na mensagem.
           type: string
           format: date-time
           maxLength: 28
           example: "2021-11-11T18:08:08.278Z"
         orgId: 
-          description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+          description: Organização de envio da mensagem referente ao papel do Transmissor ou Receptor, conforme Role, a ser preenchido a partir do Certificado. A ser enviado vazio caso o reporte seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organisationId da instituição filha para o qual a instituição mãe está fazendo o reporte.
           type: string
           format: uuid
           maxLength: 36
           pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
           example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
         role:
-          description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
+          description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do SERVER ou do CLIENT.
           type: string
           enum:
             - CLIENT
@@ -2477,7 +2477,7 @@ components:
                 pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
                 example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
               totalActiveConsentiments: 
-                description: "Estoque total de consetimentos ativos"
+                description: Estoque total de consentimentos ativos, correspondendo ao número de consentimentos totais válidos até a data de referência.
                 type: number
 
     ConsentStockResponse:
