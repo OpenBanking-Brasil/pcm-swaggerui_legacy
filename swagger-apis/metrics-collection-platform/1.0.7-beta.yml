@@ -816,13 +816,13 @@ paths:
                   scope: "DADOS"
                   totalCustomerPF: 10
                   totalCustomerPJ: 10
-                  consentmentsStockList: 
+                  consentsStockList: 
                     - clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
                       serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                      totalActiveConsentiments: 222
+                      totalActiveConsents: 222
                     - clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
                       serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                      totalActiveConsentiments: 223
+                      totalActiveConsents: 223
         required: true
       responses:
         "200":
@@ -2420,7 +2420,6 @@ components:
         - "totalAmountOfUniqueClients"
         - "clientOrgId"
         - "serverOrgId"
-        - "consentmentsStockList"
       properties:
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição. Deve conter a data a que se referem os dados de consentimento enviados na mensagem.
@@ -2452,31 +2451,27 @@ components:
         totalCustomerPJ:
           description: "A ser preenchido com o total de clientes PJ com consentimentos ativos. Formato: Númerico inteiro natural"
           type: number
-        consentmentsStockList:
+        consentsStockList:
           type: array
-          minItems: 0
+          minItems: 1
           items:
             type: object
-            required:
-              - clientOrgId
-              - serverOrgId
-              - totalActiveConsentiments
             properties:
               clientOrgId:
-                description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                description: Identificador da organização de onde a chamada foi disparada.
                 type: string
                 format: uuid
                 maxLength: 36
                 pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
                 example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
               serverOrgId:
-                description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                description: Identificador da organização para onde a chamada foi feita.
                 type: string
                 format: uuid
                 maxLength: 36
                 pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
                 example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
-              totalActiveConsentiments: 
+              totalActiveConsents: 
                 description: Estoque total de consentimentos ativos, correspondendo ao número de consentimentos totais válidos até a data de referência.
                 type: number
 
