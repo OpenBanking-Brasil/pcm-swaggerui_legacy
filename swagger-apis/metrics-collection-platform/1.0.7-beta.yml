@@ -2420,7 +2420,6 @@ components:
         - "totalAmountOfUniqueClients"
         - "clientOrgId"
         - "serverOrgId"
-        - "consentmentsStockList"
       properties:
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição. Deve conter a data a que se referem os dados de consentimento enviados na mensagem.
@@ -2454,23 +2453,19 @@ components:
           type: number
         consentmentsStockList:
           type: array
-          minItems: 0
+          minItems: 1
           items:
             type: object
-            required:
-              - clientOrgId
-              - serverOrgId
-              - totalActiveConsentiments
             properties:
               clientOrgId:
-                description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                description: Identificador da organização de onde a chamada foi disparada.
                 type: string
                 format: uuid
                 maxLength: 36
                 pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
                 example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
               serverOrgId:
-                description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
+                description: Identificador da organização para onde a chamada foi feita.
                 type: string
                 format: uuid
                 maxLength: 36
