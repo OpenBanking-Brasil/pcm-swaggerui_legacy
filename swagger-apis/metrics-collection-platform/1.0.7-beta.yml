@@ -816,13 +816,13 @@ paths:
                   scope: "DADOS"
                   totalCustomerPF: 10
                   totalCustomerPJ: 10
-                  consentmentsStockList: 
+                  consentsStockList: 
                     - clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
                       serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                      totalActiveConsentiments: 222
+                      totalActiveConsents: 222
                     - clientOrgId: "082ff90b-9d65-46bb-b123-b88eb47fd61c"
                       serverOrgId: "b8e34d5a-2ed5-451e-8ddb-45a1edc76243"
-                      totalActiveConsentiments: 223
+                      totalActiveConsents: 223
         required: true
       responses:
         "200":
@@ -2451,7 +2451,7 @@ components:
         totalCustomerPJ:
           description: "A ser preenchido com o total de clientes PJ com consentimentos ativos. Formato: Númerico inteiro natural"
           type: number
-        consentmentsStockList:
+        consentsStockList:
           type: array
           minItems: 1
           items:
@@ -2471,7 +2471,7 @@ components:
                 maxLength: 36
                 pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
                 example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
-              totalActiveConsentiments: 
+              totalActiveConsents: 
                 description: Estoque total de consentimentos ativos, correspondendo ao número de consentimentos totais válidos até a data de referência.
                 type: number
 
