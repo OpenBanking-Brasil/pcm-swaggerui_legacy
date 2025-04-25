@@ -1331,17 +1331,17 @@ components:
                 |----------|-------------|
                 | <br>POST /open-banking/payments/v4/consents&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
                 |----------|-------------|
-                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT<br>AUTOMATIC
+                | <br>POST /open-banking/payments/v4/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
                 |----------|-------------|
-                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT<br>AUTOMATIC
+                | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
                 |----------|-------------|
                 | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
                 |----------|-------------|
                 | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
                 |----------|-------------|
-                | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING<br>AUTOMATIC
+                | <br>POST /automatic-payments/v1/pix/recurring-payments&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
                 |----------|-------------|
-                | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
+                | <br>PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING
                 | <br>POST /open-banking/automatic-payments/v2/recurring-consents&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
                 |----------|-------------|
                 | <br>POST /open-banking/automatic-payments/v2/recurring-consents/{recurringConsentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
@@ -1437,6 +1437,18 @@ components:
                 | --------- | ----------------- | ----------------------- | ----------------------- |
                 | PATCH /automatic-payments/v1/pix/recurring-payments/{paymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
                 | --------- | ----------------- | ----------------------- | ----------------------- |
+                | POST /open-banking/automatic-payments/v2/recurring-consents     | Criar consentimento para iniciação de pagamento​                                                                              | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | GET /open-banking/automatic-payments/v2/recurring-consents/{recurringConsentId}​       | Consultar consentimento para iniciação de pagamento​​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /open-banking/automatic-payments/v2/recurring-consents/{recurringConsentId}​     | Rejeita, revoga ou edita um consentimento​          ​                                                                          | Se revogation: {RevocationReasonCode, RevocationReasonDetail, RevokedBy, RevokedFrom}​ <br> Se rejected: {RejectedBy, RejectedFrom}​        | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | POST /open-banking/automatic-payments/v2/pix/recurring-payments​​              | Pix - Criar iniciação de pagamento limitada por parametrização de tempo ou limite total realizada no consentimento​​           | -                                  
+                | --------- | ----------------- | ----------------------- | ----------------------- |        
+                | GET /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​   | Pix - Consultar iniciação de pagamento​                                                                                       | -                                    | -
+                | --------- | ----------------- | ----------------------- | ----------------------- |
+                | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
+            
                 <br>
               type: string
             RevokedBy:
