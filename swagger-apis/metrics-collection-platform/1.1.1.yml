@@ -933,7 +933,7 @@ components:
     URI:
       type: string
       format: uri
-      pattern: ^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$
+      pattern:  ^[- /:_.',0-9a-zA-Z]{0,200}$
       maxLength: 2000
       example: https://api.banco.com.br/open-banking/api/v1/resource
 
@@ -997,7 +997,7 @@ components:
           uriAuthorizationEndpoint:
             type: string
             format: uri
-            pattern: ^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$
+            pattern: ^[- /:_.',0-9a-zA-Z]{0,200}$
             maxLength: 2000
             example: https://api.banco.com.br/open-banking/api/v1/resource
           platform:
