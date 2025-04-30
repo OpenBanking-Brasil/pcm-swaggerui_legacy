@@ -1642,10 +1642,10 @@ components:
             isFirstPayment:
               description: |
                 Valida se o serviço possui um pagamento associado na adesão.
-              type: boolean
+              type: string
               enum:
-                - TRUE
-                - FALSE
+                - "TRUE"
+                - "FALSE"
             hasMinimumAmount:
               description: |
                 Valida se possui o valor mínimo definido pelo usuário recebedor​.
@@ -2480,10 +2480,10 @@ components:
         isFirstPayment:
           description: |
             Valida se o serviço possui um pagamento associado na adesão.
-          type: boolean
+          type: string
           enum:
-            - TRUE
-            - FALSE
+            - "TRUE"
+            - "FALSE"
         hasMinimumAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
@@ -2572,10 +2572,10 @@ components:
         isFirstPayment:
           description: |
             Valida se o serviço possui um pagamento associado na adesão.
-          type: boolean
+          type: string
           enum:
-            - TRUE
-            - FALSE
+            - "TRUE"
+            - "FALSE"
         hasMinimumAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
