@@ -1367,12 +1367,25 @@ components:
                 | <br>PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
             
                 <br>
+                Identifica o modo de pagamento acionado no consentimento.
+
+                Valores possíveis:
+                - `IMMEDIATE`: Pix sem configuração de agendamento
+                - `SCHEDULED`: Pix com configuração de agendamento
+                - `RECURRENT`: Pix com agendamento e recorrência
+                - `SWEEPING`: Chamadas de pagamentos inteligentes
+                - `AUTOMATIC`: Pagamentos automáticos
               type: string
               enum:
-                - IMMEDIATE: Pix sem configuração de agendamento​
-                - SCHEDULED: Pix com configuração de agendamento​
-                - RECURRENT: Pix sem configuração de agendamento e configuração de recorrência​
-                - SWEEPING: para todas as chamadas de pagamentos inteligentes​
+                - IMMEDIATE
+                - SCHEDULED
+                - RECURRENT​
+                - SWEEPING
+              x-enum-descriptions:
+                - Pix sem configuração de agendamento​
+                - Pix com configuração de agendamento​
+                - Pix sem configuração de agendamento e configuração de recorrência​
+                - para todas as chamadas de pagamentos inteligentes​
             dropReason:
               description: |
                 1. O campo dropReason deve ser adicionado nas informações do campo additionalInfo que deverá ser enviado no reporte do provedor do serviço consumido (papel SERVER)
@@ -2235,12 +2248,25 @@ components:
             | <br>PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
             
             <br>
+            Identifica o modo de pagamento acionado no consentimento.
+            Valores possíveis:
+            - `IMMEDIATE`: Pix sem configuração de agendamento
+            - `SCHEDULED`: Pix com configuração de agendamento
+            - `RECURRENT`: Pix com agendamento e recorrência
+            - `SWEEPING`: Chamadas de pagamentos inteligentes
+            - `AUTOMATIC`: Pagamentos automáticos
+            <br>
           type: string
           enum:
-            - IMMEDIATE: Pix sem configuração de agendamento​
-            - SCHEDULED: Pix com configuração de agendamento​
-            - RECURRENT: Pix sem configuração de agendamento e configuração de recorrência​
-            - SWEEPING: para todas as chamadas de pagamentos inteligentes​
+            - IMMEDIATE
+            - SCHEDULED
+            - RECURRENT​
+            - SWEEPING
+          x-enum-descriptions:
+            - Pix sem configuração de agendamento​
+            - Pix com configuração de agendamento​
+            - Pix sem configuração de agendamento e configuração de recorrência​
+            - para todas as chamadas de pagamentos inteligentes​
         RevocationReasonCode:
           description: |
             Código indicador do motivo da revogação
@@ -2637,22 +2663,23 @@ components:
       description: ""
       type: object
       required:
-        - "timestamp"
+        - "date"
         - "orgId"          
         - "role"
         - "scope"
         - "totalAmountOfUniqueClients"
         - "clientOrgId"
         - "serverOrgId"
+        - "consentsStockList"
       properties:
-        timestamp:
-          description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição. Deve conter a data a que se referem os dados de consentimento enviados na mensagem.
+        date:
+          description: Data UTC no formato ISO8601 (YYYY-MM-DD) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição. Deve conter a data a que se referem os dados de consentimento enviados na mensagem.
           type: string
-          format: date-time
-          maxLength: 28
-          example: "2021-11-11T18:08:08.278Z"
+          format: date
+          maxLength: 10
+          example: "2021-11-11"
         orgId: 
-          description: Organização de envio da mensagem referente ao papel do Transmissor ou Receptor, conforme Role, a ser preenchido a partir do Certificado. A ser enviado vazio caso o reporte seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organisationId da instituição filha para o qual a instituição mãe está fazendo o reporte.
+          description: Organização de envio da mensagem referente ao papel do Transmissor ou Receptor, conforme Role, a ser preenchido a partir do Certificado. 
           type: string
           format: uuid
           maxLength: 36
