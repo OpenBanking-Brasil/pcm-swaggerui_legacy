@@ -1381,6 +1381,7 @@ components:
                 - SCHEDULED
                 - RECURRENT​
                 - SWEEPING
+                - AUTOMATIC
               x-enum-descriptions:
                 - Pix sem configuração de agendamento​
                 - Pix com configuração de agendamento​
@@ -1498,11 +1499,22 @@ components:
                 | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             
                 <br>
+                Valores possiveis 
+
+                - `INICIADORA``: apenas para a role CLient
+                - `USUARIO``: para a role Server e Client
+                - `DETENTORA``: apenas para a role Server
+
+                <br>
               type: string
               enum:
-                - INICIADORA: apenas para a role CLient
-                - USUARIO: para a role Server e Client
-                - DETENTORA: apenas para a role Server
+                - INICIADORA
+                - USUARIO
+                - DETENTORA
+              x-enum-descriptions:
+                - apenas para a role CLient
+                - para a role Server e Client
+                - apenas para a role Server​
             RevokedFrom:
               description: |
                 Canal onde iniciou-se o processo de revogação
@@ -1537,10 +1549,19 @@ components:
                 | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             
                 <br>
+
+                Valores possíveis
+                - `INICIADORA`: para a role Server e Client
+                - `DETENTORA`: apenas para a role Server
+
+                <br>
               type: string
               enum:
-                - INICIADORA: para a role Server e Client
-                - DETENTORA: apenas para a role Server
+                - INICIADORA
+                - DETENTORA
+              x-enum-descriptions:
+                - para a role Server e Client
+                - apenas para a role Server
             RejectedBy:
               description: |
                 Quem iniciou a solicitação de rejeição
@@ -1575,11 +1596,24 @@ components:
                 | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             
                 <br>
+
+                Valores possíveis
+
+                - `INICIADORA`: apenas para a role Client
+                - `USUARIO`: para a role Server e Client
+                - `DETENTORA`: apenas para a role Server
+
+                <br>
               type: string
               enum:
-                - INICIADORA: apenas para a role Client
-                - USUARIO: para a role Server e Client
-                - DETENTORA: apenas para a role Server
+                - INICIADORA
+                - USUARIO
+                - DETENTORA
+              x-enum-descriptions:
+                - apenas para a role Client
+                - para a role Server e Client
+                - apenas para a role Server
+
             RejectedFrom:
               description: |
                 Canal onde iniciou-se o processo de rejeição
@@ -1613,10 +1647,19 @@ components:
                 | --------- | ----------------- | ----------------------- | ----------------------- |
                 | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
                 <br>
+
+                Valores possíveis
+                - `INICIADORA`: para a role Server e Client
+                - `DETENTORA`: apenas para a role Server
+
+                <br>
               type: string
               enum:
-                - INICIADORA: para a role Server e Client
-                - DETENTORA: apenas para a role Server
+                - INICIADORA
+                - DETENTORA
+              x-enum-descriptions:
+                - para a role Server e Client
+                - apenas para a role Server
             grantType:
               description: |
                 O valor deste campo deve ser o valor enviado no campo grant_type da chamada ao endpoint de token
@@ -2262,11 +2305,13 @@ components:
             - SCHEDULED
             - RECURRENT​
             - SWEEPING
+            - AUTOMATIC
           x-enum-descriptions:
             - Pix sem configuração de agendamento​
             - Pix com configuração de agendamento​
             - Pix sem configuração de agendamento e configuração de recorrência​
             - para todas as chamadas de pagamentos inteligentes​
+            - Pagamentos automáticos
         RevocationReasonCode:
           description: |
             Código indicador do motivo da revogação
@@ -2369,6 +2414,13 @@ components:
             | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             
             <br>
+            Valores possiveis 
+            
+            - `INICIADORA``: apenas para a role CLient
+            - `USUARIO``: para a role Server e Client
+            - `DETENTORA``: apenas para a role Server
+            
+            <br>
 
           type: string
           enum:
@@ -2408,11 +2460,20 @@ components:
             | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             
             <br>
+            
+            Valores possíveis
+            - `INICIADORA`: para a role Server e Client
+            - `DETENTORA`: apenas para a role Server
+
+            <br>
 
           type: string
           enum:
             - INICIADORA
             - DETENTORA
+          x-enum-descriptions:
+            - para a role Server e Client
+            - apenas para a role Server
         RejectedBy:
           description: |
             Quem iniciou a solicitação de rejeição
@@ -2446,12 +2507,22 @@ components:
             | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             
             <br>
+            Valores possíveis
+            - `INICIADORA`: apenas para a role CLient
+            - `USUARIO`: para a role Server e Client
+            - `DETENTORA`: apenas para a role Server
+            
+            <br>
 
           type: string
           enum:
             - INICIADORA
             - USUARIO
             - DETENTORA
+          x-enum-descriptions:
+            - apenas para a role CLient
+            - para a role Server e Client
+            - apenas para a role Server​
         RejectedFrom:
           description: |
             Canal onde iniciou-se o processo de rejeição
@@ -2485,10 +2556,19 @@ components:
             | PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}​ | Pix - Cancelar iniciação de pagamento​​                                                                                        | Será necessário o reporte porém temos que aguardar a <br> definição do nome do campo pelo GT Especificações Serviços​                      | -
             <br>
 
+            Valores possíveis
+            - `INICIADORA`: apenas para a role CLient
+            - `DETENTORA`: apenas para a role Server
+            
+            <br>
+
           type: string
           enum:
             - INICIADORA
             - DETENTORA
+          x-enum-descriptions:
+            - apenas para a role CLient
+            - apenas para a role Server
         amountType:
           description: |
             Valida se o serviço contratado possui maior conversão em relação ao tipo do valor definido, sendo ele fixo ou variável​.
