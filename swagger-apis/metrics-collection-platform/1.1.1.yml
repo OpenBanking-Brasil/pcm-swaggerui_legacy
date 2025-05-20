@@ -810,7 +810,7 @@ paths:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  timestamp: "2021-11-11T18:08:08.894Z"
+                  date: "2021-11-11"
                   orgId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                   role: CLIENT
                   scope: "DADOS"
