@@ -928,7 +928,7 @@ paths:
       summary: "Inclusão de reports de portabilidade"
       description: |
         Valida se já existe um pedido de portabilidade de crédito para o contrato solicitado pelo trilho do OFB ou da Registradora.
-      operationId: add-reports
+      operationId: add-portability-reports
       requestBody:
         content:
           application/json:
