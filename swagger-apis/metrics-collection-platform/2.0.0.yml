@@ -799,7 +799,7 @@ paths:
       summary: Gerencia informações referentes ao estoque de consentimentos ativos
       description: |
         API dedicada à obtenção de estoque de consentimentos, a partir do autorreporte das instituições, com endpoint único para os papeis Client/Server. Registra a quantidade total de estoque de consentimentos ativos até a data de referência, assegurando que a quantidade de consentimentos únicos para PF/PJ não exceda a quantidade de consentimentos ativos. Deve-se garantir o envio diários dos dados relativos a uma data de referência até 08h00 do dia seguinte. 
-      operationId: add-reports
+      operationId: add-consents-reports
       requestBody:
         content:
           application/json:
