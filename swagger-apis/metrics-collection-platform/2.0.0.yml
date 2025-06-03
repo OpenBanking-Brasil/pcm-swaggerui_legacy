@@ -982,6 +982,7 @@ paths:
                   description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
                   value:
                     reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     status: ACCEPTED
 
         "207":
@@ -1002,6 +1003,7 @@ paths:
                     No caso apresentado é o resultado onde o exemplo "Request com falha" foi enviado: o registro com o _fapiInteractionId_ `d78fc4e5-37ca-4da3-adf2-9b082bf92280` apresentou uma falha na validação, mas os demais foram enviados para processamento. Como um dos registros não foi validado, o status de retorno passa a ser 207, e os demais registros são processados normalmente.
                   value:
                     reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     status: DISCARDED
                     message: "Invalid field value, httpMethod: httpMethod must be in enum"
                 "Todos registros com falha":
@@ -2891,10 +2893,9 @@ components:
           example: "Missing fields: 'fapiInteractionId', 'endpoint'"
 
     PortabilityRequest:
-      description: ""
+      description: "A Portabilidade de Crédito permite que os usuários transfiram suas operações de crédito e arrendamento mercantil entre instituições financeiras em busca de melhores condições."
       type: object
       required:
-        - "timestamp"
         - "portabilityId"          
         - "contractId"
         - "creationDateTime"
@@ -2904,57 +2905,101 @@ components:
         - "originalContractTerm"
         - "propositionTerm"
         - "status"
-        - "statusUpdateTime"
         - "rejectionReason"
-        - "rejectedBy"
+        - "timestamp"
         - "fapiInteractionId"
         - "endpoint"
         - "endpointUriPrefix"
         - "httpMethod"
         - "statusCode"
         - "reportId"
-        - "processTimeSpan"
         - "clientOrgId"
         - "serverOrgId"
         - "clientSSId"
         - "role"
       properties:
         timestamp:
-          description: Data UTC no formato ISO8601 (YYYY-MM-DD) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição. Deve conter a data a que se referem os dados de portabilidade enviados na mensagem.
+          description: |
+            Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
           type: string
-          format: datetime
-          maxLength: 10
-          example: "2021-11-11T18:08:08.894Z"
+          maxLength: 28
+          example: "2021-11-11T18:08:08.278Z"
         portabilityId: 
-          description: Organização de envio da mensagem referente ao papel do Transmissor ou Receptor, conforme Role, a ser preenchido a partir do Certificado. 
+          description: Código identificador do pedido de portabilidade realizado.
           type: string
           format: uuid
-          maxLength: 36
+          maxLength: 100
+          minLength: 1
           pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
+          example: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
         contractId:
-          description: código identificador do contrato de empréstimos a ser portado.
+          description: Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.
           type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$
+          example: "92792126019929279212650822221989319252576"
         creationDateTime:
-          description: "data e hora da solicitação do pedido de portabilidade efetuado junto a instituição credora"
+          description: "Data e hora em que a Proponente registrou a presente proposta (chamada ao POST /portabilities). Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC-0 (UTC time format)."
           type: string
+          minLength: 20
+          maxLength: 20
+          pattern: ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$
+          example: "2020-07-21T08:30:00Z"
         productSubTypeCategory:
-          description: "representa a Modalidade do produto a ser portado"
+          description: "Categoria para classificação específica relacionada com a submodalidade do produto"
           type: string
+          example: "CREDITO_PESSOAL_CLEAN"
         originalContractCET:
-          description: "CET do contrato original de emprestimo"
+          description: |
+            •	CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. 
+            Este valor representa 15%. O valor 1 representa 100%). 
+            Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. 
+            Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. 
+            O campo poderá ser preenchido com 0.00 em cenários nos quais a casa não tenha a informação de CET (Custo efetivo total) apenas para as exceções listadas abaixo:
+
+            - Em contratos anteriores a 2008 (para o público PF) 
+            - Em contratos anteriores a 2011 (para o público PJ);
+            - Público PJ de médio ou grande porte.
           type: string
+          minLength: 8
+          maxLength: 13
+          pattern: ^\d{1,6}\.\d{6}$
+          example: "0.290000"
         originalPropositionCET:
-          description: "CET da proposta"
+          description: |
+            •	CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
+            O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. 
+            Este valor representa 15%. O valor 1 representa 100%). 
+            Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. 
+            Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. 
+            O campo poderá ser preenchido com 0.00 em cenários nos quais a casa não tenha a informação de CET (Custo efetivo total) apenas para as exceções listadas abaixo:
+
+            - Em contratos anteriores a 2008 (para o público PF) 
+            - Em contratos anteriores a 2011 (para o público PJ);
+            - Público PJ de médio ou grande porte.
           type: string
+          minLength: 8
+          maxLength: 13
+          pattern: ^\d{1,6}\.\d{6}$
+          example: 0.290000
         originalContractTerm:
-          description: "prazo restante do contrato original de emprestimo"
-          type: string
+          description: Prazo restante do contrato original de empréstimo.
+          type: number
         propositionTerm:
-          description: "o	Prazo da Proposta"
-          type: string
+          description: "Prazo da proposta de portabilidade de crédito"
+          type: number
         status: 
-          description: "status do pedido de portabilidade de crédito"
+          description: |
+            Informação sobre o status de um pedido de portabilidade de crédito, onde:
+            - `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto à instituição credora. O pedido deve permanecer neste estado até o próximo dia útil (D+1) onde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING 
+            - `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
+            - `ACCEPTED_SETTLEMENT_IN_PROCESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
+            - `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito à credora que está validando os dados do contrato bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
+            - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
+            - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
+            - `PAYMENT_ISSUE`: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendência antes do cancelamento do pedido de portabilidade de crédito
           type: string
           enum:
             - PENDING 
@@ -2964,11 +3009,17 @@ components:
             - PORTABILITY_COMPLETED
             - REJECTED
             - CANCELLED
-        statusUpdateTime:
-          description: "data e hora da solicitação da mudança de estado do pedido de portabilidade"
+        statusUpdateDateTime:
+          description: "•	Data e hora em que o contrato teve o status atualizado. Uma string com data e hora conforme especificação RFC-3339, sempre com a utilização de timezone UTC(UTC time format)."
           type: string
+          maxLength: 20
+          pattern: ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$
+          example: "2020-07-21T08:30:00Z"
         rejectionReason:
-          description: "motivo de recusa do pedido de portabilidade"
+          description: |
+            Motivo de recusa do pedido de portabilidade.
+              - Só será preenchido caso o status seja `REJECTED`, `CANCELLED` ou `PAYMENT_ISSUE`
+              - A consulta ao endpoint de GET é requerida para o fluxo de portabilidade
           type: string
           enum:
             - CANCELADO_PELO_CLIENTE
@@ -2984,47 +3035,93 @@ components:
             - MODALIDADE_DA_OPERACAO_INCOMPATIVEL
             - OUTROS
         rejectedBy:
-          description: "identifica quem foi o responsável pela interrupção do pedido de portabilidade de crédito. Só será preenchido caso o status seja REJECTED ou CANCELLED"
+          description: |
+            Informar usuário responsável pela rejeição da proposta, onde: PROPONENTE - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades. USUARIO - Indica que o cliente cancelou o pedido de portabilidade de crédito. CREDORA- Indica que a Instituição Credora cancelou o contrato por retenção do cliente ou outros motivos conforme motivo de recusa.
+
+              - Só será preenchido caso o status seja REJECTED ou CANCELLED
           type: string
           enum:
             - PROPONENTE
             - USUARIO
             - CREDORA
         fapiInteractionId:
-          description: "A"
+          description: |
+            UUID que identifica uma transação específica entre dois participantes. Esse dado pode ser encontrado no header x-fapi-interaction-id informado pelo Client e devolvido pelo Server. Mais informações em Cabeçalhos HTTP na documentação do Open Finance Brasil. O envio dessa informação é obrigatório, exceto nos casos ontem ela não esteja disponível como, por exemplo, em respostas com status 5xx, ou em chamadas que terminaram por timeout onde o reporte tem que ser enviado, mas sem esse atributo. Nos demais cenários, o envio é obrigatório.
           type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
         endpoint: 
-          description: "A"
+          description: |
+            Identificação do endpoint que foi utilizado na transação reportada. A identificação do endpoint deve estar entre as entradas desse enum para ser considerado válido. Nesse campo não deve ser utilizado o path da requisição original, uma vez que ao comparar com os valores dessa enum, ele não será considerado válido.
           type: string
+          example: "/open-banking/consents/v2/consents"
         endendpointUriPrefix:
-          description: "A"
+          description: |
+            Endereço do servidor de destino da chamada, incluindo o prefixo quando houver. 
+            O formato do campo deverá ser o seguinte: `https://{host}/{prefixo}`, sendo:
+
+            - host: endereço FQDN do servidor de destino
+            - prefixo: toda a parte do path que vem antes da string /open-banking
           type: string
         httpMethod: 
-          description: ""
+          description: Método HTTP da solicitação.
           type: string
+          enum: ["POST"]
+          example: POST
+        correlationId:
+          description: |
+            ID de correlação que identifica uma sequência de chamadas inter-relacionadas no ecossistema. Diferente do fapiInteractionId que serve para identificar cada par request-response (interação), o identificador de correlação serve para ligar diferentes reportes quando estes representam uma jornada ou uma sequência de chamadas. Este valor é de livre provimento pelo reportador.
+          type: string
+          pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
+          maxLength: 100
+          example: uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2
         statusCode:
-          description: ""
-          type: string
+          description: Status de retorno HTTP da solicitação. No caso de ocorrer um timeout client side preencher com um código 403 (conforme documentação ).
+          type: integer
+          format: int32
+          example: 200
+          minimum: 200
+          maximum: 599
         reportId:
-          description: ""
+          description: Identificator único interno do reporte no formato UUID v4.
           type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "9a97c2df-b261-4fc2-aa66-d1b5168397da"
         processTimespan:
-          description: ""
-          type: string
+          description: "Tempo em milissegundos inteiros decorrido desde o registro do timestamp até a chegada do primeiro byte da resposta do server."
+          type: integer
+          example: 120
         clientOrgId:
-          description: ""
+          description: Identificador da organização de onde a chamada foi disparada.
           type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
         serverOrgId:
-          description: "A"
+          description: Identificador da organização para onde a chamada foi feita.
           type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
         clientSSId:
-          description: "A"
+          description: |
+            Identificador do software statement de onde a chamada foi disparada. A PCM garante que foi esta orgId que obteve o token de acesso utilizado neste reporte.
           type: string
+          maxLength: 36
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+          example: "84570da9-567b-4201-9b77-c715bc5bffde"
         role:
-          description: "A"
+          description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client.
           type: string
           enum:
             - CLIENT
+            - SERVER
                   
   securitySchemes:
     PCMAccessToken:
