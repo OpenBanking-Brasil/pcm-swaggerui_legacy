@@ -933,7 +933,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PortabilityRequest"
+              $ref: "#/components/schemas/CreditPortabilityRequest"
 
             examples:
               "Request Valido":
@@ -2892,7 +2892,7 @@ components:
           maxLength: 200
           example: "Missing fields: 'fapiInteractionId', 'endpoint'"
 
-    PortabilityRequest:
+    CreditPortabilityRequest:
       description: "A Portabilidade de Crédito permite que os usuários transfiram suas operações de crédito e arrendamento mercantil entre instituições financeiras em busca de melhores condições."
       type: object
       required:
