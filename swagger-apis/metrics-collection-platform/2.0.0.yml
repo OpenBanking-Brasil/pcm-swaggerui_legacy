@@ -957,8 +957,8 @@ paths:
                   productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
                   originalContractCET: "0.290000"
                   originalPropositionCET: "0.290000"
-                  originalContractTerm: ""
-                  propositionTerm: ""
+                  originalContractTerm: 57
+                  propositionTerm: 30
                   status: "PENDING"
                   statusUpdateDateTime: "2020-07-21T08:30:00Z"
                   rejectionReason: "CANCELADO_PELO_CLIENTE"
@@ -2037,7 +2037,7 @@ components:
       type: object
       properties:
         reportId:
-          description: Identificator único interno do reporte no formato UUID v4.
+          description: Identificador único interno do reporte no formato UUID v4.
           type: string
           format: uuid
           maxLength: 36
@@ -2068,7 +2068,7 @@ components:
         type: object
         properties:
           reportId:
-            description: Identificator único interno do reporte no formato UUID v4.
+            description: Identificador único interno do reporte no formato UUID v4.
             type: string
             format: uuid
             maxLength: 36
@@ -2877,7 +2877,7 @@ components:
       type: object
       properties:
         reportId:
-          description: Identificator único interno do reporte no formato UUID v4.
+          description: Identificador único interno do reporte no formato UUID v4.
           type: string
           format: uuid
           maxLength: 36
@@ -2987,9 +2987,13 @@ components:
         originalContractTerm:
           description: Prazo restante do contrato original de empréstimo.
           type: number
+          maximum: 999999
+          example: 57
         propositionTerm:
           description: "Prazo da proposta de portabilidade de crédito"
           type: number
+          maximum: 999999999
+          example: 30
         status: 
           description: |
             Informação sobre o status de um pedido de portabilidade de crédito, onde:
@@ -3085,7 +3089,7 @@ components:
           minimum: 200
           maximum: 599
         reportId:
-          description: Identificator único interno do reporte no formato UUID v4.
+          description: Identificador único interno do reporte no formato UUID v4.
           type: string
           format: uuid
           maxLength: 36
