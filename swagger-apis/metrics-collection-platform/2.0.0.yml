@@ -960,7 +960,7 @@ paths:
                   originalContractTerm: ""
                   propositionTerm: ""
                   status: "PENDING"
-                  statusUpdateDateTime: ""
+                  statusUpdateDateTime: "2020-07-21T08:30:00Z"
                   rejectionReason: "CANCELADO_PELO_CLIENTE"
                   rejectedBy: "PROPONENTE"
 
