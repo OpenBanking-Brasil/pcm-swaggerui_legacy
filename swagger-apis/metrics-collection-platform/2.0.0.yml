@@ -1667,6 +1667,24 @@ components:
                 3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
+                
+                Diretrizes:
+                - `NONE`: quando o CPF (loggedUser) / CNPJ (businessEntity) possui credencial autenticadora e poderes suficientes para prosseguir o fluxo monitorado - exemplo: PF, cliente, que possui credencial ativa, mas não se autenticou; cliente que se autenticou utilizando a credencial correta.
+                - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado.
+                - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços.
+                - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ.
+
+                Regras:
+                  - O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
+
+                    Para os casos em que ocorram falhas técnicas que impossibilitem a verificação do CPF/CNPJ (incluindo, mas não se limitando, a erros HTTP 4xx, 500 ou timeout na resposta), o reporte deve ser realizado com o valor NO_CREDENTIAL,
+
+                  Em jornadas de múltipla alçada de pessoas jurídicas, quando a autenticação é bem-sucedida mas os poderes constituídos são insuficientes para finalização do Hybrid Flow, deve-se usar NO_AUTHORITY.
+
+                Escopo:
+                  - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
+                  - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
+                  - Realizar a ingestão na PCM das informações enviadas no campo dropReason
               type: string
             RevocationReasonCode:
               description: |
@@ -2112,6 +2130,24 @@ components:
                 3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
                 4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
+
+                 Diretrizes:
+                - `NONE`: quando o CPF (loggedUser) / CNPJ (businessEntity) possui credencial autenticadora e poderes suficientes para prosseguir o fluxo monitorado - exemplo: PF, cliente, que possui credencial ativa, mas não se autenticou; cliente que se autenticou utilizando a credencial correta.
+                - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado.
+                - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços.
+                - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ.
+
+                Regras:
+                  - O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
+
+                    Para os casos em que ocorram falhas técnicas que impossibilitem a verificação do CPF/CNPJ (incluindo, mas não se limitando, a erros HTTP 4xx, 500 ou timeout na resposta), o reporte deve ser realizado com o valor NO_CREDENTIAL,
+
+                  Em jornadas de múltipla alçada de pessoas jurídicas, quando a autenticação é bem-sucedida mas os poderes constituídos são insuficientes para finalização do Hybrid Flow, deve-se usar NO_AUTHORITY.
+
+                Escopo:
+                  - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
+                  - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
+                  - Realizar a ingestão na PCM das informações enviadas no campo dropReason
               type: string
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
@@ -2474,6 +2510,23 @@ components:
             3. Neste contexto define-se como cliente o CPF/CNPJ que possui credencial autenticadora para prosseguir no fluxo monitorado.
             4. O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
             5. Para o caso em que o operador não possui poder, após autenticação dele e desambiguação de quem está operando, o reporte deve ser realizado com "NO_CREDENTIAL".
+
+            Diretrizes:
+               - `NONE`: quando o CPF (loggedUser) / CNPJ (businessEntity) possui credencial autenticadora e poderes suficientes para prosseguir o fluxo monitorado - exemplo: PF, cliente, que possui credencial ativa, mas não se autenticou; cliente que se autenticou utilizando a credencial correta.
+               - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado.
+               - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços.
+               - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ.
+
+            Regras:
+              - O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
+                Para os casos em que ocorram falhas técnicas que impossibilitem a verificação do CPF/CNPJ (incluindo, mas não se limitando, a erros HTTP 4xx, 500 ou timeout na resposta), o reporte deve ser realizado com o valor NO_CREDENTIAL,
+                Em jornadas de múltipla alçada de pessoas jurídicas, quando a autenticação é bem-sucedida mas os poderes constituídos são insuficientes para finalização do Hybrid Flow, deve-se usar NO_AUTHORITY.
+
+            Escopo:
+              - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
+              - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
+              - Realizar a ingestão na PCM das informações enviadas no campo dropReason
+              
           type: string
         paymentType:
           description: |
