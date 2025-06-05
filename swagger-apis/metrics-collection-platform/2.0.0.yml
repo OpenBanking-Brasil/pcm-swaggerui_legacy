@@ -2526,7 +2526,7 @@ components:
               - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
               - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
               - Realizar a ingestão na PCM das informações enviadas no campo dropReason
-              
+
           type: string
         paymentType:
           description: |
@@ -2880,6 +2880,13 @@ components:
             Regras:
               - Preencher com o valor do campo "cancellation.reason"
           type: string
+        nfcPayment:
+          description: |
+            Armazena a informação e correlacioná-a com o consentimento e o pagamento originado
+          type: string
+          enum:
+            - TRUE
+            - FALSE
         
     OpendataAdditionalInfo:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo).
