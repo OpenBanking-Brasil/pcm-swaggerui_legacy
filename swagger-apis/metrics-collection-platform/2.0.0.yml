@@ -2880,6 +2880,13 @@ components:
             Regras:
               - Preencher com o valor do campo "cancellation.reason"
           type: string
+        nfcPayment:
+          description: |
+            Armazena a informação e correlacioná-a com o consentimento e o pagamento originado. 
+          type: string
+          enum:
+            - TRUE
+            - FALSE
         
     OpendataAdditionalInfo:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo).
@@ -3102,6 +3109,7 @@ components:
         - "serverOrgId"
         - "clientSSId"
         - "role"
+        - "processTimespan"
       properties:
         timestamp:
           description: |
@@ -3350,12 +3358,6 @@ components:
           type: string
           enum: ["GET", "POST", "PUT", "DELETE", "PATCH"]
           example: GET
-        correlationId:
-          description: Não utilizado pelo server.
-          type: string
-          pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
-          maxLength: 100
-          example: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi recebida, imediatamente antes do primeiro byte enviado na requisição.
           type: string
