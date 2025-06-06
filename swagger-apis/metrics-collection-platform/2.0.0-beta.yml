@@ -1550,7 +1550,7 @@ components:
               description: Deve ser preenchido com a mesma string obtida no campo `.data.consentId` retornado após a chamada inicial na API "POST /consent". *Ao reportar o uso de um endpoint /token, o identificador único de consentimento só será reportado nos casos em que "grant_type" é do tipo "authorization_code" ou do tipo "refresh_token", uma vez que esta informação de consentId é inexistente quando "grant_type" é do tipo
               type: string
             personType:
-              description: Deve ser preenchida baseado no tipo de pessoa responsável pelo consentimento. Deverá ser obserdado se `.data.businessEntity` estiver preenchido no payload, se estiver então preencher com "PJ", se não estiver então preencher com "PF"
+              description: Deve ser preenchida baseado no tipo de pessoa responsável pelo consentimento. Deverá ser observado se `.data.businessEntity` estiver preenchido no payload, se estiver então preencher com "PJ", se não estiver então preencher com "PF"
               type: string
               enum:
                 - PF
