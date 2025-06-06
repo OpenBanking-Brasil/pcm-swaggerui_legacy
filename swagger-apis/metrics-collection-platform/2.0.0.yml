@@ -1994,7 +1994,16 @@ components:
                 Regras:
                   - Preencher com o valor do campo "cancellation.reason"
               type: string
-            
+            nfcPayment:
+              description: |
+                As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento originado. Replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
+                
+                Regras:
+                  - Preencher com o valor do campo "nfcPayment"
+              type: string
+              enum:
+                - "TRUE"
+                - "FALSE"
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
           type: string
@@ -2842,8 +2851,8 @@ components:
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
           type: boolean
           enum:
-            - TRUE
-            - FALSE
+            - "TRUE"
+            - "FALSE"
         isRetryAccepted:
           description: |
             Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
