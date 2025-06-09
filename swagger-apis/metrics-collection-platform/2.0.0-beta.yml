@@ -1996,7 +1996,7 @@ components:
               type: string
             nfcPayment:
               description: |
-                As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento originado. Replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
+                As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento correspondente. Deve-se também replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
                 
                 Regras:
                   - Preencher com o valor do campo "nfcPayment"
@@ -2884,7 +2884,7 @@ components:
           type: string
         nfcPayment:
           description: |
-            As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento originado. Replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
+            As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento correspondente. Deve-se também replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
             
             Regras:
               - Preencher com o valor do campo "nfcPayment"
