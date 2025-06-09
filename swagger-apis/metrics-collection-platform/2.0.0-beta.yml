@@ -1956,8 +1956,8 @@ components:
                 Valida se possui o valor mínimo definido pelo usuário recebedor​.
               type: string
               enum:
-                - TRUE
-                - FALSE
+                - "TRUE"
+                - "FALSE"
             isRetryAccepted:
               description: |
                 Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
@@ -2844,8 +2844,8 @@ components:
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
           type: boolean
           enum:
-            - TRUE
-            - FALSE
+            - "TRUE"
+            - "FALSE"
         isRetryAccepted:
           description: |
             Identifica se foi autorizado a tentativas de pagamento em dias subsequentes na situação de falha do pagamento da recorrência
