@@ -1069,6 +1069,49 @@ paths:
         default:
           $ref: "#/components/responses/Default500InternalServerError"
 
+  "/report-api/v1/credit-portabilities/{fapiInteractionId}":
+    get:
+      tags:
+        - Credit Portability API
+      summary: Consulta um report em específico usando um identificador
+      description: |
+        Operação que permite a consulta de um reporte em específico mediante um identificador. A busca por reportes estará sempre no contexto do usuário representado pelo token de acesso, ou seja, o _participante_ só terá acesso a reportes em que instituição que ele pertence é parte, seja como client ou como server.
+
+        O processamento do registro ocorre de maneira assíncrona, o que pode gerar um cenário de consistência eventual: caso a consulta seja feita imediatamente após a inclusão, é possível que o registro ainda não esteja disponível para consulta.
+      operationId: report-by-id
+      parameters:
+        - name: reportId
+          description: Identificador do reporte que está sendo consultado
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
+            maxLength: 100
+      responses:
+        "200":
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditPortabilityReportModel"
+        "404":
+          description: O registro com o identificador informado não foi encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+        "401":
+          $ref: "#/components/responses/Default401Unauthorized"
+        "403":
+          $ref: "#/components/responses/Default403Forbidden"
+        "406":
+          $ref: "#/components/responses/Default406NotAcceptable"
+        "429":
+          $ref: "#/components/responses/Default429TooManyRequests"
+        default:
+          $ref: "#/components/responses/Default500InternalServerError"
+
   "/report-api/v1/credit-portabilities/server":
     post:
       tags:
@@ -1201,6 +1244,7 @@ paths:
         default:
           $ref: "#/components/responses/Default500InternalServerError"
 
+
 components:
   schemas:
     Platform:
@@ -1308,7 +1352,8 @@ components:
             example: "2021-11-11T18:08:08.278Z"
           clientOrgId:
             description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
-            $ref: "#/components/schemas/UUID"
+            allOf:
+              - $ref: "#/components/schemas/UUID"
 
     HybridFlowServerRedirectTargetReportRequest:
       description: ""
@@ -1455,11 +1500,8 @@ components:
             $ref: "#/components/schemas/Timestamp"
           clientOrgId:
             description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
-            type: string
-            format: uuid
-            maxLength: 36
-            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
+            allOf:
+            - $ref: "#/components/schemas/UUID"
 
     HybridFlowServerRedirectTargetWithErrorsRequest:
       description: ""
@@ -1493,11 +1535,8 @@ components:
             $ref: "#/components/schemas/Timestamp"
           clientOrgId:
             description: A ser enviado vazio caso o report seja da mesma instituição que obteve o token para uso da PCM e, caso contrário, deve ser preenchido com o organasationId da instituição filha para o qual a instituição mãe está fazendo o report.
-            type: string
-            format: uuid
-            maxLength: 36
-            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            example: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
+            allOf:
+            - $ref: "#/components/schemas/UUID"
 
     ClientReportRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Client (iniciador da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
@@ -1682,11 +1721,6 @@ components:
                     Para os casos em que ocorram falhas técnicas que impossibilitem a verificação do CPF/CNPJ (incluindo, mas não se limitando, a erros HTTP 4xx, 500 ou timeout na resposta), o reporte deve ser realizado com o valor NO_CREDENTIAL,
 
                   Em jornadas de múltipla alçada de pessoas jurídicas, quando a autenticação é bem-sucedida mas os poderes constituídos são insuficientes para finalização do Hybrid Flow, deve-se usar NO_AUTHORITY.
-
-                Escopo:
-                  - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
-                  - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
-                  - Realizar a ingestão na PCM das informações enviadas no campo dropReason
               type: string
             RevocationReasonCode:
               description: |
@@ -2017,7 +2051,8 @@ components:
           example: "84570da9-567b-4201-9b77-c715bc5bffde"
         clientOrgId:
           description: Identificador da organização **de onde** a chamada foi disparada
-          $ref: "#/components/schemas/UUID"
+          allOf:
+            - $ref: "#/components/schemas/UUID"
         serverOrgId:
           description: Identificador da organização **para onde** a chamada foi feita
           type: string
@@ -2105,7 +2140,8 @@ components:
           example: 120
         clientOrgId:
           description: Identificador da organização **de onde** a chamada foi disparada
-          $ref: "#/components/schemas/UUID"
+          allOf:
+            - $ref: "#/components/schemas/UUID"
         serverOrgId:
           description: Identificador da organização **para onde** a chamada foi feita. A PCM garante que foi esta orgId que obteve o token de acesso utilizado neste reporte.
           type: string
@@ -2137,11 +2173,6 @@ components:
                     Para os casos em que ocorram falhas técnicas que impossibilitem a verificação do CPF/CNPJ (incluindo, mas não se limitando, a erros HTTP 4xx, 500 ou timeout na resposta), o reporte deve ser realizado com o valor NO_CREDENTIAL,
 
                   Em jornadas de múltipla alçada de pessoas jurídicas, quando a autenticação é bem-sucedida mas os poderes constituídos são insuficientes para finalização do Hybrid Flow, deve-se usar NO_AUTHORITY.
-
-                Escopo:
-                  - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
-                  - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
-                  - Realizar a ingestão na PCM das informações enviadas no campo dropReason
               type: string
         role:
           description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
@@ -2254,6 +2285,26 @@ components:
         - UNPAIRED
         - PAIRED_INCONSISTENT
         - PAIRED
+
+    CreditPortabilityStatus:
+      description: |
+        Informação sobre o status de um pedido de portabilidade de crédito, onde:
+        - `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto à instituição credora. O pedido deve permanecer neste estado até o próximo dia útil (D+1) onde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING 
+        - `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
+        - `ACCEPTED_SETTLEMENT_IN_PROCESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
+        - `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito à credora que está validando os dados do contrato bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
+        - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
+        - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
+        - `PAYMENT_ISSUE`: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendência antes do cancelamento do pedido de portabilidade de crédito
+      type: string
+      enum:
+        - PENDING 
+        - RECEIVED 
+        - ACCEPTED_SETTLEMENT_IN_PROCESS
+        - ACCEPTED_SETTLEMENT_COMPLETED
+        - PORTABILITY_COMPLETED
+        - REJECTED
+        - CANCELLED
 
     ReportModel:
       description: Representa um reporte devidamente persistido.
@@ -2515,11 +2566,6 @@ components:
               - O reporte deverá ser feito por todos os transmissores de dados e detentoras de conta.
                 Para os casos em que ocorram falhas técnicas que impossibilitem a verificação do CPF/CNPJ (incluindo, mas não se limitando, a erros HTTP 4xx, 500 ou timeout na resposta), o reporte deve ser realizado com o valor NO_CREDENTIAL,
                 Em jornadas de múltipla alçada de pessoas jurídicas, quando a autenticação é bem-sucedida mas os poderes constituídos são insuficientes para finalização do Hybrid Flow, deve-se usar NO_AUTHORITY.
-
-            Escopo:
-              - Verificar regras de preenchimento do campo dropReason de acordo com as definições das PAR-128
-              - Atualizar a documentação do swagger nos produtos e endpoints onde o campo dropReason é obrigatório
-              - Realizar a ingestão na PCM das informações enviadas no campo dropReason
               
           type: string
         paymentType:
@@ -3031,7 +3077,8 @@ components:
             properties:
               clientOrgId:
                 description: Identificador da organização de onde a chamada foi disparada.
-                $ref: "#/components/schemas/UUID"
+                allOf:
+                  - $ref: "#/components/schemas/UUID"
               serverOrgId:
                 description: Identificador da organização para onde a chamada foi feita.
                 type: string
@@ -3279,7 +3326,8 @@ components:
           example: 120
         clientOrgId:
           description: Identificador da organização de onde a chamada foi disparada.
-          $ref: "#/components/schemas/UUID"
+          allOf:
+            - $ref: "#/components/schemas/UUID"
         serverOrgId:
           description: Identificador da organização para onde a chamada foi feita.
           type: string
@@ -3354,15 +3402,13 @@ components:
           format: int16
           example: 120
         clientOrgId:
-          description: Identificador da organização **de onde** a chamada foi disparada
-          $ref: "#/components/schemas/UUID"
+          description: Identificador da organização **de onde** a chamada foi disparada.
+          allOf:
+            - $ref: "#/components/schemas/UUID"
         serverOrgId:
+          allOf:
+            - $ref: "#/components/schemas/UUID"
           description: Identificador da organização **para onde** a chamada foi feita. A PCM garante que foi esta orgId que obteve o token de acesso utilizado neste reporte.
-          type: string
-          format: uuid
-          maxLength: 36
-          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-          example: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
         statusUpdateDateTime:
           description: "•	Data e hora em que o contrato teve o status atualizado. Uma string com data e hora conforme especificação ISO-8601, sempre com a utilização de timezone UTC(UTC time format)."
           type: string
@@ -3423,6 +3469,41 @@ components:
             - PORTABILITY_COMPLETED
             - REJECTED
             - CANCELLED
+
+    CreditPortabilityReportModel:
+      description: Representa um reporte devidamente persistido.
+      allOf:
+        - $ref: "#/components/schemas/CreditPortabilityClientRequest"
+        - type: object
+          properties:
+            reportId:
+              description: |
+                Identificador único do registro criado na Plataforma de Coleta de Métricas.
+              type: string
+              format: uuid
+              maxLength: 36
+              pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            pairedReportId:
+              description: |
+                Esse atributo indica o `reportId` do registro que forma uma correlação com o presente registro. Se essa informação existir, o status do registro atual deverá ser _PAIRED_
+              type: string
+              format: uuid
+              maxLength: 36
+              pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            creditPortabilityStatus:
+              $ref: "#/components/schemas/CreditPortabilityStatus"
+            createdAt:
+              description: |
+                Carimbo do tempo do momento da criação do registro
+              type: string
+              format: date-time
+              maxLength: 28
+            updatedAt:
+              description: |
+                Carimbo do tempo do momento da última atualização do registro
+              type: string
+              format: date-time
+              maxLength: 28
 
     UUID:
       type: string
