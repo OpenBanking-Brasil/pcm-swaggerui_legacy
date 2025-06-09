@@ -36,8 +36,6 @@ info:
   version: 2.0.0-beta
   contact:
     name: Governança Open Finance Brasil
-    url: https://www.openfinancebrasil.org.br/
-    email: contato@openfinancebrasil.org.br
   license:
     name: Licença Proprietária (uso interno restrito)
 
@@ -1996,6 +1994,16 @@ components:
                 Regras:
                   - Preencher com o valor do campo "cancellation.reason"
               type: string
+            nfcPayment:
+              description: |
+                As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento originado. Replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
+                
+                Regras:
+                  - Preencher com o valor do campo "nfcPayment"
+              type: string
+              enum:
+                - "TRUE"
+                - "FALSE"
             
         timestamp:
           description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
@@ -2874,6 +2882,16 @@ components:
             Regras:
               - Preencher com o valor do campo "cancellation.reason"
           type: string
+        nfcPayment:
+          description: |
+            As detentoras devem armazenar a informação e correlacioná-la com o consentimento e o pagamento originado. Replicar o valor presente do header “x-bcb-nfc” do endpoint POST /consents/{consentId}/authorise 
+            
+            Regras:
+              - Preencher com o valor do campo "nfcPayment"
+          type: string
+          enum:
+            - "TRUE"
+            - "FALSE"
         
     OpendataAdditionalInfo:
       description: Informações adicionais sobre o reporte deste endpoint/método. Possui característica variável. As regras de preenchimento estão na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#additionalInfo). Atenção especial na tabela Excel com a listagem de endpoints em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/806158355/Planilha+AdditionalInfo).
