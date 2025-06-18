@@ -943,12 +943,12 @@ paths:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  timestamp: "2021-11-11T18:08:08.894Z" 
+                  timestamp: "{{timestamp}}" 
                   fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                   clientSSId: "84570da9-567b-4201-9b77-c715bc5bffde"
-                  clientOrgId: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
-                  serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
-                  endpoint: "/open-banking/consents/v2/consents"
+                  clientOrgId: "{{organization_id}}"
+                  serverOrgId: "{{client_id}}"
+                  endpoint: "/credit-operations/{contractId}/portability-eligibility"
                   statusCode: 200
                   httpMethod: POST
                   correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
@@ -1130,7 +1130,7 @@ paths:
                 value:
                   reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                   fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  endpoint: "/open-banking/consents/v2/consents"
+                  endpoint: "/credit-operations/{contractId}/portability-eligibility"
                   httpMethod: POST
                   statusCode: 200
                   timestamp: "2021-11-11T18:08:08.894Z" 
@@ -1140,8 +1140,8 @@ paths:
                   role: "SERVER"
                   status: "PENDING"
                   statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                  rejectionReason: "CANCELADO_PELO_CLIENTE"
-                  rejectedBy: "PROPONENTE"                 
+                  rejectionReason: "CANCELED"
+                  rejectedBy: "CREDORA"                 
 
       responses:
         "200":
