@@ -943,11 +943,11 @@ paths:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  timestamp: "{{timestamp}}" 
+                  timestamp: "2021-11-11T18:08:08.278Z" 
                   fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                   clientSSId: "84570da9-567b-4201-9b77-c715bc5bffde"
-                  clientOrgId: "{{organization_id}}"
-                  serverOrgId: "{{client_id}}"
+                  clientOrgId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                  serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
                   endpoint: "/credit-operations/{contractId}/portability-eligibility"
                   statusCode: 200
                   httpMethod: POST
