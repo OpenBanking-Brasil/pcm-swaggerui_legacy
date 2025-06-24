@@ -33,7 +33,7 @@ info:
 
     Para informações detalhadas sobre a PCM, consulte o [site da documentação da Plataforma](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/17378055/Plataforma+de+Coleta+de+M+tricas).
 
-  version: 2.0.0
+  version: 2.1.0
   contact:
     name: Governança Open Finance Brasil
   license:
@@ -563,7 +563,7 @@ paths:
         default:
           $ref: "#/components/responses/Default500InternalServerError"
 
-  "/report-api/v1/private/report/{reportId}":
+  "/report-api/v1/private/report/{fapiInteractionId}":
     get:
       tags:
         - Private API
@@ -572,9 +572,9 @@ paths:
         Operação que permite a consulta de um reporte em específico mediante um identificador. A busca por reportes estará sempre no contexto do usuário representado pelo token de acesso, ou seja, o _participante_ só terá acesso a reportes em que instituição que ele pertence é parte, seja como client ou como server.
 
         O processamento do registro ocorre de maneira assíncrona, o que pode gerar um cenário de consistência eventual: caso a consulta seja feita imediatamente após a inclusão, é possível que o registro ainda não esteja disponível para consulta.
-      operationId: report-by-id
+      operationId: private-fapi-interaction-id
       parameters:
-        - name: reportId
+        - name: fapiInteractionId
           description: Identificador do reporte que está sendo consultado
           in: path
           required: true
@@ -605,61 +605,7 @@ paths:
           $ref: "#/components/responses/Default429TooManyRequests"
         default:
           $ref: "#/components/responses/Default500InternalServerError"
-
-    put:
-      tags:
-        - Private API
-      summary: Modifica um reporte baseado em seu reportId
-      description: |
-        Operação que permite a alteração de parâmetros de um reporte com base em seu reportId. A alteração do report é feita de forma assíncrona. Logo, se for feito um GET logo após o PUT o reporte ainda será entregue sem alterações. Não ressubmeta o PUT. Importante: Apenas os campos statusCode, httpMethod, processTimespan e endpoint podem ser modificados nessa operação. Apenas reportes no estado PAIRED_INCONSISTENT podem ser modificados. Necessidades adicionais de modificação por API podem ser sugeridas ao email: gt-arquitetura@openfinancebrasil.org.br
-      operationId: put-report-by-id
-      parameters:
-        - name: reportId
-          description: Identificador do reporte (campo `reportId`) que está sendo modificado
-          in: path
-          required: true
-          schema:
-            type: string
-            pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
-            maxLength: 100
-      requestBody:
-        content:
-          application/json:
-            schema:
-              oneOf:
-                - $ref: "#/components/schemas/ClientReportRequest"
-                - $ref: "#/components/schemas/ServerReportRequest"
-
-      responses:
-        "202":
-          description: Modificação submetida com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/EmptyObject"
-              example: {}
-
-        "400":
-          description: O reporte enviado está inconsistente
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericError"
-              example:
-                message: "Invalid field value: httpMethod"
-        "401":
-          $ref: "#/components/responses/Default401Unauthorized"
-        "403":
-          $ref: "#/components/responses/Default403Forbidden"
-        "404":
-          $ref: "#/components/responses/Default404NotFound"
-        "406":
-          $ref: "#/components/responses/Default406NotAcceptable"
-        "429":
-          $ref: "#/components/responses/Default429TooManyRequests"
-        default:
-          $ref: "#/components/responses/Default500InternalServerError"
-
+    
   "/report-api/v1/opendata/report":
     post:
       tags:
@@ -1078,7 +1024,7 @@ paths:
         O processamento do registro ocorre de maneira assíncrona, o que pode gerar um cenário de consistência eventual: caso a consulta seja feita imediatamente após a inclusão, é possível que o registro ainda não esteja disponível para consulta.
       operationId: report-by-id
       parameters:
-        - name: reportId
+        - name: fapiInteractionId
           description: Identificador do reporte que está sendo consultado
           in: path
           required: true
