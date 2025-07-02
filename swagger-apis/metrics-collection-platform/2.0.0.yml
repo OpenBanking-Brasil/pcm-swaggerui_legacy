@@ -943,30 +943,30 @@ paths:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  timestamp: "2021-11-11T18:08:08.278Z" 
-                  fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  clientSSId: "84570da9-567b-4201-9b77-c715bc5bffde"
-                  clientOrgId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
-                  endpoint: "/credit-operations/{contractId}/portability-eligibility"
-                  statusCode: 200
-                  httpMethod: POST
-                  correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
-                  processTimespan: 120
-                  endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
-                  role: "CLIENT"
-                  portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                  contractId: "92792126019929279212650822221989319252576"
-                  creationDateTime: "2020-07-21T08:30:00Z"
-                  productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
-                  originalContractCET: "0.290000"
-                  originalPropositionCET: "0.290000"
-                  originalContractTerm: 57
-                  propositionTerm: 30
-                  creditPortabilityStatus: "PENDING"
-                  statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                  rejectionReason: "CANCELADO_PELO_CLIENTE"
-                  rejectedBy: "PROPONENTE"
+                  - timestamp: "2021-11-11T18:08:08.278Z" 
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    clientSSId: "84570da9-567b-4201-9b77-c715bc5bffde"
+                    clientOrgId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    statusCode: 200
+                    httpMethod: POST
+                    correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+                    processTimespan: 120
+                    endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
+                    role: "CLIENT"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
+                    contractId: "92792126019929279212650822221989319252576"
+                    creationDateTime: "2020-07-21T08:30:00Z"
+                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
+                    originalContractCET: "0.290000"
+                    originalPropositionCET: "0.290000"
+                    originalContractTerm: 57
+                    propositionTerm: 30
+                    creditPortabilityStatus: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectedBy: "PROPONENTE"
 
       responses:
         "200":
@@ -1128,20 +1128,20 @@ paths:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                  fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  endpoint: "/credit-operations/{contractId}/portability-eligibility"
-                  httpMethod: POST
-                  statusCode: 200
-                  timestamp: "2021-11-11T18:08:08.894Z" 
-                  processTimespan: 120
-                  clientOrgId: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
-                  serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"                  
-                  role: "SERVER"
-                  status: "PENDING"
-                  statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                  rejectionReason: "CANCELED"
-                  rejectedBy: "CREDORA"                 
+                  - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    httpMethod: POST
+                    statusCode: 200
+                    timestamp: "2021-11-11T18:08:08.894Z" 
+                    processTimespan: 120
+                    clientOrgId: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
+                    serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"                  
+                    role: "SERVER"
+                    status: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELED"
+                    rejectedBy: "CREDORA"                 
 
       responses:
         "200":
