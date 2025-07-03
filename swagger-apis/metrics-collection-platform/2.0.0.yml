@@ -1076,9 +1076,9 @@ paths:
         Operação que permite a consulta de um reporte em específico mediante um identificador. A busca por reportes estará sempre no contexto do usuário representado pelo token de acesso, ou seja, o _participante_ só terá acesso a reportes em que instituição que ele pertence é parte, seja como client ou como server.
 
         O processamento do registro ocorre de maneira assíncrona, o que pode gerar um cenário de consistência eventual: caso a consulta seja feita imediatamente após a inclusão, é possível que o registro ainda não esteja disponível para consulta.
-      operationId: report-by-id
+      operationId: report-by-fapi-id
       parameters:
-        - name: reportId
+        - name: fapiInteractionId
           description: Identificador do reporte que está sendo consultado
           in: path
           required: true
