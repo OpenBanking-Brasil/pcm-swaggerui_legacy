@@ -883,36 +883,111 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreditPortabilityClientRequest"
+              type: array
+              maxItems: 5000
+              items:
+                $ref: "#/components/schemas/CreditPortabilityClientRequest"
 
             examples:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  timestamp: "2021-11-11T18:08:08.278Z" 
-                  fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  clientSSId: "84570da9-567b-4201-9b77-c715bc5bffde"
-                  clientOrgId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"
-                  endpoint: "/credit-operations/{contractId}/portability-eligibility"
-                  statusCode: 200
-                  httpMethod: POST
-                  correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
-                  processTimespan: 120
-                  endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
-                  role: "CLIENT"
-                  portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                  contractId: "92792126019929279212650822221989319252576"
-                  creationDateTime: "2020-07-21T08:30:00Z"
-                  productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
-                  originalContractCET: "0.290000"
-                  originalPropositionCET: "0.290000"
-                  originalContractTerm: 57
-                  propositionTerm: 30
-                  creditPortabilityStatus: "PENDING"
-                  statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                  rejectionReason: "CANCELADO_PELO_CLIENTE"
-                  rejectedBy: "PROPONENTE"
+                  - timestamp: "2021-11-11T18:08:08.278Z" 
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
+                    clientOrgId: "e6e7c657-4d6d-46d9-a78b-76cc02495cf5"
+                    serverOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    statusCode: 200
+                    httpMethod: POST
+                    correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+                    processTimespan: 120
+                    endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
+                    role: "CLIENT"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
+                    contractId: "92792126019929279212650822221989319252576"
+                    creationDateTime: "2020-07-21T08:30:00Z"
+                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
+                    originalContractCET: "0.290000"
+                    originalPropositionCET: "0.290000"
+                    originalContractTerm: 57
+                    propositionTerm: 30
+                    creditPortabilityStatus: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectedBy: "PROPONENTE"
+                  - timestamp: "2021-11-11T18:08:08.278Z" 
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
+                    clientOrgId: "e6e7c657-4d6d-46d9-a78b-76cc02495cf5"
+                    serverOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    statusCode: 200
+                    httpMethod: POST
+                    correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+                    processTimespan: 120
+                    endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
+                    role: "CLIENT"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
+                    contractId: "92792126019929279212650822221989319252576"
+                    creationDateTime: "2020-07-21T08:30:00Z"
+                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
+                    originalContractCET: "0.290000"
+                    originalPropositionCET: "0.290000"
+                    originalContractTerm: 57
+                    propositionTerm: 30
+                    creditPortabilityStatus: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectedBy: "PROPONENTE"
+                  - timestamp: "2021-11-11T18:08:08.278Z" 
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
+                    clientOrgId: "e6e7c657-4d6d-46d9-a78b-76cc02495cf5"
+                    serverOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    statusCode: 200
+                    httpMethod: POST
+                    correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+                    processTimespan: 120
+                    endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
+                    role: "CLIENT"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
+                    contractId: "92792126019929279212650822221989319252576"
+                    creationDateTime: "2020-07-21T08:30:00Z"
+                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
+                    originalContractCET: "0.290000"
+                    originalPropositionCET: "0.290000"
+                    originalContractTerm: 57
+                    propositionTerm: 30
+                    creditPortabilityStatus: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectedBy: "PROPONENTE"
+                  - timestamp: "2021-11-11T18:08:08.278Z" 
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
+                    clientOrgId: "e6e7c657-4d6d-46d9-a78b-76cc02495cf5"
+                    serverOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    statusCode: 200
+                    httpMethod: POST
+                    correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+                    processTimespan: 120
+                    endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
+                    role: "CLIENT"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
+                    contractId: "92792126019929279212650822221989319252576"
+                    creationDateTime: "2020-07-21T08:30:00Z"
+                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
+                    originalContractCET: "0.290000"
+                    originalPropositionCET: "0.290000"
+                    originalContractTerm: 57
+                    propositionTerm: 30
+                    creditPortabilityStatus: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectedBy: "PROPONENTE"
 
       responses:
         "200":
@@ -931,9 +1006,15 @@ paths:
                 Todos Processados:
                   description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
                   value:
-                    reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
 
         "207":
           description: |
@@ -952,23 +1033,29 @@ paths:
                   description: |
                     No caso apresentado é o resultado onde o exemplo "Request com falha" foi enviado: o registro com o _fapiInteractionId_ `d78fc4e5-37ca-4da3-adf2-9b082bf92280` apresentou uma falha na validação, mas os demais foram enviados para processamento. Como um dos registros não foi validado, o status de retorno passa a ser 207, e os demais registros são processados normalmente.
                   value:
-                    reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    status: DISCARDED
-                    message: "Invalid field value, httpMethod: httpMethod must be in enum"
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: DISCARDED
+                      message: "fapiInteractionId must be a UUID"
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
                 "Todos registros com falha":
                   description: |
                     Neste caso, parte-se da premissa que todos os registros foram enviados sem _correlationId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
                   value:
                     - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: wNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf
                       status: DISCARDED
                       message: "Missing fields: 'fapiInteractionId'"
                     - reportId: 4095388d-f44f-499a-a9a7-2dbffce1bb8a
-                      status: DISCARDED
-                      message: "Missing fields: 'fapiInteractionId'"
+                      correlationId: 8qPzRL4nBzesCc3H1827UlqqEuTT4F5lN82DuJllcnL5VnnY5j
+                      status: ACCEPTED
                     - reportId: 0f3fcceb-39f6-41b4-a75d-8444244bd836
-                      status: DISCARDED
-                      message: "Missing fields: 'fapiInteractionId'"
+                      status: ACCEPTED
                 "Campo obrigatório não enviado":
                   description: |
                     Registro com campo obrigatório não enviado.
@@ -1068,26 +1155,56 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreditPortabiltyServerRequest"
+              type: array
+              items:
+                $ref: "#/components/schemas/CreditPortabiltyServerRequest"
 
             examples:
               "Request Valido":
                 description: O request apresentado tem todos os campos validados.
                 value:
-                  reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                  fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-                  endpoint: "/credit-operations/{contractId}/portability-eligibility"
-                  httpMethod: POST
-                  statusCode: 200
-                  timestamp: "2021-11-11T18:08:08.894Z" 
-                  processTimespan: 120
-                  clientOrgId: "56411f7e-d58b-44a8-8a2b-ff326d3f2955"
-                  serverOrgId: "c1ca8e62-9d6f-4ea3-84f2-d66bc0a8f7dc"                  
-                  role: "SERVER"
-                  status: "PENDING"
-                  statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                  rejectionReason: "CANCELED"
-                  rejectedBy: "CREDORA"                 
+                  - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    httpMethod: POST
+                    statusCode: 200
+                    timestamp: "2021-11-11T18:08:08.894Z" 
+                    processTimespan: 120
+                    clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                  
+                    role: "SERVER"
+                    status: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELED"
+                    rejectedBy: "CREDORA" 
+                  - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    httpMethod: POST
+                    statusCode: 200
+                    timestamp: "2021-11-11T18:08:08.894Z" 
+                    processTimespan: 120
+                    clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                   
+                    role: "SERVER"
+                    status: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELED"
+                    rejectedBy: "CREDORA"
+                  - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    httpMethod: POST
+                    statusCode: 200
+                    timestamp: "2021-11-11T18:08:08.894Z" 
+                    processTimespan: 120
+                    clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
+                    serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                      
+                    role: "SERVER"
+                    status: "PENDING"
+                    statusUpdateDateTime: "2020-07-21T08:30:00Z"
+                    rejectionReason: "CANCELED"
+                    rejectedBy: "CREDORA"                      
 
       responses:
         "200":
@@ -1106,9 +1223,15 @@ paths:
                 Todos Processados:
                   description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
                   value:
-                    reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
 
         "207":
           description: |
@@ -1127,10 +1250,16 @@ paths:
                   description: |
                     No caso apresentado é o resultado onde o exemplo "Request com falha" foi enviado: o registro com o _fapiInteractionId_ `d78fc4e5-37ca-4da3-adf2-9b082bf92280` apresentou uma falha na validação, mas os demais foram enviados para processamento. Como um dos registros não foi validado, o status de retorno passa a ser 207, e os demais registros são processados normalmente.
                   value:
-                    reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
-                    status: DISCARDED
-                    message: "Invalid field value, httpMethod: httpMethod must be in enum"
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: DISCARDED
+                      message: "Invalid field value, fapiInteractionId: fapiInteractionId must be a UUID"
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      correlationId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
                 "Todos registros com falha":
                   description: |
                     Neste caso, parte-se da premissa que todos os registros foram enviados sem _correlationId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
