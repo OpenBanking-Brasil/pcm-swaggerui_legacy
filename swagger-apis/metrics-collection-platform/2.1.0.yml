@@ -1614,8 +1614,8 @@ components:
     ClientReportRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Client (iniciador da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
       type: array
-      min: 1
-      max: 5000
+      minItems: 1
+      maxItems: 5000
       items:
         type: object
         required:
@@ -2168,8 +2168,8 @@ components:
     ServerReportRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
       type: array
-      min: 1
-      max: 5000
+      minItems: 1
+      maxItems: 5000
       items:
         type: object
         required:
@@ -3439,8 +3439,8 @@ components:
     CreditPortabiltyServerRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
       type: array
-      min: 1
-      max: 5000
+      minItems: 1
+      maxItems: 5000
       items: 
         type: object 
         required:
