@@ -2260,8 +2260,8 @@ components:
       description: Modelo que representa os dados a serem enviados às APIs de dados abertos. Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Reportes-OpenData](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Reportes-OpenData).
       additionalProperties: false
       type: array
-      min: 1
-      max: 5000
+      minItems: 1
+      maxItems: 5000
       items:
         type: object
         required:
