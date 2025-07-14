@@ -2953,7 +2953,7 @@ components:
         hasMinimumAmount:
           description: |
             Valida se possui o valor mínimo definido pelo usuário recebedor​.
-          type: boolean
+          type: string
           enum:
             - "TRUE"
             - "FALSE"
