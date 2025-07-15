@@ -354,7 +354,7 @@ paths:
         - Hybrid Flow API
       summary: Inclusão de report Hybrid Flow de autenticação (papel server)
       description: |
-        Inclusão de report de autenticação na plataforma que deverá ser enviado após o client se autenticar / entrar no app e antes de autorizar o consentimento. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de reporte de que o usuário está apto a prosseguir com a autorização do consentimento. Deverá ser enviado após o usuário se autenticar/entrar na área autenticada e antes de autorizar o consentimento. É ESSENCIAL A LEITURA DO DIAGRAMA DE SEQUÊNCIA PARA O ENTENDIMENTO DE COMO DEVE SER FEITO O REPORTE. Ao enviar um reporte, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
       operationId: add-reports-server-authenticated
       requestBody:
         content:
@@ -1328,11 +1328,12 @@ components:
       example: BROWSER
 
     URI:
+      description: Endpoint utilizado para o redirecionamento do usuário conforme cadastrado pela transmissora/detentora no arquivo .well-known/openid-configuration sem qualquer parâmetro introduzido pelo sistema da receptora/iniciadora. Caso a URI tenha mais de 200 caracteres de extensão, truncar
       type: string
       format: uri
       pattern:  ^[- /:_.',0-9a-zA-Z]{0,200}$
       maxLength: 2000
-      example: https://api.banco.com.br/open-banking/api/v1/resource
+      example: "https://auth.banco.com.br/openbanking/Auth"
 
     Timestamp:
       description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
@@ -1392,11 +1393,12 @@ components:
           consentId:
             $ref: "#/components/schemas/ConsentId"
           uriAuthorizationEndpoint:
+            description: Endpoint utilizado para o redirecionamento do usuário conforme cadastrado pela transmissora/detentora no arquivo .well-known/openid-configuration sem qualquer parâmetro introduzido pelo sistema da receptora/iniciadora. Caso a URI tenha mais de 200 caracteres de extensão, truncar. 
             type: string
             format: uri
             pattern: ^[- /:_.',0-9a-zA-Z]{0,200}$
             maxLength: 2000
-            example: https://api.banco.com.br/open-banking/api/v1/resource
+            example: https://auth.banco.com.br/open-banking/Auth
           platform:
             type: string
             enum:
@@ -1429,7 +1431,7 @@ components:
               - $ref: "#/components/schemas/UUID"
 
     HybridFlowServerRedirectTargetReportRequest:
-      description: ""
+      description: "Inclusão de reporte de chegada de usuário em sistema da transmissora/detentora. É ESSENCIAL A LEITURA DO DIAGRAMA DE SEQUÊNCIA PARA O ENTENDIMENTO DE COMO DEVE SER FEITO O REPORTE. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito."
       type: array
       minItems: 0
       maxItems: 1000
@@ -1522,7 +1524,12 @@ components:
           consentId:
             $ref: "#/components/schemas/ConsentId"
           uri_callback:
-            $ref: "#/components/schemas/URI"
+            description: Preencher com a uri_callback registrada pelo sistema consumidor durante o DCR/DCM. Caso a URI tenha mais de 200 caracteres de extensão, truncar.
+            type: string
+            format: uri
+            pattern:  ^[- /:_.',0-9a-zA-Z]{0,200}$
+            maxLength: 2000
+            example: "https://receptora.com.br/open-banking/landing-page"
           platform:
             $ref: "#/components/schemas/Platform"
           osVersion:
