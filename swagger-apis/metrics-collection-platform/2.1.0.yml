@@ -3319,6 +3319,7 @@ components:
               - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
               - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
               - `PAYMENT_ISSUE`: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendência antes do cancelamento do pedido de portabilidade de crédito
+              - `REJECTED`: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
             type: string
             enum:
               - PENDING 
@@ -3328,6 +3329,7 @@ components:
               - PORTABILITY_COMPLETED
               - REJECTED
               - CANCELLED
+              - PAYMENT_ISSUE
           statusUpdateDateTime:
             description: "•	Data e hora em que o contrato teve o status atualizado. Uma string com data e hora conforme especificação ISO-8601, sempre com a utilização de timezone UTC(UTC time format)."
             type: string
@@ -3557,6 +3559,7 @@ components:
               - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
               - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
               - `PAYMENT_ISSUE`: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendência antes do cancelamento do pedido de portabilidade de crédito
+              - `REJECTED`: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
             type: string
             enum:
               - PENDING 
@@ -3566,6 +3569,7 @@ components:
               - PORTABILITY_COMPLETED
               - REJECTED
               - CANCELLED
+              - PAYMENT_ISSUE
 
     CreditPortabilityReportModel:
       description: Representa um reporte devidamente persistido.
