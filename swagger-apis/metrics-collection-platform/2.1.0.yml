@@ -1797,7 +1797,7 @@ components:
                     - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços. 
                     - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ. 
                 type: string
-              RevocationReasonCode:
+              revocationReasonCode:
                 description: |
                   Código indicador do motivo da revogação
                   1. Envio obrigatório para a role Client
@@ -1832,7 +1832,7 @@ components:
               
                   <br>
                 type: string
-              RevocationReasonDetail:
+              revocationReasonDetail:
                 description: |
                   Detalhe sobre o motivo de revogação indicado no campo
                   1. Envio obrigatório para a role Server e Client
@@ -1867,7 +1867,7 @@ components:
               
                   <br>
                 type: string
-              RevokedBy:
+              revokedBy:
                 description: |
                   Quem iniciou a solicitação de revogação 
                   1. Envio obrigatório para a role Server e Client
@@ -1906,7 +1906,7 @@ components:
                   - INICIADORA: apenas para a role CLient
                   - USUARIO: para a role Server e Client
                   - DETENTORA: apenas para a role Server
-              RevokedFrom:
+              revokedFrom:
                 description: |
                   Canal onde iniciou-se o processo de revogação
                   1. Envio obrigatório para a role Server e Client
@@ -1944,7 +1944,7 @@ components:
                 enum:
                   - INICIADORA: para a role Server e Client
                   - DETENTORA: apenas para a role Server
-              RejectedBy:
+              rejectedBy:
                 description: |
                   Quem iniciou a solicitação de rejeição
                   1. Envio obrigatório para a role Server e Client
@@ -1983,7 +1983,7 @@ components:
                   - INICIADORA: apenas para a role Client
                   - USUARIO: para a role Server e Client
                   - DETENTORA: apenas para a role Server
-              RejectedFrom:
+              rejectedFrom:
                 description: |
                   Canal onde iniciou-se o processo de rejeição
                   1. Envio obrigatório para a role Server e Client
@@ -2713,7 +2713,7 @@ components:
             - Pix com configuração de agendamento​
             - Pix sem configuração de agendamento e configuração de recorrência​
             - para todas as chamadas de pagamentos inteligentes​
-        RevocationReasonCode:
+        revocationReasonCode:
           description: |
             Código indicador do motivo da revogação
 
@@ -2747,7 +2747,7 @@ components:
             <br>
            
           type: string
-        RevocationReasonDetail:
+        revocationReasonDetail:
           description: |
             Detalhe sobre o motivo de revogação indicado no campo
 
@@ -2782,7 +2782,7 @@ components:
             <br>
 
           type: string
-        RevokedBy:
+        revokedBy:
           description: |
             Quem iniciou a solicitação de revogação 
 
@@ -2821,7 +2821,7 @@ components:
             - INICIADORA
             - USUARIO
             - DETENTORA
-        RevokedFrom:
+        revokedFrom:
           description: |
             Canal onde iniciou-se o processo de revogação
 
@@ -2859,7 +2859,7 @@ components:
           enum:
             - INICIADORA
             - DETENTORA
-        RejectedBy:
+        rejectedBy:
           description: |
             Quem iniciou a solicitação de rejeição
 
@@ -2898,7 +2898,7 @@ components:
             - INICIADORA
             - USUARIO
             - DETENTORA
-        RejectedFrom:
+        rejectedFrom:
           description: |
             Canal onde iniciou-se o processo de rejeição
 
