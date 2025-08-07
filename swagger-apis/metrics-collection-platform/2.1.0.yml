@@ -1793,11 +1793,7 @@ components:
                   Diretrizes:
 
                     - `NONE`: quando o CPF (loggedUser) / CNPJ (businessEntity) possui credencial autenticadora e poderes suficientes para prosseguir o fluxo monitorado - exemplo: PF, cliente, que possui credencial ativa, mas não se autenticou; cliente que se autenticou utilizando a credencial correta. 
-<<<<<<< HEAD
-                    - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado.
-=======
                     - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado. 
->>>>>>> parent of f76ee37 (fix: dropreason description from nocredential)
                     - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços. 
                     - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ. 
                 type: string
@@ -2255,11 +2251,7 @@ components:
                   Diretrizes:
                   
                     - `NONE`: quando o CPF (loggedUser) / CNPJ (businessEntity) possui credencial autenticadora e poderes suficientes para prosseguir o fluxo monitorado - exemplo: PF, cliente, que possui credencial ativa, mas não se autenticou; cliente que se autenticou utilizando a credencial correta. 
-<<<<<<< HEAD
-                    - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado.
-=======
                     - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado. 
->>>>>>> parent of f76ee37 (fix: dropreason description from nocredential)
                     - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços. 
                     - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ. 
                 type: string
@@ -2650,11 +2642,7 @@ components:
             Diretrizes:
             
               - `NONE`: quando o CPF (loggedUser) / CNPJ (businessEntity) possui credencial autenticadora e poderes suficientes para prosseguir o fluxo monitorado - exemplo: PF, cliente, que possui credencial ativa, mas não se autenticou; cliente que se autenticou utilizando a credencial correta. 
-<<<<<<< HEAD
-              - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado.
-=======
               - `NO_CREDENTIAL`: quando o CPF (loggedUser) / CNPJ (businessEntity) não for cliente ou não possuir credencial válida/ativa para prosseguir no fluxo monitorado. 
->>>>>>> parent of f76ee37 (fix: dropreason description from nocredential)
               - `NO_AUTHORITY`: quando o CPF (loggedUser) / CNPJ (businessEntity) consegue se autenticar, mas não dispõe de poderes ou alçadas para prosseguir no fluxo de compartilhamento de dados e serviços. 
               - `NO_AUTHORITY_PERSON_MISMATCH`: quando o CPF (loggedUser) não possui relação com a credencial utilizada na etapa de autenticação do Hybrid Flow - exemplo: consentimento criado para um CPF e autenticado por outro; criado para um CNPJ e autenticado por CPF sem relação com o CNPJ. 
               
