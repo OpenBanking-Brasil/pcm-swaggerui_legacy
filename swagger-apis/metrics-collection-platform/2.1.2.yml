@@ -2115,7 +2115,51 @@ components:
                 enum:
                   - "TRUE"
                   - "FALSE"
-              
+              paymentDate: 
+                description: |
+                  Data em que o pagamento será realizado.
+                type: string
+              paymentSchedule: 
+                description: |
+                  Estrutura responsável pela parametrização dos pagamentos que acontecerão sob aquele consentimento.
+                type: string
+              paymentList: 
+                description: |
+                  Lista de dados de pagamentos com agendamentos recorrentes
+                type: array
+                minItems: 0
+                maxItems: 60
+                items: 
+                  type: object
+                  properties:
+                    paymentId:
+                      description: | 
+                        Código ou identificador único informado pela instituição detentora da conta para representar a iniciação de pagamento​.
+                      type: string
+                    consentId: 
+                      description: |
+                        Identificador único do consentimento criado para a iniciação de pagamento solicitada​.
+                      type: string
+                    statusUpdateDateTime: 
+                      description: |
+                        Data e hora da última atualização da iniciação de pagamento.
+                      type: string
+                    status: 
+                      description: |
+                        Estado atual do pagamento.
+                      type: string
+                    rejectionReasonCode: 
+                      description: |
+                        Código identificador do motivo de rejeição. Deve ser enviado vazio se não houver conteúdos, seguindo a mesma regra da API de negócio relacionada
+                      type: string
+                    rejectionReasonDetail:
+                      description: |
+                        Detalhe sobre o código identificador do motivo de rejeição. Deve ser enviado vazio se não houver conteúdos, seguindo a mesma regra da API de negócio relacionada
+                      type: string   
+              recurringPaymentDate: 
+                description: |
+                  Data em que o pagamento será realizado
+                type: string      
           timestamp:
             description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
             type: string
