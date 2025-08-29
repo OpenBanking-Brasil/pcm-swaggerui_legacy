@@ -33,7 +33,7 @@ info:
 
     Para informações detalhadas sobre a PCM, consulte o [site da documentação da Plataforma](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/17378055/Plataforma+de+Coleta+de+M+tricas).
 
-  version: 2.1.1
+  version: 2.1.2
   contact:
     name: Governança Open Finance Brasil
   license:
@@ -2115,6 +2115,26 @@ components:
                 enum:
                   - "TRUE"
                   - "FALSE"
+              statusSummary:
+                description: |
+                  Sumarização das quantidades de reportes por status
+
+                  Regras:
+                    - Preencher com o valor do campo "status"
+                type: object
+                properties:
+                  available:
+                    description: disponível
+                    type: number
+                  unavailable:
+                    description: indisponível
+                    type: number
+                  temporarilyUnavailable:
+                    description: temporariamente indisponível
+                    type: number
+                  pendingAuthorisation:
+                    description: pendente de autorização
+                    type: number
               
           timestamp:
             description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
