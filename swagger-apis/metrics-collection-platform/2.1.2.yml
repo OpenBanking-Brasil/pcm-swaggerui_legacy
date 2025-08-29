@@ -302,7 +302,7 @@ paths:
         - Hybrid Flow API
       summary: Inclusão de report Hybrid Flow de redirecionamento para o destino (papel server)
       description: |
-        Inclusão de report de chegada de usuário em sistema da transmissora/dentendora para autenticação. Deve ser enviado antes da autenticação do usuário. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
+        Inclusão de report de chegada de usuário em sistema da transmissora/detentora para autenticação. Deve ser enviado antes da autenticação do usuário. Ao enviar um report, a Plataforma vai fazer o processo de validação de maneira síncrona e devolver o resultado dessa validação na resposta. O status HTTP de retorno será 200 caso o reporte enviado seja aceito.
 
       operationId: add-reports-server-redirect-target
       requestBody:
