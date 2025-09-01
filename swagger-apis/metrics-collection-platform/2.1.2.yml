@@ -1733,6 +1733,8 @@ components:
                   |----------|-------------|
                   | <br>PATCH /open-banking/payments/v4/pix/payments/{paymentId}​&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
                   |----------|-------------|
+                  | <br>PATCH /open-banking/payments/v4/consents/{consentId}/pix/payments&nbsp;&nbsp;&nbsp;    |  <br>IMMEDIATE<br>SCHEDULED<br>RECURRENT
+                  |----------|-------------|
                   | <br>POST /automatic-payments/v1/recurring-consents&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
                   |----------|-------------|
                   | <br>PATCH /automatic-payments/v1/recurring-consents/{consentId}&nbsp;&nbsp;&nbsp;    |  <br>SWEEPING
@@ -1763,7 +1765,8 @@ components:
                   | <br>PATCH /open-banking/automatic-payments/v2/pix/recurring-payments&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
                   |----------|-------------|
                   | <br>PATCH /open-banking/automatic-payments/v2/pix/recurring-payments/{recurringPaymentId}&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
-              
+                  |----------|-------------|
+                  | <br>POST /open-banking/automatic-payments/v2/pix/recurring-payments/{originalRecurringPaymentId}/retry&nbsp;&nbsp;&nbsp;   |  <br>SWEEPING<br>AUTOMATIC
                   <br>
                   Identifica o modo de pagamento acionado no consentimento.
 
@@ -2179,7 +2182,11 @@ components:
               recurringPaymentDate: 
                 description: |
                   Data em que o pagamento será realizado
-                type: string      
+                type: string   
+              referenceStartDate:
+                description: |
+                  Data prevista para o início do ciclo de cobrança dos pagamentos associados à recorrência
+                type: string   
           timestamp:
             description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
             type: string
