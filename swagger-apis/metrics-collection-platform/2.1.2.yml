@@ -2115,6 +2115,26 @@ components:
                 enum:
                   - "TRUE"
                   - "FALSE"
+              statusSummary:
+                description: |
+                  Sumarização das quantidades de reportes por status
+
+                  Regras:
+                    - Preencher com o valor do campo "status"
+                type: object
+                properties:
+                  available:
+                    description: disponível
+                    type: number
+                  unavailable:
+                    description: indisponível
+                    type: number
+                  temporarilyUnavailable:
+                    description: temporariamente indisponível
+                    type: number
+                  pendingAuthorisation:
+                    description: pendente de autorização
+                    type: number
               paymentDate: 
                 description: |
                   Data em que o pagamento será realizado.
