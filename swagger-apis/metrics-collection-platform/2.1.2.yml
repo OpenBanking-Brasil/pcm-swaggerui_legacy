@@ -907,9 +907,6 @@ paths:
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
-                    originalContractCET: "0.290000"
-                    originalPropositionCET: "0.290000"
                     originalContractTerm: 57
                     propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
@@ -931,9 +928,6 @@ paths:
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
-                    originalContractCET: "0.290000"
-                    originalPropositionCET: "0.290000"
                     originalContractTerm: 57
                     propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
@@ -955,9 +949,6 @@ paths:
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
-                    originalContractCET: "0.290000"
-                    originalPropositionCET: "0.290000"
                     originalContractTerm: 57
                     propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
@@ -979,9 +970,6 @@ paths:
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    productSubTypeCategory: "CREDITO_PESSOAL_CLEAN"
-                    originalContractCET: "0.290000"
-                    originalPropositionCET: "0.290000"
                     originalContractTerm: 57
                     propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
@@ -1157,7 +1145,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: "#/components/schemas/CreditPortabiltyServerRequest"
+                $ref: "#/components/schemas/CreditPortabilityServerRequest"
 
             examples:
               "Request Valido":
@@ -3281,17 +3269,8 @@ components:
       maxItems: 5000
       items:
         type: object
-        required:
-          - "portabilityId"          
-          - "contractId"
+        required:       
           - "creationDateTime"
-          - "productSubTypeCategory"
-          - "originalContractCET"
-          - "originalPropositionCET"
-          - "originalContractTerm"
-          - "propositionTerm"
-          - "creditPortabilityStatus"
-          - "rejectionReason"
           - "timestamp"
           - "fapiInteractionId"
           - "endpoint"
@@ -3332,44 +3311,6 @@ components:
             maxLength: 20
             pattern: ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$
             example: "2020-07-21T08:30:00Z"
-          productSubTypeCategory:
-            description: "Categoria para classificação específica relacionada com a submodalidade do produto"
-            type: string
-            example: "CREDITO_PESSOAL_CLEAN"
-          originalContractCET:
-            description: |
-              •	CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
-              O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. 
-              Este valor representa 15%. O valor 1 representa 100%). 
-              Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. 
-              Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. 
-              O campo poderá ser preenchido com 0.00 em cenários nos quais a casa não tenha a informação de CET (Custo efetivo total) apenas para as exceções listadas abaixo:
-
-              - Em contratos anteriores a 2008 (para o público PF) 
-              - Em contratos anteriores a 2011 (para o público PJ);
-              - Público PJ de médio ou grande porte.
-            type: string
-            minLength: 8
-            maxLength: 13
-            pattern: ^\d{1,6}\.\d{6}$
-            example: "0.290000"
-          originalPropositionCET:
-            description: |
-              •	CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
-              O preenchimento deve respeitar as 6 casas decimais, mesmo que venham preenchidas com zeros (representação de porcentagem p.ex: 0.150000. 
-              Este valor representa 15%. O valor 1 representa 100%). 
-              Para o público PF (pessoa física) o campo é de envio obrigatório para contratos firmados a partir de 2008, conforme Resolução CMN 3.517. 
-              Para o público PJ (pessoa jurídica) o campo é de envio obrigatório para contratos firmados a partir de 2011, conforme Resolução CMN 3.909. 
-              O campo poderá ser preenchido com 0.00 em cenários nos quais a casa não tenha a informação de CET (Custo efetivo total) apenas para as exceções listadas abaixo:
-
-              - Em contratos anteriores a 2008 (para o público PF) 
-              - Em contratos anteriores a 2011 (para o público PJ);
-              - Público PJ de médio ou grande porte.
-            type: string
-            minLength: 8
-            maxLength: 13
-            pattern: ^\d{1,6}\.\d{6}$
-            example: 0.290000
           originalContractTerm:
             description: Prazo restante do contrato original de empréstimo.
             type: number
@@ -3515,7 +3456,7 @@ components:
               - CLIENT
               - SERVER
 
-    CreditPortabiltyServerRequest:
+    CreditPortabilityServerRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
       type: array
       minItems: 1
@@ -3579,6 +3520,14 @@ components:
             allOf:
               - $ref: "#/components/schemas/UUID"
             description: Identificador da organização **para onde** a chamada foi feita. A PCM garante que foi esta orgId que obteve o token de acesso utilizado neste reporte.
+          portabilityId: 
+            description: Código identificador do pedido de portabilidade realizado.
+            type: string
+            format: uuid
+            maxLength: 100
+            minLength: 1
+            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            example: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
           statusUpdateDateTime:
             description: "•	Data e hora em que o contrato teve o status atualizado. Uma string com data e hora conforme especificação ISO-8601, sempre com a utilização de timezone UTC(UTC time format)."
             type: string
@@ -3662,6 +3611,22 @@ components:
               format: uuid
               maxLength: 36
               pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            status:
+                  description: |
+                    Informa o status do registro de reporte.
+                    * **DISCARDED**: O status `DISCARDED` indica que o reporte enviado pelo participante foi rejeitado pela PCM. O motivo do descarte será enviado com a resposta, podendo ser por conta de um reporte inválido ou por um erro no processamento. Não é possível modificar um reporte `DISCARDED`, portanto o reportador deverá corrigir o registro que apresentou erro e reenviar via POST.
+                    * **ACCEPTED**: O status `ACCEPTED` indica que a validação de formato do reporte não tem erros e este será enviado para processamento.
+                    * **UNPAIRED**: O status `UNPAIRED` significa que o reporte atual não possui uma correspondência em outro reporte através do atributo `fapiInteractionId`. Indica um reporte _divergente_.
+                    * **PAIRED_INCONSISTENT**: O status `PAIRED_INCONSISTENT` significa que o reporte corrente possui uma contraparte com o mesmo `fapiInteractionId`, mas os demais dados estão inconsistentes. Indica um reporte _divergente_.
+                    * **PAIRED**: Indica que o reporte tem uma contraparte com o mesmo `fapiInteractionId` e os demais dados estão conciliados. Representa o estado final desejado em um fluxo correto.
+                  type: string
+                  enum:
+                    - DISCARDED
+                    - SINGLE
+                    - ACCEPTED
+                    - UNPAIRED
+                    - PAIRED_INCONSISTENT
+                    - PAIRED
             creditPortabilityStatus:
               $ref: "#/components/schemas/CreditPortabilityStatus"
             createdAt:
