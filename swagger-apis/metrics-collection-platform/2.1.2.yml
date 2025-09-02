@@ -3272,6 +3272,7 @@ components:
         required:       
           - "creationDateTime"
           - "timestamp"
+          - "portabilityId"
           - "fapiInteractionId"
           - "endpoint"
           - "endpointUriPrefix"
@@ -3465,6 +3466,7 @@ components:
         type: object 
         required:
           - fapiInteractionId
+          - portabilityId
           - endpoint
           - statusCode
           - httpMethod
