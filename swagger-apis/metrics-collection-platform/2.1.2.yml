@@ -3629,8 +3629,6 @@ components:
                     - UNPAIRED
                     - PAIRED_INCONSISTENT
                     - PAIRED
-            creditPortabilityStatus:
-              $ref: "#/components/schemas/CreditPortabilityStatus"
             createdAt:
               description: |
                 Carimbo do tempo do momento da criação do registro
