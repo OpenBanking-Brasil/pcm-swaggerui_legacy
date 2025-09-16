@@ -875,7 +875,7 @@ paths:
     post:
       tags:
         - Credit Portability API
-      summary: "Inclusão de reports de portabilidade"
+      summary: "Inclusão de reports de portabilidade para client"
       description: |
         Valida se já existe um pedido de portabilidade de crédito para o contrato solicitado pelo trilho do OFB ou da Registradora.
       operationId: add-portability-client-reports
@@ -1135,7 +1135,7 @@ paths:
     post:
       tags:
         - Credit Portability API
-      summary: "Inclusão de reports de portabilidade"
+      summary: "Inclusão de reports de portabilidade para server"
       description: |
         Valida se já existe um pedido de portabilidade de crédito para o contrato solicitado pelo trilho do OFB ou da Registradora.
       operationId: add-portability-server-reports
@@ -2367,6 +2367,17 @@ components:
                 description: |
                   Data prevista para o início do ciclo de cobrança dos pagamentos associados à recorrência
                 type: string   
+              companyProfileInfo: 
+                description: Porte do client PJ e natureza jurídica
+                type: object
+                properties:
+                  naturezaJuridica:
+                    type: string
+                    description: Natureza Jurídica
+                  porteEmpresa:
+                    type: string
+                    description: Porte da empresa
+
           timestamp:
             description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
             type: string
@@ -3675,8 +3686,11 @@ components:
             maxLength: 36
             pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
             example: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-          endpoint:
-            $ref: "#/components/schemas/PrivateReportEndpoints"
+          endpoint: 
+            description: |
+              Identificação do endpoint que foi utilizado na transação reportada. A identificação do endpoint deve estar entre as entradas desse enum para ser considerado válido. Nesse campo não deve ser utilizado o path da requisição original, uma vez que ao comparar com os valores dessa enum, ele não será considerado válido.
+            type: string
+            example: "/open-banking/consents/v2/consents"
           statusCode:
             description: Status de retorno HTTP da solicitação. No caso de ocorrer um timeout client side preencher com um código 408 [conforme documentação](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte)
             type: integer
