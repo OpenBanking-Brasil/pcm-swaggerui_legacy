@@ -1305,6 +1305,198 @@ paths:
         default:
           $ref: "#/components/responses/Default500InternalServerError"
 
+  "/report-api/v1/payments/status":
+    post:
+      tags:
+        - PaymentStatus API
+      summary: "Inclusão de reports de payment status"
+      description: |
+       
+      operationId: add-payment-status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/PaymentStatusRequest"
+
+            examples:
+              "Request Valido":
+                description: O request apresentado tem todos os campos validados.
+                value:
+                  - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    eventDateTime: 2025-09-15T00:00:00.123Z
+                    paymentId: ae7b4945-5b5a-4b98-915f-712ea82b94i0
+                    consentId: teste
+                    paymentStatus: ACSC
+                    statusReasonCode: teste
+                    paymentType: SWEEPING
+                    clientOrgId: fa75a77a-85c4-4cb4-a697-015af4be2b8b
+                  - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    eventDateTime: 2025-09-15T00:00:00.123Z
+                    paymentId: ae7b4945-5b5a-4b98-915f-712ea82b94i0
+                    consentId: teste
+                    paymentStatus: RJCT
+                    statusReasonCode: teste
+                    paymentType: SWEEPING
+                    clientOrgId: fa75a77a-85c4-4cb4-a697-015af4be2b8b
+
+      responses:
+        "200":
+          description: |
+            O status 200 representa a situação onde todos os registros enviados no lote foram validados e serão direcionados para processamento. Se pelo menos 1 registro contiver problemas de validação, o retorno será 207 (veja descrição do status).
+
+            A operação vai devolver um array com todos os resultados, e garante que ele esteja na mesma ordem do array da requisição.
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 5000
+                items:
+                  $ref: "#/components/schemas/ReportResponse"
+              examples:
+                Todos Processados:
+                  description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
+                  value:
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+
+        "207":
+          description: |
+            O status 207 (Multi-Status) informa ao solicitante que o formato da requisição está correto, mas que entradas do array contém erro de validação em pelo menos 1 item. Ou seja, se todos os elementos do array informado estiverem com falha de validação, a operação vai devolver o status 207, e no corpo da resposta todos os elementos do array vão estar com status `DISCARDED` e com sua respectiva mensagem. 
+
+            A operação vai devolver um array com todos os resultados, e garante que ele esteja na mesma ordem do array da requisição.
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 5000
+                items:
+                  $ref: "#/components/schemas/PaymentStatusResponse"
+              examples:
+                "Primeiro registro com falha":
+                  description: |
+                    No caso apresentado é o resultado onde o exemplo "Request com falha" foi enviado: o registro com o _fapiInteractionId_ `d78fc4e5-37ca-4da3-adf2-9b082bf92280` apresentou uma falha na validação, mas os demais foram enviados para processamento. Como um dos registros não foi validado, o status de retorno passa a ser 207, e os demais registros são processados normalmente.
+                  value:
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: DISCARDED
+                      message: "Invalid field value, paymentId: paymentId can't be empty"
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: ACCEPTED
+                "Todos registros com falha":
+                  description: |
+                    Neste caso, parte-se da premissa que todos os registros foram enviados sem _correlationId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
+                  value:
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      status: DISCARDED
+                      message: "Missing fields: 'paymentId'"
+                    - reportId: 4095388d-f44f-499a-a9a7-2dbffce1bb8a
+                      status: DISCARDED
+                      message: "Missing fields: 'paymentId'"
+                    - reportId: 0f3fcceb-39f6-41b4-a75d-8444244bd836
+                      status: DISCARDED
+                      message: "Missing fields: 'paymentId'"
+                "Campo obrigatório não enviado":
+                  description: |
+                    Registro com campo obrigatório não enviado.
+                  value:
+                    - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a,
+                      correlationId: wNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf,
+                      status: DISCARDED,
+                      message: "Missing fields: 'statusCode'"
+
+        "400":
+          description: O formato do corpo da requisição não é um array.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+              examples:
+                "400":
+                  value:
+                    message: "Invalid payload format: MUST be an array"
+
+        "413":
+          description: A quantidade de registros enviado excede o limite da operação (5.000 elementos no array), ou o tamanho do payload excede 10Mb.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+              examples:
+                "Limite de registros excedido":
+                  value:
+                    message: Record limit exceeded
+
+        "401":
+          $ref: "#/components/responses/Default401Unauthorized"
+        "403":
+          $ref: "#/components/responses/Default403Forbidden"
+        "406":
+          $ref: "#/components/responses/Default406NotAcceptable"
+        "415":
+          $ref: "#/components/responses/Default415UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/Default429TooManyRequests"
+        default:
+          $ref: "#/components/responses/Default500InternalServerError"
+
+  "/report-api/v1/payments/status/{paymentId}":
+    get:
+      tags:
+        - PaymentStatus API
+      summary: Consulta um pagamento em específico usando um identificador
+      description: |
+        Operação que permite a consulta de um reporte em específico mediante um identificador. A busca por pagamentos estará sempre no contexto do usuário representado pelo token de acesso, ou seja, o _participante_ só terá acesso a reportes em que instituição que ele pertence é parte.
+
+        O processamento do registro ocorre de maneira assíncrona, o que pode gerar um cenário de consistência eventual: caso a consulta seja feita imediatamente após a inclusão, é possível que o registro ainda não esteja disponível para consulta.
+      operationId: payment-status-payment-id
+      parameters:
+        - name: paymentId
+          description: Identificador do pagamento que está sendo consultado
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
+            maxLength: 100
+      responses:
+        "200":
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentStatusModel"
+        "404":
+          description: O registro com o identificador informado não foi encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+        "401":
+          $ref: "#/components/responses/Default401Unauthorized"
+        "403":
+          $ref: "#/components/responses/Default403Forbidden"
+        "406":
+          $ref: "#/components/responses/Default406NotAcceptable"
+        "429":
+          $ref: "#/components/responses/Default429TooManyRequests"
+        default:
+          $ref: "#/components/responses/Default500InternalServerError"
+  
+
 
 components:
   schemas:
@@ -3641,6 +3833,119 @@ components:
               type: string
               format: date-time
               maxLength: 28
+
+    PaymentStatusRequest:
+      description: Representa os dados que devem ser enviados para status de pagamento
+      minItems: 1
+      maxItems: 5000
+      items: 
+        type: object 
+        required:
+          - eventDateTime
+          - consentId
+          - paymentType
+          - paymentId
+          - paymentStatus
+          - statusReasonCode
+          - clientOrgId
+        properties:
+          eventDateTime:
+            description: Data e hora associados à mudança de estados finais reportados, como liquidação, rejeição ou cancelamento. Deve ser informado em UTC-0.
+            type: string
+            format: date-time
+            pattern: "AAAA-MM-DDThh:mm:ss"
+            example: "2025-09-01T00:00:00"
+          paymentType:
+            description: Tipo do pagamento realizado.
+            type: string
+            enum: ["IMMEDIATE", "RECURRENT", "SWEEPING", "AUTOMATIC"]
+            example: "IMMEDIATE"
+          clientOrgId:
+            description: Identificador da organização cliente que realizou ou solicitou o pagamento.
+            allOf:
+              - $ref: "#/components/schemas/UUID"
+          consentId:
+            description: Identificador único do consentimento criado para aquele pagamento.
+            type: string
+            pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
+            maxLength: 100
+            example: uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2
+          paymentId:
+            description: Código único para identificar a transação de pagamento
+            type: string
+            example: "a1b68e41-2c19-4d99-a7b4-1a910a0f9f06"
+          paymentStatus:
+            description: Status de agendamento ou final do pagamento
+            type: string
+            enum: ["ASCS", "RJCT", "CANC", "SHCD"]
+            example: "ASCS"
+          statusReasonCode:
+            description: Campo atrelado ao status do pagamento. Quando o status for RJCT (Rejected), o valor deve ser preenchido com o motivo da rejeição (valores previstos em rejectionReason.Code). Quando o status for CANC (Cancelled), o valor deve ser preenchido com motivo do cancelamento (valores previstos em cancellationReason.Code)
+            type: string
+            example: Razão pelo status colocado
+    PaymentStatusModel:
+      description: Representa um pagamento devidamente persistido.
+      allOf:
+        - $ref: "#/components/schemas/PaymentStatusRequest"
+        - type: object
+          properties:
+            reportId:
+              description: |
+                Identificador único do registro criado na Plataforma de Coleta de Métricas.
+              type: string
+              format: uuid
+              maxLength: 36
+              pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            status:
+                  description: |
+                    Informa o status do registro de reporte.
+                    * **DISCARDED**: O status `DISCARDED` indica que o reporte enviado pelo participante foi rejeitado pela PCM. O motivo do descarte será enviado com a resposta, podendo ser por conta de um reporte inválido ou por um erro no processamento. Não é possível modificar um reporte `DISCARDED`, portanto o reportador deverá corrigir o registro que apresentou erro e reenviar via POST.
+                    * **ACCEPTED**: O status `ACCEPTED` indica que a validação de formato do reporte não tem erros e este será enviado para processamento.
+                  type: string
+                  enum:
+                    - DISCARDED
+                    - ACCEPTED
+            createdAt:
+              description: |
+                Carimbo do tempo do momento da criação do registro
+              type: string
+              format: date-time
+              maxLength: 28
+            updatedAt:
+              description: |
+                Carimbo do tempo do momento da última atualização do registro
+              type: string
+              format: date-time
+              maxLength: 28
+    PaymentStatusResponse:
+      description: Representa os dados que serão retornados pelas operações de inclusão de reportes.
+      additionalProperties: false
+      required:
+        - reportId
+        - status
+      type: object
+      properties:
+        reportId:
+          description: Identificador único interno do reporte no formato UUID v4.
+          type: string
+          format: uuid
+          maxLength: 36
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          example: "9a97c2df-b261-4fc2-aa66-d1b5168397da"
+        status:
+          $ref: "#/components/schemas/ReportStatus"
+        paymentId:
+          description: Retorna o valor do atributo `correlationId` informado na solicitação de inclusão de reporte sem alteração.
+          type: string
+          pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
+          maxLength: 100
+          example: "xxuGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
+        message:
+          description: Caso a solicitação contenha algum problema em seu formato, ou caso haja algum tipo de falha detectável no momento da requisição, esse campo trará detalhes sobre o erro ocorrido. Informações adicionais sobre os tipos de erros podem ser encontradas em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/46170119/Troubleshooting+-+PCM)
+          type: string
+          pattern: ^[- /:_.',0-9a-zA-Z]{0,200}$
+          maxLength: 200
+          example: "Missing fields: 'fapiInteractionId', 'endpoint'"
 
     UUID:
       type: string
