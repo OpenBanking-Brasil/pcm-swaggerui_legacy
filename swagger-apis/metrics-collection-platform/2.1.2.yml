@@ -1968,7 +1968,7 @@ components:
                   - Pix com configuração de agendamento​
                   - Pix sem configuração de agendamento e configuração de recorrência​
                   - para todas as chamadas de pagamentos inteligentes​
-                  - Pagamentos automaticos
+                  - Pagamentos automáticos
               dropReason:
                 description: |
                   Regras:
@@ -2977,8 +2977,8 @@ components:
             - Pix sem configuração de agendamento​
             - Pix com configuração de agendamento​
             - Pix sem configuração de agendamento e configuração de recorrência​
-            - para todas as chamadas de pagamentos inteligentes​
-            - Pagamentos Automaticos
+            - Para todas as chamadas de pagamentos inteligentes​
+            - Pagamentos Automáticos
         revocationReasonCode:
           description: |
             Código indicador do motivo da revogação
