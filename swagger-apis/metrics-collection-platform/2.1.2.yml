@@ -1354,7 +1354,7 @@ paths:
                 type: array
                 maxItems: 5000
                 items:
-                  $ref: "#/components/schemas/ReportResponse"
+                  $ref: "#/components/schemas/PaymentStatusResponse"
               examples:
                 Todos Processados:
                   description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
@@ -1398,15 +1398,18 @@ paths:
                       status: ACCEPTED
                 "Todos registros com falha":
                   description: |
-                    Neste caso, parte-se da premissa que todos os registros foram enviados sem _correlationId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
+                    Neste caso, parte-se da premissa que todos os registros foram enviados sem _paymentId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
                   value:
                     - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: f9c8d5e5-3f91-4f2b-b36b-f79357197ddc
                       status: DISCARDED
-                      message: "Missing fields: 'paymentId'"
+                      message: "Missing fields: 'paymentType'"
                     - reportId: 4095388d-f44f-499a-a9a7-2dbffce1bb8a
+                      paymentId: 3ffed609-8a5c-40a3-9fcb-1817133b3d99
                       status: DISCARDED
-                      message: "Missing fields: 'paymentId'"
+                      message: "Missing fields: 'paymentStatus'"
                     - reportId: 0f3fcceb-39f6-41b4-a75d-8444244bd836
+                      paymentId: ""
                       status: DISCARDED
                       message: "Missing fields: 'paymentId'"
                 "Campo obrigatório não enviado":
@@ -1414,7 +1417,7 @@ paths:
                     Registro com campo obrigatório não enviado.
                   value:
                     - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a,
-                      correlationId: wNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf,
+                      paymentId: c270d2fb-092a-428c-acd6-eea9e0cc4b24,
                       status: DISCARDED,
                       message: "Missing fields: 'statusCode'"
 
@@ -3945,7 +3948,7 @@ components:
         status:
           $ref: "#/components/schemas/ReportStatus"
         paymentId:
-          description: Retorna o valor do atributo `correlationId` informado na solicitação de inclusão de reporte sem alteração.
+          description: Retorna o valor do atributo `paymentId` informado na solicitação de inclusão de reporte sem alteração.
           type: string
           pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
           maxLength: 100
