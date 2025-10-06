@@ -1962,11 +1962,13 @@ components:
                   - SCHEDULED
                   - RECURRENT​
                   - SWEEPING
+                  - AUTOMATIC
                 x-enum-descriptions:
                   - Pix sem configuração de agendamento​
                   - Pix com configuração de agendamento​
                   - Pix sem configuração de agendamento e configuração de recorrência​
                   - para todas as chamadas de pagamentos inteligentes​
+                  - Pagamentos automáticos
               dropReason:
                 description: |
                   Regras:
@@ -2970,11 +2972,13 @@ components:
             - SCHEDULED
             - RECURRENT​
             - SWEEPING
+            - AUTOMATIC
           x-enum-descriptions:
             - Pix sem configuração de agendamento​
             - Pix com configuração de agendamento​
             - Pix sem configuração de agendamento e configuração de recorrência​
-            - para todas as chamadas de pagamentos inteligentes​
+            - Para todas as chamadas de pagamentos inteligentes​
+            - Pagamentos Automáticos
         revocationReasonCode:
           description: |
             Código indicador do motivo da revogação
