@@ -1495,6 +1495,248 @@ paths:
           $ref: "#/components/responses/Default429TooManyRequests"
         default:
           $ref: "#/components/responses/Default500InternalServerError"
+
+  "/report":
+    post:
+      tags:
+        - MQD API
+      summary: Envio de métricas de qualidade de dados trafegados
+      description: |
+        Endpoint para envio de métricas referentes a qualidade de dados trafegados, incluindo informações de performance, configuração e status da aplicação. 
+      operationId: submit-metrics-report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MetricsReportRequest"
+            examples:
+              "Request Válido":
+                description: Exemplo de request com todas as métricas de runtime e configuração
+                value:
+                  Metrics:
+                    Values:
+                      - Key: "runtime.ReportStartDate"
+                        Value: "2025-10-06 21:38:21.07479349 +0000 UTC m=+112296.776179299"
+                      - Key: "runtime.ReportEndDate"
+                        Value: "2025-10-06 21:49:26.701042329 +0000 UTC m=+112962.402428137"
+                      - Key: "runtime.BadRequestErrors"
+                        Value: "0"
+                      - Key: "runtime.TotalRequests"
+                        Value: "10145"
+                      - Key: "runtime.MemoryUsageAvg"
+                        Value: "5.92 MB"
+                      - Key: "runtime.MemoryUsageMax"
+                        Value: "1548168.67 MB"
+                      - Key: "runtime.CPUNumber"
+                        Value: "12"
+                      - Key: "runtime.ResponseTimeAvg"
+                        Value: "105"
+                      - Key: "runtime.ReportGenerationTime"
+                        Value: "1.619146ms"
+                  ApplicationConfiguration:
+                    ApplicationVersion: "2.3.0"
+                    Environment: "PRD"
+                    ConfigurationUpdateStatus:
+                      ConfigurationVersion: "1.0.14"
+                      LastExecutionDate: "2025-10-06T18:26:59.28462667Z"
+                      LastUpdatedDate: "2025-10-05T14:26:44.315508872Z"
+                      ConfigurationUpdateError: null
+                    ReportExecutionWindow: "60"
+                    ReportExecutionNumber: "10000"
+                    ApplicationMode: "TRANSMITTER"
+                    ApplicationID: "a66486eb-422d-4b1e-8618-10e27156faa3"
+                  ClientID: "deb4f782-7a01-45a2-9e90-9417e5485a03"
+                  DataOwnerID: "deb4f782-7a01-45a2-9e90-9417e5485a03"
+                  UnsupportedEndpoints: null
+                  ServerSummary:
+                    - ServerID: "deb4f782-7a01-45a2-9e90-9417e5485a03"
+                      TotalRequests: 10061
+                      EndpointSummary:
+                        - EndpointName: "/funds/v1/investments/{investmentId}/balances"
+                          TotalRequests: 649
+                          ValidationErrors: 0
+                          Detail: null
+                        - EndpointName: "/credit-cards-accounts/v2/accounts/{creditCardAccountId}/limits"
+                          TotalRequests: 297
+                          ValidationErrors: 21
+                          Detail:
+                            - Field: "data"
+                              Details:
+                                - ErrorType: "identificationNumber is required"
+                                  XFapiList:
+                                    - "a0a909ef-28f5-4a13-af23-6efb3f1a6e4e"
+                                    - "9c06fdaa-2c3f-4faa-8ab4-881b788e8fb0"
+                                  TotalCount: 62
+      responses:
+        "200":
+          description: |
+            Métricas recebidas e processadas com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MetricsReportResponse"
+              examples:
+                "Sucesso":
+                  value:
+                    reportId: "550e8400-e29b-41d4-a716-446655440000"
+                    status: "ACCEPTED"
+        "400":
+          description: Formato do corpo da requisição inválido ou campos obrigatórios ausentes.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericError"
+              examples:
+                "400":
+                  value:
+                    message: "Invalid payload format or missing required fields"
+        "401":
+          $ref: "#/components/responses/Default401Unauthorized"
+        "403":
+          $ref: "#/components/responses/Default403Forbidden"
+        "415":
+          $ref: "#/components/responses/Default415UnsupportedMediaType"
+        "429":
+          $ref: "#/components/responses/Default429TooManyRequests"
+        default:
+          $ref: "#/components/responses/Default500InternalServerError"
+
+  "/settings/configurationSettings.json":
+    get:
+      tags:
+        - MQD API
+      summary: Obtenção de configurações das especificações de APIs
+      description: |
+        Endpoint para obtenção das configurações atuais das especificações de APIs. Retorna as especificações para validações dos payloads trafegados entre os participantes do Open Finance Brasil.
+      operationId: get-configuration-settings
+      responses:
+        "200":
+          description: |
+            Configurações obtidas com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfigurationSettings"
+              examples:
+                "Configurações":
+                  value:
+                    Version: "1.0.15"
+                    ValidationSettings:
+                      APIGroupSettings:
+                        - group: "Dados Abertos"
+                          base_path: "ParameterData//DA"
+                          api_list:
+                            - api: "Títulos de Capitalização"
+                              base_path: "capitalization-bonds"
+                              version: "1.0.1"
+                              endpoint_base: "/opendata-capitalization/v1"
+                            - api: "Investimentos"
+                              base_path: "investments"
+                              version: "1.0.0"
+                              endpoint_base: "/opendata-investments/v1"
+                            - api: "Câmbio"
+                              base_path: "exchange"
+                              version: "1.0.0"
+                              endpoint_base: "/opendata-exchange/v1"
+                            - api: "Credenciamento"
+                              base_path: "aquiring-services"
+                              version: "1.0.0"
+                              endpoint_base: "/opendata-acquiring-services/v1"
+                            - api: "Previdência"
+                              base_path: "pension"
+                              version: "1.0.1"
+                              endpoint_base: "/opendata-pension/v1"
+                            - api: "Seguros"
+                              base_path: "insurances"
+                              version: "1.0.1"
+                              endpoint_base: "/opendata-insurance/v1"
+                        - group: "Dados do Cliente"
+                          base_path: "ParameterData//DC"
+                          api_list:
+                            - api: "Consentimento"
+                              base_path: "consents"
+                              version: "3.2.0"
+                              endpoint_base: "/consents/v3"
+                            - api: "Recursos"
+                              base_path: "resources"
+                              version: "3.0.0"
+                              endpoint_base: "/resources/v3"
+                            - api: "Dados cadastrais"
+                              base_path: "customers"
+                              version: "2.2.1"
+                              endpoint_base: "/customers/v2"
+                            - api: "Cartão de Crédito"
+                              base_path: "credit-cards-accounts"
+                              version: "2.3.1"
+                              endpoint_base: "/credit-cards-accounts/v2"
+                            - api: "Contas"
+                              base_path: "accounts"
+                              version: "2.4.2"
+                              endpoint_base: "/accounts/v2"
+                            - api: "Operações de Crédito - Empréstimos"
+                              base_path: "loans"
+                              version: "2.5.0"
+                              endpoint_base: "/loans/v2"
+                            - api: "Operações de Crédito - Financiamento"
+                              base_path: "financings"
+                              version: "2.3.0"
+                              endpoint_base: "/financings/v2"
+                            - api: "Operações de Crédito - Adiantamento a Depositantes"
+                              base_path: "unarranged-accounts-overdraft"
+                              version: "2.4.0"
+                              endpoint_base: "/unarranged-accounts-overdraft/v2"
+                            - api: "Operações de Crédito - Direitos Creditórios Descontados"
+                              base_path: "invoice-financings"
+                              version: "2.3.0"
+                              endpoint_base: "/invoice-financings/v2"
+                            - api: "Investimentos - Renda Fixa Crédito"
+                              base_path: "credit-fixed-incomes"
+                              version: "1.0.3"
+                              endpoint_base: "/credit-fixed-incomes/v1"
+                            - api: "Investimentos - Renda Fixa Bancária"
+                              base_path: "bank-fixed-incomes"
+                              version: "1.0.4"
+                              endpoint_base: "/bank-fixed-incomes/v1"
+                            - api: "Investimentos - Renda Variável"
+                              base_path: "variable-incomes"
+                              version: "1.2.1"
+                              endpoint_base: "/variable-incomes/v1"
+                            - api: "Investimentos - Títulos do Tesouro Direto"
+                              base_path: "treasure-titles"
+                              version: "1.0.2"
+                              endpoint_base: "/treasure-titles/v1"
+                            - api: "Investimentos - Fundos de Investimento"
+                              base_path: "funds"
+                              version: "1.0.2"
+                              endpoint_base: "/funds/v1"
+                            - api: "Câmbio"
+                              base_path: "exchanges"
+                              version: "1.0.0"
+                              endpoint_base: "/exchanges/v1"
+                      TransmitterValidationRate: 100
+                      ReceiverValidationRate: 100
+                      ExtremelyHighTroughputValidationRate: 100
+                      HighTroughputValidationRate: 100
+                      MediumTroughputValidationRate: 100
+                      LowTroughputValidationRate: 100
+                      VeryLowTroughputValidationRate: 100
+                    ReportSettings:
+                      ReportExecutionWindow: 30
+                      SendOnReportNumber: 50000
+                    SecuritySettings:
+                      AttributesToMask:
+                        - "Attribute1"
+        "401":
+          $ref: "#/components/responses/Default401Unauthorized"
+        "403":
+          $ref: "#/components/responses/Default403Forbidden"
+        "406":
+          $ref: "#/components/responses/Default406NotAcceptable"
+        "429":
+          $ref: "#/components/responses/Default429TooManyRequests"
+        default:
+          $ref: "#/components/responses/Default500InternalServerError"
   
 
 
@@ -3959,6 +4201,405 @@ components:
       maxLength: 36
       pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
       example: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+
+    MetricsReportRequest:
+      type: object
+      required:
+        - Metrics
+        - ApplicationConfiguration
+        - ClientID
+      properties:
+        Metrics:
+          $ref: "#/components/schemas/Metrics"
+        ApplicationConfiguration:
+          $ref: "#/components/schemas/ApplicationConfiguration"
+        ClientID:
+          type: string
+          format: uuid
+          description: Identificador único do cliente
+          example: "deb4f782-7a01-45a2-9e90-9417e5485a03"
+        DataOwnerID:
+          type: string
+          format: uuid
+          description: Identificador único do proprietário dos dados
+          example: "deb4f782-7a01-45a2-9e90-9417e5485a03"
+        UnsupportedEndpoints:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Lista de endpoints não suportados pela aplicação
+        ServerSummary:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServerSummaryItem"
+          description: Sumarização dos payloads avaliados pela aplicação client
+
+    MetricsReportResponse:
+      type: object
+      required:
+        - reportId
+        - status
+      properties:
+        reportId:
+          type: string
+          format: uuid
+          description: Identificador único do report processado
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        status:
+          type: string
+          enum: [ACCEPTED, DISCARDED]
+          description: Status do processamento do report
+
+    Metrics:
+      type: object
+      required:
+        - Values
+      properties:
+        Values:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricValue"
+          description: Array de valores de métricas
+
+    MetricValue:
+      type: object
+      required:
+        - Key
+        - Value
+      properties:
+        Key:
+          type: string
+          description: Chave identificadora da métrica
+          example: "runtime.TotalRequests"
+        Value:
+          type: string
+          description: Valor da métrica
+          example: "0"
+
+    ApplicationConfiguration:
+      type: object
+      required:
+        - ApplicationVersion
+        - Environment
+        - ConfigurationUpdateStatus
+        - ReportExecutionWindow
+        - ApplicationMode
+      properties:
+        ApplicationVersion:
+          type: string
+          description: Versão da aplicação
+          example: "2.3.0"
+        Environment:
+          type: string
+          description: Ambiente de execução
+          example: "PRD"
+        ConfigurationUpdateStatus:
+          $ref: "#/components/schemas/ConfigurationUpdateStatus"
+        ReportExecutionWindow:
+          type: string
+          description: Janela de envio do report em minutos
+          example: "60"
+        ReportExecutionNumber:
+          type: string
+          description: Número de execuções do report
+          example: "10000"
+        ApplicationMode:
+          type: string
+          enum: [TRANSMITTER, RECEIVER]
+          description: Modo de operação da aplicação
+        ApplicationID:
+          type: string
+          format: uuid
+          description: Identificador único da aplicação
+          example: "a66486eb-422d-4b1e-8618-10e27156faa3"
+
+    ConfigurationUpdateStatus:
+      type: object
+      required:
+        - ConfigurationVersion
+        - LastExecutionDate
+        - LastUpdatedDate
+        - ConfigurationUpdateError
+      properties:
+        ConfigurationVersion:
+          type: string
+          description: Versão do conjunto de especificações de APIs
+          example: "1.0.0"
+        LastExecutionDate:
+          type: string
+          format: date-time
+          description: Data da última execução
+          example: "2025-10-06T18:26:59.28462667Z"
+        LastUpdatedDate:
+          type: string
+          format: date-time
+          description: Data da última atualização
+          example: "2025-10-05T14:26:44.315508872Z"
+        ConfigurationUpdateError:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigurationError"
+          description: Lista de erros de configuração
+
+    ConfigurationError:
+      type: object
+      required:
+        - ApplicationConfigurationID
+        - ErrorDate
+        - ErrorMessage
+      properties:
+        ApplicationConfigurationID:
+          type: integer
+          description: ID da configuração da aplicação
+          example: 0
+        ErrorDate:
+          type: string
+          format: date-time
+          description: Data do erro
+          example: "2024-02-02T11:27:52.1895468-03:00"
+        ErrorMessage:
+          type: string
+          description: Mensagem do erro
+          example: "Error loading file."
+
+    ConfigurationSettings:
+      type: object
+      required:
+        - Version
+        - ValidationSettings
+        - ReportSettings
+        - SecuritySettings
+      properties:
+        Version:
+          type: string
+          description: Versão do arquivo de configuração das especificações de APIs
+          example: "1.0.15"
+        ValidationSettings:
+          $ref: "#/components/schemas/ValidationSettings"
+        ReportSettings:
+          $ref: "#/components/schemas/ReportSettings"
+        SecuritySettings:
+          $ref: "#/components/schemas/SecuritySettings"
+
+    ValidationSettings:
+      type: object
+      required:
+        - APIGroupSettings
+        - TransmitterValidationRate
+        - ReceiverValidationRate
+        - ExtremelyHighTroughputValidationRate
+        - HighTroughputValidationRate
+        - MediumTroughputValidationRate
+        - LowTroughputValidationRate
+        - VeryLowTroughputValidationRate
+      properties:
+        APIGroupSettings:
+          type: array
+          items:
+            $ref: "#/components/schemas/APIGroupSetting"
+          description: Configurações dos grupos de APIs
+        TransmitterValidationRate:
+          type: integer
+          description: Taxa de validação para transmissores
+          example: 100
+        ReceiverValidationRate:
+          type: integer
+          description: Taxa de validação para receptores
+          example: 100
+        ExtremelyHighTroughputValidationRate:
+          type: integer
+          description: Taxa de validação para throughput extremamente alto
+          example: 100
+        HighTroughputValidationRate:
+          type: integer
+          description: Taxa de validação para throughput alto
+          example: 100
+        MediumTroughputValidationRate:
+          type: integer
+          description: Taxa de validação para throughput médio
+          example: 100
+        LowTroughputValidationRate:
+          type: integer
+          description: Taxa de validação para throughput baixo
+          example: 100
+        VeryLowTroughputValidationRate:
+          type: integer
+          description: Taxa de validação para throughput muito baixo
+          example: 100
+
+    APIGroupSetting:
+      type: object
+      required:
+        - group
+        - base_path
+        - api_list
+      properties:
+        group:
+          type: string
+          description: Nome do grupo de APIs
+          example: "Dados Abertos"
+        base_path:
+          type: string
+          description: Caminho base para o grupo
+          example: "ParameterData//DA"
+        api_list:
+          type: array
+          items:
+            $ref: "#/components/schemas/APIConfig"
+          description: Lista de APIs no grupo
+
+    APIConfig:
+      type: object
+      required:
+        - api
+        - base_path
+        - version
+        - endpoint_base
+      properties:
+        api:
+          type: string
+          description: Nome da API
+          example: "Títulos de Capitalização"
+        base_path:
+          type: string
+          description: Caminho base da API
+          example: "capitalization-bonds"
+        version:
+          type: string
+          description: Versão da API
+          example: "1.0.1"
+        endpoint_base:
+          type: string
+          description: Endpoint base da API
+          example: "/opendata-capitalization/v1"
+
+    ReportSettings:
+      type: object
+      required:
+        - ReportExecutionWindow
+        - SendOnReportNumber
+      properties:
+        ReportExecutionWindow:
+          type: integer
+          description: Janela de execução do report em minutos
+          example: 30
+        SendOnReportNumber:
+          type: integer
+          description: Número de registros para envio do report
+          example: 50000
+
+    SecuritySettings:
+      type: object
+      required:
+        - AttributesToMask
+      properties:
+        AttributesToMask:
+          type: array
+          items:
+            type: string
+          description: Lista de atributos a serem mascarados
+          example: ["Attribute1"]
+
+    EndpointConfiguration:
+      type: object
+      required:
+        - endpoint
+        - enabled
+      properties:
+        endpoint:
+          type: string
+          description: Endpoint da API
+          example: "/open-banking/accounts/v1/accounts"
+        enabled:
+          type: boolean
+          description: Se o endpoint está habilitado
+          example: true
+
+    ServerSummaryItem:
+      type: object
+      required:
+        - ServerID
+        - TotalRequests
+        - EndpointSummary
+      properties:
+        ServerID:
+          type: string
+          format: uuid
+          description: Identificador único da aplicação client
+          example: "deb4f782-7a01-45a2-9e90-9417e5485a03"
+        TotalRequests:
+          type: integer
+          description: Total de requisições processadas pela aplicação client
+          example: 10061
+        EndpointSummary:
+          type: array
+          items:
+            $ref: "#/components/schemas/EndpointSummaryItem"
+          description: Resumo por endpoint
+
+    EndpointSummaryItem:
+      type: object
+      required:
+        - EndpointName
+        - TotalRequests
+        - ValidationErrors
+      properties:
+        EndpointName:
+          type: string
+          description: Nome do endpoint
+          example: "/funds/v1/investments/{investmentId}/balances"
+        TotalRequests:
+          type: integer
+          description: Total de requisições para este endpoint
+          example: 649
+        ValidationErrors:
+          type: integer
+          description: Número de erros de validação
+          example: 0
+        Detail:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValidationErrorDetail"
+          nullable: true
+          description: Detalhes dos erros de validação
+
+    ValidationErrorDetail:
+      type: object
+      required:
+        - Field
+        - Details
+      properties:
+        Field:
+          type: string
+          description: Campo que apresentou erro
+          example: "data"
+        Details:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+          description: Detalhes específicos do erro
+
+    ErrorDetail:
+      type: object
+      required:
+        - ErrorType
+        - TotalCount
+      properties:
+        ErrorType:
+          type: string
+          description: Tipo do erro ocorrido
+          example: "identificationNumber is required"
+        XFapiList:
+          type: array
+          items:
+            type: string
+          description: Lista de X-Fapi-Interaction-Id relacionados ao erro
+          example: ["ac34d9e7-9dc7-40df-8f99-527ef3170f26"]
+        TotalCount:
+          type: integer
+          description: Contagem total de ocorrências do erro
+          example: 62
 
   securitySchemes:
     PCMAccessToken:
