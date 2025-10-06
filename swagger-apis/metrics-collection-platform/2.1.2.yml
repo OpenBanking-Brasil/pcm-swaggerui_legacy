@@ -3886,8 +3886,8 @@ components:
           paymentStatus:
             description: Status de agendamento ou final do pagamento
             type: string
-            enum: ["ASCS", "RJCT", "CANC", "SHCD"]
-            example: "ASCS"
+            enum: ["ACSC", "RJCT", "CANC", "SCHD"]
+            example: "ACSC"
           statusReasonCode:
             description: Campo atrelado ao status do pagamento. Quando o status for RJCT (Rejected), o valor deve ser preenchido com o motivo da rejeição (valores previstos em rejectionReason.Code). Quando o status for CANC (Cancelled), o valor deve ser preenchido com motivo do cancelamento (valores previstos em cancellationReason.Code)
             type: string
