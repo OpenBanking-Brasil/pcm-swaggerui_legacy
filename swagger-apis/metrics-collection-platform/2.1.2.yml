@@ -3867,7 +3867,7 @@ components:
           paymentType:
             description: Tipo do pagamento realizado.
             type: string
-            enum: ["IMMEDIATE", "RECURRENT", "SWEEPING", "AUTOMATIC"]
+            enum: ["IMMEDIATE", "RECURRENT", "SWEEPING", "AUTOMATIC", "SCHEDULE"]
             example: "IMMEDIATE"
           clientOrgId:
             description: Identificador da organização cliente que realizou ou solicitou o pagamento.
