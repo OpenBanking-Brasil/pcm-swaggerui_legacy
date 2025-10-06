@@ -3845,6 +3845,7 @@ components:
 
     PaymentStatusRequest:
       description: Representa os dados que devem ser enviados para status de pagamento
+      type: array
       minItems: 1
       maxItems: 5000
       items: 
