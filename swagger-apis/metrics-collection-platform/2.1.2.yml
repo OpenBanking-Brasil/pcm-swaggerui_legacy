@@ -1153,21 +1153,24 @@ paths:
                 value:
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     endpoint: "/credit-operations/{contractId}/portability-eligibility"
                     httpMethod: POST
                     statusCode: 200
+                    creditPortabilityStatus: "PENDING"
                     timestamp: "2021-11-11T18:08:08.894Z" 
                     processTimespan: 120
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                  
                     role: "SERVER"
-                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA" 
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    creditPortabilityStatus: "PENDING"
                     httpMethod: POST
                     statusCode: 200
                     timestamp: "2021-11-11T18:08:08.894Z" 
@@ -1175,13 +1178,14 @@ paths:
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                   
                     role: "SERVER"
-                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    creditPortabilityStatus: "PENDING"
                     httpMethod: POST
                     statusCode: 200
                     timestamp: "2021-11-11T18:08:08.894Z" 
@@ -1189,7 +1193,6 @@ paths:
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                      
                     role: "SERVER"
-                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"                      
@@ -1354,7 +1357,7 @@ paths:
                 type: array
                 maxItems: 5000
                 items:
-                  $ref: "#/components/schemas/ReportResponse"
+                  $ref: "#/components/schemas/PaymentStatusResponse"
               examples:
                 Todos Processados:
                   description: Esta seria a resposta para uma solicitação com o exemplo "Request Válido" da documentação. O payload da resposta vem na mesma ordem do array da solicitação. Uma vez que todos os registros foram validados, o status de retorno é o 200.
@@ -1398,15 +1401,18 @@ paths:
                       status: ACCEPTED
                 "Todos registros com falha":
                   description: |
-                    Neste caso, parte-se da premissa que todos os registros foram enviados sem _correlationId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
+                    Neste caso, parte-se da premissa que todos os registros foram enviados sem _paymentId_ e sem _uri_. Nesse caso, todos vão falhar na etapa de validação, mas mesmo quando todos os registros falham, o status de retorno é o 207.
                   value:
                     - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                      paymentId: f9c8d5e5-3f91-4f2b-b36b-f79357197ddc
                       status: DISCARDED
-                      message: "Missing fields: 'paymentId'"
+                      message: "Missing fields: 'paymentType'"
                     - reportId: 4095388d-f44f-499a-a9a7-2dbffce1bb8a
+                      paymentId: 3ffed609-8a5c-40a3-9fcb-1817133b3d99
                       status: DISCARDED
-                      message: "Missing fields: 'paymentId'"
+                      message: "Missing fields: 'paymentStatus'"
                     - reportId: 0f3fcceb-39f6-41b4-a75d-8444244bd836
+                      paymentId: ""
                       status: DISCARDED
                       message: "Missing fields: 'paymentId'"
                 "Campo obrigatório não enviado":
@@ -1414,7 +1420,7 @@ paths:
                     Registro com campo obrigatório não enviado.
                   value:
                     - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a,
-                      correlationId: wNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf,
+                      paymentId: c270d2fb-092a-428c-acd6-eea9e0cc4b24,
                       status: DISCARDED,
                       message: "Missing fields: 'statusCode'"
 
@@ -1962,11 +1968,13 @@ components:
                   - SCHEDULED
                   - RECURRENT​
                   - SWEEPING
+                  - AUTOMATIC
                 x-enum-descriptions:
                   - Pix sem configuração de agendamento​
                   - Pix com configuração de agendamento​
                   - Pix sem configuração de agendamento e configuração de recorrência​
                   - para todas as chamadas de pagamentos inteligentes​
+                  - Pagamentos automáticos
               dropReason:
                 description: |
                   Regras:
@@ -2970,11 +2978,13 @@ components:
             - SCHEDULED
             - RECURRENT​
             - SWEEPING
+            - AUTOMATIC
           x-enum-descriptions:
             - Pix sem configuração de agendamento​
             - Pix com configuração de agendamento​
             - Pix sem configuração de agendamento e configuração de recorrência​
-            - para todas as chamadas de pagamentos inteligentes​
+            - Para todas as chamadas de pagamentos inteligentes​
+            - Pagamentos Automáticos
         revocationReasonCode:
           description: |
             Código indicador do motivo da revogação
@@ -3664,6 +3674,7 @@ components:
           - portabilityId
           - endpoint
           - statusCode
+          - creditPortabilityStatus
           - httpMethod
           - timestamp
           - processTimespan
@@ -3842,6 +3853,7 @@ components:
 
     PaymentStatusRequest:
       description: Representa os dados que devem ser enviados para status de pagamento
+      type: array
       minItems: 1
       maxItems: 5000
       items: 
@@ -3864,7 +3876,7 @@ components:
           paymentType:
             description: Tipo do pagamento realizado.
             type: string
-            enum: ["IMMEDIATE", "RECURRENT", "SWEEPING", "AUTOMATIC"]
+            enum: ["IMMEDIATE", "RECURRENT", "SWEEPING", "AUTOMATIC", "SCHEDULE"]
             example: "IMMEDIATE"
           clientOrgId:
             description: Identificador da organização cliente que realizou ou solicitou o pagamento.
@@ -3883,8 +3895,8 @@ components:
           paymentStatus:
             description: Status de agendamento ou final do pagamento
             type: string
-            enum: ["ASCS", "RJCT", "CANC", "SHCD"]
-            example: "ASCS"
+            enum: ["ACSC", "RJCT", "CANC", "SCHD"]
+            example: "ACSC"
           statusReasonCode:
             description: Campo atrelado ao status do pagamento. Quando o status for RJCT (Rejected), o valor deve ser preenchido com o motivo da rejeição (valores previstos em rejectionReason.Code). Quando o status for CANC (Cancelled), o valor deve ser preenchido com motivo do cancelamento (valores previstos em cancellationReason.Code)
             type: string
@@ -3941,7 +3953,7 @@ components:
         status:
           $ref: "#/components/schemas/ReportStatus"
         paymentId:
-          description: Retorna o valor do atributo `correlationId` informado na solicitação de inclusão de reporte sem alteração.
+          description: Retorna o valor do atributo `paymentId` informado na solicitação de inclusão de reporte sem alteração.
           type: string
           pattern: ^[- /:_.',0-9a-zA-Z]{0,100}$
           maxLength: 100
