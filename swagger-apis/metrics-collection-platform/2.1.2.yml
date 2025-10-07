@@ -1153,21 +1153,24 @@ paths:
                 value:
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     endpoint: "/credit-operations/{contractId}/portability-eligibility"
                     httpMethod: POST
                     statusCode: 200
+                    creditPortabilityStatus: "PENDING"
                     timestamp: "2021-11-11T18:08:08.894Z" 
                     processTimespan: 120
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                  
                     role: "SERVER"
-                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA" 
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    creditPortabilityStatus: "PENDING"
                     httpMethod: POST
                     statusCode: 200
                     timestamp: "2021-11-11T18:08:08.894Z" 
@@ -1175,13 +1178,14 @@ paths:
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                   
                     role: "SERVER"
-                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
+                    portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     endpoint: "/credit-operations/{contractId}/portability-eligibility"
+                    creditPortabilityStatus: "PENDING"
                     httpMethod: POST
                     statusCode: 200
                     timestamp: "2021-11-11T18:08:08.894Z" 
@@ -1189,7 +1193,6 @@ paths:
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                      
                     role: "SERVER"
-                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"                      
@@ -3671,6 +3674,7 @@ components:
           - portabilityId
           - endpoint
           - statusCode
+          - creditPortabilityStatus
           - httpMethod
           - timestamp
           - processTimespan
