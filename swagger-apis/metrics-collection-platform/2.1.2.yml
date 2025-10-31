@@ -2144,6 +2144,11 @@ components:
               localInstrument:
                 description: Deve ser preenchido com a mesma string informada no payload ".data.localInstrument"
                 type: string
+                enum:
+                  - MANU 
+                  - DICT 
+                  - INIC
+                  - AUTO
               status:
                 description: Deve ser preenchido com a mesma string obtida no ".data.status"
                 type: string
