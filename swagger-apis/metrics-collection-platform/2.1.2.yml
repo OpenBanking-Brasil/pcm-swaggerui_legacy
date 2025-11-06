@@ -2144,6 +2144,11 @@ components:
               localInstrument:
                 description: Deve ser preenchido com a mesma string informada no payload ".data.localInstrument"
                 type: string
+                enum:
+                  - MANU 
+                  - DICT 
+                  - INIC
+                  - AUTO
               status:
                 description: Deve ser preenchido com a mesma string obtida no ".data.status"
                 type: string
@@ -2663,7 +2668,13 @@ components:
                   porteEmpresa:
                     type: string
                     description: Porte da empresa
-
+              authorisationFlowIntent:
+                description: Tipo de intenção do fluxo de autorização
+                type: string
+                enum:
+                  - HYBRID_FLOW
+                  - CIBA_FLOW
+                  - FIDO_FLOW
           timestamp:
             description: Data/Hora UTC no formato ISO8601 com milissegundos (YYYY-MM-DDTHH:mm:ss.sssZ) do momento em que a chamada foi disparada, imediatamente antes do primeiro byte enviado na requisição.
             type: string
