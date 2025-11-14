@@ -903,15 +903,11 @@ paths:
                     correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
                     processTimespan: 120
                     endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
-                    role: "CLIENT"
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    originalContractTerm: 57
-                    propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
                   - timestamp: "2021-11-11T18:08:08.278Z" 
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
@@ -924,15 +920,11 @@ paths:
                     correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
                     processTimespan: 120
                     endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
-                    role: "CLIENT"
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    originalContractTerm: 57
-                    propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
                   - timestamp: "2021-11-11T18:08:08.278Z" 
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
@@ -945,15 +937,11 @@ paths:
                     correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
                     processTimespan: 120
                     endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
-                    role: "CLIENT"
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    originalContractTerm: 57
-                    propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
                   - timestamp: "2021-11-11T18:08:08.278Z" 
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
@@ -966,15 +954,11 @@ paths:
                     correlationId: "uGQHwNupARo7I9E2PLJZph18a0M9y7DcUe7ITt3DqUOJd9NVjnskxf2"
                     processTimespan: 120
                     endpointUriPrefix: "https://openbanking.instituicao-1.com.br/opbk"
-                    role: "CLIENT"
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    contractId: "92792126019929279212650822221989319252576"
                     creationDateTime: "2020-07-21T08:30:00Z"
-                    originalContractTerm: 57
-                    propositionTerm: 30
                     creditPortabilityStatus: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
-                    rejectionReason: "CANCELADO_PELO_CLIENTE"
+                    rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
 
       responses:
@@ -1162,10 +1146,10 @@ paths:
                     processTimespan: 120
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                  
-                    role: "SERVER"
+                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
-                    rejectedBy: "CREDORA" 
+                    rejectedBy: "CREDORA"
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
@@ -1177,7 +1161,7 @@ paths:
                     processTimespan: 120
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                   
-                    role: "SERVER"
+                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"
@@ -1192,11 +1176,10 @@ paths:
                     processTimespan: 120
                     clientOrgId: "c3779651-c918-48b1-b1fb-e36ba76cb036"
                     serverOrgId: "5ec47c83-9010-4540-91ad-b820ef0df04a"                      
-                    role: "SERVER"
+                    status: "PENDING"
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
-                    rejectedBy: "CREDORA"                      
-
+                    rejectedBy: "CREDORA"
       responses:
         "200":
           description: |
@@ -2938,7 +2921,7 @@ components:
         Informação sobre o status de um pedido de portabilidade de crédito, onde:
         - `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto à instituição credora. O pedido deve permanecer neste estado até o próximo dia útil (D+1) onde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING 
         - `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
-        - `ACCEPTED_SETTLEMENT_IN_PROCESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
+        - `ACCEPTED_SETTLEMENT_IN_PROGRESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
         - `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito à credora que está validando os dados do contrato bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
         - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
         - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
@@ -2947,7 +2930,7 @@ components:
       enum:
         - PENDING 
         - RECEIVED 
-        - ACCEPTED_SETTLEMENT_IN_PROCESS
+        - ACCEPTED_SETTLEMENT_IN_PROGRESS
         - ACCEPTED_SETTLEMENT_COMPLETED
         - PORTABILITY_COMPLETED
         - REJECTED
@@ -3775,9 +3758,7 @@ components:
       items:
         type: object
         required:       
-          - "creationDateTime"
           - "timestamp"
-          - "portabilityId"
           - "fapiInteractionId"
           - "endpoint"
           - "endpointUriPrefix"
@@ -3786,7 +3767,7 @@ components:
           - "clientOrgId"
           - "serverOrgId"
           - "clientSSId"
-          - "role"
+          - "consentId"
         properties:
           timestamp:
             description: |
@@ -3802,13 +3783,6 @@ components:
             minLength: 1
             pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
             example: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-          contractId:
-            description: Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora.
-            type: string
-            minLength: 1
-            maxLength: 100
-            pattern: ^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$
-            example: "92792126019929279212650822221989319252576"
           creationDateTime:
             description: "Data e hora em que a Proponente registrou a presente proposta (chamada ao POST /portabilities). Uma string com data e hora conforme especificação ISO8601, sempre com a utilização de timezone UTC-0 (UTC time format)."
             type: string
@@ -3816,22 +3790,12 @@ components:
             maxLength: 20
             pattern: ^(\d{4})-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])T(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)Z$
             example: "2020-07-21T08:30:00Z"
-          originalContractTerm:
-            description: Prazo restante do contrato original de empréstimo.
-            type: number
-            maximum: 999999
-            example: 57
-          propositionTerm:
-            description: "Prazo da proposta de portabilidade de crédito"
-            type: number
-            maximum: 999999999
-            example: 30
           creditPortabilityStatus: 
             description: |
               Informação sobre o status de um pedido de portabilidade de crédito, onde:
               - `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto à instituição credora. O pedido deve permanecer neste estado até o próximo dia útil (D+1) onde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING 
               - `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
-              - `ACCEPTED_SETTLEMENT_IN_PROCESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
+              - `ACCEPTED_SETTLEMENT_IN_PROGRESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
               - `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito à credora que está validando os dados do contrato bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
               - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
               - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
@@ -3841,7 +3805,7 @@ components:
             enum:
               - PENDING 
               - RECEIVED 
-              - ACCEPTED_SETTLEMENT_IN_PROCESS
+              - ACCEPTED_SETTLEMENT_IN_PROGRESS
               - ACCEPTED_SETTLEMENT_COMPLETED
               - PORTABILITY_COMPLETED
               - REJECTED
@@ -3859,19 +3823,6 @@ components:
                 - Só será preenchido caso o status seja `REJECTED`, `CANCELLED` ou `PAYMENT_ISSUE`
                 - A consulta ao endpoint de GET é requerida para o fluxo de portabilidade
             type: string
-            enum:
-              - CANCELADO_PELO_CLIENTE
-              - SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE
-              - POLITICA_DE_CREDITO
-              - RETENCAO_DO_CLIENTE
-              - CONTRATO_JA_LIQUIDADO
-              - DIVERGENCIA_DE_PAGAMENTO_EFETUADO
-              - DECURSO_DO_PRAZO_PARA_PAGAMENTO
-              - PORTABILIDADE_CANCELADA_POR_FALTA_DE_LIQUIDACAO
-              - PORTABILIDADE_EM_ANDAMENTO
-              - CLIENTE_COM_ACAO_JUDICIAL
-              - MODALIDADE_DA_OPERACAO_INCOMPATIVEL
-              - OUTROS
           rejectedBy:
             description: |
               Informar usuário responsável pela rejeição da proposta, onde: PROPONENTE - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades. USUARIO - Indica que o cliente cancelou o pedido de portabilidade de crédito. CREDORA- Indica que a Instituição Credora cancelou o contrato por retenção do cliente ou outros motivos conforme motivo de recusa.
@@ -3947,12 +3898,6 @@ components:
             maxLength: 36
             pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
             example: "84570da9-567b-4201-9b77-c715bc5bffde"
-          role:
-            description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client.
-            type: string
-            enum:
-              - CLIENT
-              - SERVER
 
     CreditPortabilityServerRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
@@ -3963,16 +3908,12 @@ components:
         type: object 
         required:
           - fapiInteractionId
-          - portabilityId
           - endpoint
           - statusCode
-          - creditPortabilityStatus
           - httpMethod
           - timestamp
-          - processTimespan
           - clientOrgId
           - serverOrgId
-          - role
         properties:
           fapiInteractionId:
             description: UUID que identifica uma transação específica entre dois participantes. Esse dado pode ser encontrado no header x-fapi-interaction-id que é informado pelo Client e devolvido pelo Server. Mais informações em [Cabeçalhos HTTP](https://openbanking-brasil.github.io/areadesenvolvedor/#cabecalhos-http) na documentação do Open Finance Brasil.
@@ -4043,19 +3984,6 @@ components:
                 - Só será preenchido caso o status seja `REJECTED`, `CANCELLED` ou `PAYMENT_ISSUE`
                 - A consulta ao endpoint de GET é requerida para o fluxo de portabilidade
             type: string
-            enum:
-              - CANCELADO_PELO_CLIENTE
-              - SALDO_DEVEDOR_ATUALIZADO_SUBSTANCIALMENTE_DIVERGENTE
-              - POLITICA_DE_CREDITO
-              - RETENCAO_DO_CLIENTE
-              - CONTRATO_JA_LIQUIDADO
-              - DIVERGENCIA_DE_PAGAMENTO_EFETUADO
-              - DECURSO_DO_PRAZO_PARA_PAGAMENTO
-              - PORTABILIDADE_CANCELADA_POR_FALTA_DE_LIQUIDACAO
-              - PORTABILIDADE_EM_ANDAMENTO
-              - CLIENTE_COM_ACAO_JUDICIAL
-              - MODALIDADE_DA_OPERACAO_INCOMPATIVEL
-              - OUTROS
           rejectedBy:
             description: |
               Informar usuário responsável pela rejeição da proposta, onde: PROPONENTE - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades. USUARIO - Indica que o cliente cancelou o pedido de portabilidade de crédito. CREDORA- Indica que a Instituição Credora cancelou o contrato por retenção do cliente ou outros motivos conforme motivo de recusa.
@@ -4066,18 +3994,13 @@ components:
               - PROPONENTE
               - USUARIO
               - CREDORA
-          role:
-            description: ENUM indicando se o reporte que está sendo enviado apresenta a visão do server ou do client. Obrigatório valor "SERVER"
-            type: string
-            enum:
-              - CLIENT
-              - SERVER
+
           creditPortabilityStatus: 
             description: |
               Informação sobre o status de um pedido de portabilidade de crédito, onde:
               - `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto à instituição credora. O pedido deve permanecer neste estado até o próximo dia útil (D+1) onde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING 
               - `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
-              - `ACCEPTED_SETTLEMENT_IN_PROCESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
+              - `ACCEPTED_SETTLEMENT_IN_PROGRESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
               - `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito à credora que está validando os dados do contrato bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
               - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso REJECTED: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
               - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito 
@@ -4087,7 +4010,7 @@ components:
             enum:
               - PENDING 
               - RECEIVED 
-              - ACCEPTED_SETTLEMENT_IN_PROCESS
+              - ACCEPTED_SETTLEMENT_IN_PROGRESS
               - ACCEPTED_SETTLEMENT_COMPLETED
               - PORTABILITY_COMPLETED
               - REJECTED
