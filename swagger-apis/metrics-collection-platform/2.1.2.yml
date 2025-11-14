@@ -909,8 +909,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
                   - timestamp: "2021-11-11T18:08:08.278Z" 
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
@@ -928,8 +926,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
                   - timestamp: "2021-11-11T18:08:08.278Z" 
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
@@ -947,8 +943,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
                   - timestamp: "2021-11-11T18:08:08.278Z" 
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
                     clientSSId: "ca0d518b-0e95-42d4-9fc8-0598ff9023af"
@@ -966,8 +960,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELLED"
                     rejectedBy: "PROPONENTE"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
 
       responses:
         "200":
@@ -1158,8 +1150,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
@@ -1175,8 +1165,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
                   - reportId: 424ad55c-36cc-4077-b85e-c22ea984cc4a
                     portabilityId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
                     fapiInteractionId: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
@@ -1192,8 +1180,6 @@ paths:
                     statusUpdateDateTime: "2020-07-21T08:30:00Z"
                     rejectionReason: "CANCELED"
                     rejectedBy: "CREDORA"
-                    consentId: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
-                    errorCode: "400"
       responses:
         "200":
           description: |
@@ -3898,23 +3884,6 @@ components:
             maxLength: 36
             pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
             example: "84570da9-567b-4201-9b77-c715bc5bffde"
-          consentId:
-            description: |
-              Código identificador do consentimento de dados utilizado pela instituição proponente para acessar as informações do contrato de crédito do cliente na credora.
-              
-              | Endpoint | Descrição Jornada | Obrigatoriedade Client | Obrigatoriedade Server |
-              | --------- | ----------------- | ----------------------- | ----------------------- |
-              | POST /open-banking/credit-portability/v1/portabilities | Solicitar portabilidade de crédito do cliente na credora | Quando solicitar a portabilidade de crédito do cliente na credora | - |
-              | GET /open-banking/credit-portability/v1/credit-operations/{contractId}/portability-eligibility | Consultar informações de portabilidade do contrato de crédito do cliente na credora | Quando consultar as informações de portabilidade do contrato de crédito do cliente na credora | - |
-            type: string                                                                          
-            format: uuid
-            maxLength: 100
-            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            example: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-          errorCode:
-            description: Caso o HTTP Code seja 4XX ou 5XX, esse campo deve ser preenchido com apenas um dos itens obtidos em ".errors[].code" . Não havendo string, deve ser enviada uma lista vazia.
-            type: string
-            example: "400"
 
     CreditPortabilityServerRequest:
       description: Representa os dados que deverão ser enviados para a inclusão de reportes pelo lado do Server (receptor da chamada). Informações adicionais sobre cada campo podem ser encontradas na documentação funcional em [https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/37879861/Reporte#Modelos-para-reportes-Private)
@@ -3927,7 +3896,6 @@ components:
           - fapiInteractionId
           - endpoint
           - statusCode
-          - creditPortabilityStatus
           - httpMethod
           - timestamp
           - clientOrgId
@@ -4034,23 +4002,6 @@ components:
               - REJECTED
               - CANCELLED
               - PAYMENT_ISSUE
-          consentId:
-            description: |
-              Código identificador do consentimento de dados utilizado pela instituição proponente para acessar as informações do contrato de crédito do cliente na credora.
-              
-              | Endpoint | Descrição Jornada | Obrigatoriedade Client | Obrigatoriedade Server |
-              | --------- | ----------------- | ----------------------- | ----------------------- |
-              | POST /open-banking/credit-portability/v1/portabilities | Solicitar portabilidade de crédito do cliente na credora | Quando solicitar a portabilidade de crédito do cliente na credora | - |
-              | GET /open-banking/credit-portability/v1/credit-operations/{contractId}/portability-eligibility | Consultar informações de portabilidade do contrato de crédito do cliente na credora | Quando consultar as informações de portabilidade do contrato de crédito do cliente na credora | - |
-            type: string                                                                          
-            format: uuid
-            maxLength: 100
-            pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            example: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"
-          errorCode:
-            description: Caso o HTTP Code seja 4XX ou 5XX, esse campo deve ser preenchido com apenas um dos itens obtidos em ".errors[].code" . Não havendo string, deve ser enviada uma lista vazia.
-            type: string
-            example: "400"
 
     CreditPortabilityReportModel:
       description: Representa um reporte devidamente persistido.
